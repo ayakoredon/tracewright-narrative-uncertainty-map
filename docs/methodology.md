@@ -2,6 +2,18 @@
 
 Tracewright maps uncertainty in text review. It treats AI mediation as one possible explanation among several, rather than as a binary target to detect.
 
+## Operational Flow
+
+The expected workflow is:
+
+1. **Input**: one narrative document or a bounded sequence of related materials.
+2. **AI-assisted structuring**: an AI assistant segments the text, extracts claims, identifies style and mediation signals, preserves source excerpts, and proposes alternative explanations.
+3. **Dashboard mapping**: the structured output is loaded into a review dashboard.
+4. **Human review**: the reviewer inspects the Summary, Claims, Evidence, Timeline, and Source Inventory.
+5. **Action decision**: the reviewer chooses what to verify, ask, ignore, monitor, or escalate.
+
+The method assumes that AI can help organize evidence, but the human reviewer remains responsible for judgment.
+
 ## Review Inputs
 
 Each review material can include:
@@ -13,6 +25,22 @@ Each review material can include:
 - declared AI, translation, or editing use
 - reviewer intuition, when available
 - known provenance, when available
+
+## Suggested Structured Output
+
+A practical implementation can store each case as JSON with:
+
+- case metadata
+- source materials
+- segment summaries
+- claim map
+- style and mediation observations
+- evidence cards
+- alternative explanations
+- next checks
+- reviewer notes
+
+The demo keeps this data embedded in `index.html` for portability. A larger implementation should load it from local JSON or a database.
 
 ## Analysis Units
 
