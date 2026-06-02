@@ -2,11 +2,11 @@
 
 Tracewright is not designed to expose people. It is designed to slow down premature judgment.
 
-This prototype helps reviewers inspect AI-mediated or potentially AI-mediated text without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
+This prototype helps reviewers inspect AI-mediated or potentially AI-mediated text without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, claims, and follow-up questions so that a human reviewer can reason more carefully.
 
 ## What This Is
 
-- A browser-based demo for reviewing written materials.
+- A browser-based demo for reviewing narrative materials.
 - A method for mapping uncertainty around authorship, mediation, disclosure, and claim reliability.
 - A reviewer-support tool for provenance-aware reading.
 - A synthetic public demo; no private correspondence is included.
@@ -22,7 +22,7 @@ This prototype helps reviewers inspect AI-mediated or potentially AI-mediated te
 
 Open `index.html` in a browser. The same demo is also available at `demo/index.html`.
 
-The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review.
+The demo uses synthetic review materials only. The Summary tab includes a review guide, texture axes, review lanes, and an attention mix so that the tool is framed as narrative-material review rather than AI detection. Claims are separated from authorship/mediation signals because factual reliability and AI mediation are different review questions.
 
 ## Core Review Lanes
 
