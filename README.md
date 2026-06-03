@@ -38,6 +38,8 @@ Open `index.html` in a browser. The same demo is also available at `demo/index.h
 
 The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab includes a review guide, texture axes, review lanes, and an attention mix so that the tool is framed as narrative-material review rather than AI detection.
 
+The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, and academic paper review. These genres should not be reviewed with identical prompts or assumptions.
+
 ## Reproducing the Method Locally
 
 This repository is intentionally a static public demo, not a free hosted service. A Codex or LLM-assisted user can still reproduce the workflow locally by:
@@ -49,6 +51,18 @@ This repository is intentionally a static public demo, not a free hosted service
 5. Reviewing and correcting the AI output manually before taking any action.
 
 This keeps the method reproducible without requiring the project owner to host private documents or provide free analysis infrastructure.
+
+## AI Configuration Matters
+
+Analysis quality depends heavily on the AI assistant, model, prompt, source extraction quality, and reviewer instructions. A reviewer should explicitly tell the AI what kind of material is being reviewed and what level of scrutiny is needed.
+
+For example:
+
+- correspondence review may emphasize continuity, response alignment, personal claims, style drift, and disclosure
+- newsletter or article review may emphasize editorial polish, source-backed details, translation workflow, institutional claims, and public-facing accuracy
+- academic paper review may emphasize research claims, methodology, sample description, evidence strength, citation use, limitations, and overgeneralization
+
+The dashboard is only as useful as the structured analysis that feeds it. AI output should be treated as a draft review map, not as ground truth.
 
 ## Future Product Shape
 
