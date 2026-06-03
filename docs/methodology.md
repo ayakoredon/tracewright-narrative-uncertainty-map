@@ -26,6 +26,43 @@ Each review material can include:
 - reviewer intuition, when available
 - known provenance, when available
 
+## Document-Type Presets
+
+Tracewright should not use the same review emphasis for every genre.
+
+### Correspondence
+
+Useful review questions include:
+
+- Does the reply address the prior message?
+- Are self-claims stable over time?
+- Are concrete details reused naturally?
+- Is there style drift across a sequence?
+- Is AI, translation, or editing disclosed?
+
+### Newsletter / Article
+
+Useful review questions include:
+
+- Which claims are source-backed?
+- Which claims require fact-checking?
+- Is the prose institutionally polished or template-like?
+- Are translation or editorial workflows plausible?
+- Are archive, object, date, or citation details preserved?
+
+### Academic Paper
+
+Useful review questions include:
+
+- What are the central research claims?
+- Are methods, sample, data, and limitations described clearly?
+- Do conclusions exceed the evidence?
+- Are citations used as support, background, or rhetorical decoration?
+- Are quantitative claims, definitions, and causal language verifiable?
+- Are limitations disclosed or minimized?
+
+Document-type presets should guide the AI prompt before analysis begins.
+
 ## Suggested Structured Output
 
 A practical implementation can store each case as JSON with:
