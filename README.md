@@ -35,7 +35,7 @@ The intended output is not a verdict. It is a review map.
 - A browser-based demo for reviewing narrative materials.
 - A method for mapping uncertainty around authorship, mediation, disclosure, and claim reliability.
 - A reviewer-support tool for provenance-aware reading.
-- A way to review mixed narrative sets: correspondence, public statements, articles, academic drafts, institutional pages, transcripts, and other source materials.
+- A way to review mixed narrative sets: correspondence, public statements, articles, academic drafts, institutional pages, transcripts, art-provenance files, historical records, and other source materials.
 - A synthetic public demo; no private correspondence is included.
 
 ## What This Is Not
@@ -53,7 +53,7 @@ Open `index.html` in a browser. The same demo is also available at `demo/index.h
 
 The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab gives a short triage view, while the Interpretation Guide explains how to read review lanes, texture axes, evidence cards, source roles, and escalation rules without turning them into detector scores.
 
-The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, and academic paper review. These genres should not be reviewed with identical prompts or assumptions.
+The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, academic paper review, public narrative dossiers, and art-provenance review. These genres should not be reviewed with identical prompts or assumptions.
 
 ## Reproducing the Method Locally
 
@@ -76,6 +76,7 @@ For example:
 - correspondence review may emphasize continuity, response alignment, personal claims, style drift, and disclosure
 - newsletter or article review may emphasize editorial polish, source-backed details, translation workflow, institutional claims, and public-facing accuracy
 - academic paper review may emphasize research claims, methodology, sample description, evidence strength, citation use, limitations, and overgeneralization
+- art-provenance review may emphasize source-role boundaries, attribution versus ownership history, material-analysis limits, catalogue or diary mismatches, wartime gaps, and archival silence
 
 The dashboard is only as useful as the structured analysis that feeds it. AI output should be treated as a draft review map, not as ground truth.
 
