@@ -1,1 +1,793 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Tracewright Uncertainty Map Demo</title><style>:root{--paper:#f7f3eb;--panel:#fffdf8;--ink:#202124;--muted:#6b6258;--line:#d9d0c3;--accent:#315f72;--blue:#d7e3f5;--green:#dcebd9;--yellow:#f5e8bd;--orange:#f3cfaa;--gray:#e7e3dd;--red:#efd0c8}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Segoe UI,system-ui,sans-serif;line-height:1.45}.shell{display:grid;grid-template-columns:320px 1fr;min-height:100vh}aside{padding:28px 22px;background:#ece5d9;border-right:1px solid var(--line)}main{padding:32px;max-width:1220px}h1,h2,h3,p{margin-top:0}h1{font-size:28px;line-height:1.1}.kicker{margin:0 0 8px;color:var(--accent);font-size:12px;font-weight:800;text-transform:uppercase}.notice,.overview{border-left:4px solid var(--accent);background:#dcecf0;padding:14px 16px;margin:18px 0;line-height:1.55}.case-list,.stack{display:grid;gap:12px}.case-button{width:100%;border:1px solid var(--line);border-radius:8px;background:rgba(255,253,248,.75);padding:14px;text-align:left;cursor:pointer}.case-button.active{border-color:var(--accent);background:var(--panel)}.case-button span{display:block;margin-top:4px;color:var(--muted);font-size:13px}.header{display:flex;justify-content:space-between;gap:16px;margin-bottom:14px}.status,.flag-row{display:flex;gap:8px;flex-wrap:wrap}.tag,.flag,.texture-badge{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;min-height:28px;padding:5px 10px;background:var(--panel);color:var(--muted);font-size:12px;font-weight:700}.texture-badge{border-radius:8px;color:var(--ink)}.green{background:var(--green)}.yellow{background:var(--yellow)}.orange{background:var(--orange)}.blue{background:var(--blue)}.gray{background:var(--gray)}.red{background:var(--red)}.tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:16px}.tab{border:1px solid transparent;border-bottom:0;border-radius:8px 8px 0 0;background:transparent;padding:10px 14px;color:var(--muted);cursor:pointer}.tab.active{border-color:var(--line);background:var(--panel);color:var(--ink)}.view{display:none}.view.active{display:block}.panel,.card{border:1px solid var(--line);border-radius:8px;background:var(--panel);box-shadow:0 8px 18px rgba(35,31,26,.05)}.panel,.body{padding:18px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.overview-grid span{display:block;color:var(--accent);font-size:12px;font-weight:800;text-transform:uppercase}.guide-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr);gap:14px}.attention-panel,.legend-panel,.box,.focus-item,.texture-evidence-list{border:1px solid var(--line);border-radius:8px;background:#fbf8f1;padding:14px}.bar{display:grid;grid-template-columns:180px 1fr 54px;gap:10px;align-items:center;margin:8px 0}.track{height:10px;border-radius:999px;background:#ece5d9;overflow:hidden}.fill{height:100%;border-radius:999px}.fill.mediated{background:#567ca0}.fill.anchor{background:#62835f}.fill.claims{background:#b79b49}.defs{display:grid;gap:8px;margin:10px 0 16px;color:var(--muted);font-size:14px}.texture-evidence-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:14px 0 16px}.texture-evidence-list h4{margin:0 0 8px;color:var(--muted);font-size:12px;text-transform:uppercase}.texture-evidence-item{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 8px;width:100%;border:0;border-top:1px solid var(--line);background:transparent;padding:10px 0;text-align:left;cursor:pointer}.texture-evidence-item:first-of-type{border-top:0}.texture-evidence-item small,.texture-evidence-item .axis-source{grid-column:1/-1;color:var(--muted);line-height:1.45}.texture-evidence-item .axis-source{font-size:11px;font-weight:800;text-transform:uppercase}.screening-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.guide{margin:8px 0 0;padding-left:20px;line-height:1.6}.message{display:grid;grid-template-columns:190px 1fr}.message.context{background:#f2f0ec;border-style:dashed;opacity:.82}.meta{padding:18px;border-right:1px solid var(--line);background:rgba(236,229,217,.5)}blockquote{margin:0 0 14px;border-left:4px solid var(--accent);background:#f4efe5;padding:14px 16px}.marked{margin:14px 0;border:1px solid var(--line);border-radius:8px;background:#fffaf0;padding:14px}.mark{display:grid;grid-template-columns:180px 170px 1fr;gap:10px;margin-top:10px}code{background:var(--orange);border-radius:6px;padding:4px 7px;white-space:normal}.table{width:100%;border-collapse:collapse}.table th,.table td{border-bottom:1px solid var(--line);padding:12px;text-align:left;vertical-align:top}.table th{color:var(--muted);font-size:12px;text-transform:uppercase}.evidence-card-focus{outline:3px solid rgba(36,105,121,.45);outline-offset:4px;box-shadow:0 0 0 7px rgba(36,105,121,.12)}@media(max-width:980px){.shell,.message,.grid,.overview-grid,.guide-layout,.screening-grid,.texture-evidence-grid,.mark{grid-template-columns:1fr}main{padding:22px}aside{border-right:0;border-bottom:1px solid var(--line)}.bar{grid-template-columns:1fr}}</style></head><body><div class="shell"><aside><p class="kicker">Tracewright Demo</p><h1>Uncertainty Map</h1><div class="notice"><strong>This is not an AI detector.</strong><br>Tracewright is not designed to expose people. It is designed to slow down premature judgment. All cases below are synthetic review materials.</div><div id="caseList" class="case-list"></div></aside><main><header class="header"><div><p class="kicker" id="stage">Demo case</p><h2 id="name">Case</h2></div><div class="status"><span id="count" class="tag">0 materials</span><span id="level" class="tag">Review posture</span></div></header><nav class="tabs"><button class="tab active" data-view="summary">Summary</button><button class="tab" data-view="timeline">Timeline</button><button class="tab" data-view="claims">Claims</button><button class="tab" data-view="evidence">Evidence</button><button class="tab" data-view="sources">Synthetic Source Inventory</button></nav><section id="summary" class="view active"></section><section id="timeline" class="view"></section><section id="claims" class="view"></section><section id="evidence" class="view"></section><section id="sources" class="view"></section></main></div><script>const cases=[{id:'base',name:'Case A: Self-Written Baseline',stage:'Personal correspondence',level:'Baseline-like pattern',intuition:'The correspondent appears to write directly, with light or no tool support.',overview:'Concrete callbacks, stable claims, and small local imperfections support a self-written or lightly checked reading.',posture:'Use as a reading baseline, not as proof.',screening:['Baseline reference','Medium: synthetic messages only','Synthetic demo data; no real private letter included.','Shows what stable human texture can look like.','Medium if treated as a universal standard.'],guide:{texture:[4,1,5],lanes:[2,2,1,5,'Low'],focus:[['green','C001','Authorship / mediation','Human texture','Small unpolished phrasing remains visible while the reply answers the context directly.']]},checks:['Collect more letters.','Check whether small irregularities persist.','Avoid using this as a rigid normal.'],claims:[['Works in a local technical business.','Background claim','First appeared','Stable'],['May use grammar checking.','Tool-use possibility','Unknown','Ask only if relevant']],materials:[['A001','Reviewer / context','context','2026-04-01','synthetic:A001','The reviewer asks about local work and language learning.',['Context only']],['C001','Correspondent / target','target','2026-04-03','synthetic:C001','The correspondent answers directly and gives concrete work details.',['Stable','Human texture']]],evidence:[['Human Texture','green','synthetic:C001','I tried to explain it better, but maybe I make the sentence too long...',[['make the sentence too long','non-native phrasing','A small local irregularity remains in an otherwise clear sentence.']],['The phrase is clear but not polished flat.','The writer process is visible.','This supports human texture but does not prove authorship.'],['A tool could preserve original phrasing.','A non-native writer may use grammar checking.'],'human']]},{id:'mixed',name:'Case B: Mixed Authorship / AI-Polish',stage:'Correspondence plus domain content',level:'Segment-level review recommended',intuition:'Short domain-specific parts feel personal; longer reflective passages feel polished.',overview:'Operational domain details remain grounded, while reflective passages show editorial or AI-polish signals.',posture:'Avoid one label for the whole person. Separate domain turns and polished prose.',screening:['Segment-level review','Medium-high','Synthetic demo data.','Shows why mixed-composition analysis matters.','High if the polished passage is used to judge every message.'],guide:{texture:[3,4,5],lanes:[4,2,2,5,'High'],focus:[['blue','C001','Authorship / mediation','AI / editorial polish','The reflective sentence is compact and more polished than the operational material.'],['green','C001','Claim reliability','Domain anchor','The chess correction should be reviewed separately from the literary surface.']]},checks:['Compare short and long segments.','Ask drafting workflow naturally.','Preserve domain-specific evidence separately.'],claims:[['The chess correction follows the current board state.','Domain claim','Source-grounded','Stable'],['The literary interpretation is polished and general.','Style observation','Segment-specific','Review']],materials:[['A001','Reviewer / context','context','2026-04-05','synthetic:A001','The reviewer asks about a novel and continues a slow chess game.',['Context only']],['C001','Correspondent / target','target','2026-04-06','synthetic:C001','The reply contains a precise chess correction and a polished literary reflection.',['Domain anchor','AI/editorial polish?']]],evidence:[['AI / Editorial Polish','blue','synthetic:C001','The refuge becomes a quiet cage, a poetic punishment for refusing growth.',[['quiet cage','aphoristic polish','Compact literary metaphor.'],['poetic punishment','balanced evaluative phrase','Smooth review-like cadence.']],['The prose is more polished than earlier operational messages.','The same message also contains domain-specific handling.','This supports a mixed-composition hypothesis.'],['Careful human drafting.','Human prose edited by AI.','AI-generated reflection plus personal insertion.'],'machine'],['Domain Authorship Anchor','green','synthetic:C001','You wrote Nd2, but from this position I think you meant Nbd2.',[['Nbd2','domain-specific correction','Requires tracking the game state.']],['The correction is operational and specific.','It differs from the polished literary cadence.','Analyze it separately from the prose surface.'],['A domain tool could assist, but no evidence requires that.'],'human']]},{id:'newsletter',name:'Case C: Institutional Newsletter',stage:'Public document',level:'Multiple plausible explanations',intuition:'No reader intuition supplied. Blind review mode.',overview:'The document appears source-rich and institutionally edited. Final English may include translation, editorial smoothing, or AI assistance.',posture:'Separate source provenance, fact-checking, cross-language surface, and final prose polish.',screening:['Workflow review','Medium','Synthetic demo data modeled as a public newsletter.','Shows extension beyond personal letters.','High if polished institutional English is treated as AI authorship.'],guide:{texture:[3,3,5],lanes:[3,4,3,5,'Moderate'],focus:[['green','D001','Claim reliability','Source-backed specificity','Material details point to a source layer that should be kept separate from prose.'],['yellow','D001','Authorship / mediation','Low-confidence surface signal','Formal collocations are weak clues without workflow evidence.']]},checks:['Compare source notes and final article.','Ask whether translation or AI tools were used.','Fact-check claims separately.'],claims:[['The cassette contains two platform versions.','Material fact','Source-backed','Verify'],['Final English may hide source-language workflow.','Method caution','Low-confidence','Use provenance evidence']],materials:[['D001','Document / target','target','2026-04-20','synthetic:D001','A newsletter combines archive object metadata and a polished support appeal.',['Institutional template','Archive specificity']]],evidence:[['Source-Backed Specificity','green','synthetic:D001','The original cassette contains two platform versions on opposite sides, catalogued under the same acquisition record.',[['opposite sides','material detail','Physical-object detail suggests source notes or archive knowledge.'],['acquisition record','provenance cue','Links final prose to archival practice.']],['The detail is too specific for generic promotional prose.','It may come from human notes later edited or translated.','Source layer and sentence layer should be separated.'],['A well-prompted AI could rewrite supplied source notes.'],'human'],['Low-Confidence Surface Signal','yellow','synthetic:D001','These materials served for the preparation of this article and are available for consultation.',[['served for the preparation','collocation heaviness','Possible translation or institutional English; low confidence.']],['Final English is clean enough that source language is not detectable with confidence.','Small collocation clues are weak alone.','Workflow evidence matters more than surface guessing.'],['Human non-native English.','Human translation.','LLM translation plus human check.'],'none']]},{id:'academic',name:'Case D: Academic Paper Review',stage:'Research article',level:'Claim-level verification recommended',intuition:'No reader intuition supplied. Blind review mode.',overview:'The paper has a coherent scholarly surface, but several claims require source-level verification before the argument should be relied on.',posture:'Separate prose polish from research reliability.',screening:['Claim-level verification before citation or reuse','Medium: abstract, method excerpt, and conclusion excerpt only','Synthetic demo paper; no real unpublished manuscript included.','Shows academic review without reducing it to authorship.','High if polished prose is mistaken for methodological strength.'],guide:{texture:[2,3,5],lanes:[2,5,1,5,'High'],focus:[['orange','P002','Claim reliability','Method specificity gap','The sample and coding procedure are not detailed enough to carry the conclusion.'],['orange','P003','Claim reliability','Overgeneralization risk','A limited corpus is used to make a broad institutional workflow claim.']]},checks:['Trace each quantitative claim to method and table support.','Check whether cited studies support the operational definition.','Ask for dataset, inclusion criteria, and coding protocol.'],claims:[['The study uses a 42-document corpus.','Method claim','Partially specified','Verify sampling protocol'],['The workflow improved analyst accuracy by 31%.','Quantitative result','Requires table support','Verify'],['Findings generalize to institutional workflows.','Scope claim','Overextended from excerpt','Review']],materials:[['P001','Paper / abstract','target','2026-05-02','synthetic:P001','The abstract introduces a review method and reports improved analyst performance.',['Scholarly surface','Claim review']],['P002','Paper / methods','target','2026-05-02','synthetic:P002','The methods section gives limited sampling and coding detail.',['Method gap']],['P003','Paper / conclusion','target','2026-05-02','synthetic:P003','The conclusion generalizes from a limited corpus to institutional workflows.',['Scope expansion']]],evidence:[['Method Specificity Gap','orange','synthetic:P002','We selected forty-two documents representative of the field and coded them for provenance ambiguity.',[['representative of the field','sampling claim','The population and selection method are not defined.'],['coded them','method compression','No coder count, codebook, or agreement metric is visible.']],['The sentence makes a methodological claim but leaves the sampling frame underspecified.','The reader cannot yet tell whether the corpus supports the result.','This is claim reliability, not authorship.'],['Details may appear elsewhere.','Supplementary materials may contain the protocol.'],'none'],['Overgeneralization Risk','orange','synthetic:P003','These results demonstrate that narrative-provenance mapping can improve institutional review workflows across domains.',[['demonstrate','strong causal verb','The excerpt supports caution better than proof.'],['across domains','scope expansion','The claim reaches beyond the visible corpus.']],['The conclusion uses stronger language than visible method supports.','This should prompt source and scope review before citation.','The issue is evidential strength rather than whether prose is human or AI-written.'],['The full paper may include validation.','The authors may be using demonstration softly.'],'machine'],['Citation Support Check','yellow','synthetic:P001','Prior work has established narrative provenance as a stable operational category.',[['established','citation strength','A broad literature claim needs source-level checking.']],['The phrase signals a literature-foundation claim.','Inspect whether cited sources use the same definition.','This belongs in the claim lane even if writing is polished.'],['The literature review may define the term later.'],'none']]}];let selected=cases[0].id,view='summary';const $=s=>document.querySelector(s),esc=v=>String(v).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');function cur(){return cases.find(c=>c.id===selected)}function render(){list();head();viewRender()}function list(){$('#caseList').innerHTML=cases.map(c=>`<button class="case-button ${c.id===selected?'active':''}" data-case="${esc(c.id)}"><strong>${esc(c.name)}</strong><span>${esc(c.level)}</span></button>`).join('')}function head(){const c=cur();$('#stage').textContent=c.stage;$('#name').textContent=c.name;$('#count').textContent=c.materials.length+' review materials';$('#level').textContent=c.level}function viewRender(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.view===view));$('#'+view).classList.add('active');({summary,timeline,claims,evidence,sources}[view])()}function summary(){const c=cur(),g=c.guide;$('#summary').innerHTML=`<div class="stack"><section class="overview"><h3>Summary</h3><div class="overview-grid">${cell('Reader intuition',c.intuition)}${cell('Analysis overview',c.overview)}${cell('Uncertainty posture',c.posture)}</div><p><strong>Tracewright is not designed to expose people. It is designed to slow down premature judgment.</strong></p></section><section class="panel"><h3>Review Guide</h3><p class="defs">This is an attention guide, not an AI probability score.</p><div class="guide-layout"><div class="attention-panel"><h3>Texture Axes</h3><p class="defs">These are evidence-card counts and review cues, not authenticity percentages.</p>${bar('Human / source texture',g.texture[0],g.texture[2],'anchor')}${bar('Machine / editorial cleanliness',g.texture[1],g.texture[2],'mediated')}<div class="defs"><p><strong>Human / source texture:</strong> visible writerly agency, source detail, revision traces, local judgment, rough edges, or idiosyncratic phrasing.</p><p><strong>Machine / editorial cleanliness:</strong> automated-synthesis or editorial surface: clean coverage, weak close reading, template flow, fast generalization, or polished prose without visible ownership.</p></div><div class="texture-evidence-grid">${textureList('Human / source texture evidence','human')}${textureList('Machine / editorial cleanliness evidence','machine')}</div><h3>Review Lanes</h3>${bar('Authorship / mediation',g.lanes[0],g.lanes[3],'mediated')}${bar('Claim reliability',g.lanes[1],g.lanes[3],'claims')}${bar('Disclosure / provenance',g.lanes[2],g.lanes[3],'anchor')}<div class="bar"><span>Review pressure</span><span class="flag ${pressure(g.lanes[4])}">${esc(g.lanes[4])}</span><strong></strong></div><div class="defs"><p><strong>Authorship / mediation:</strong> who shaped wording, style, continuity, translation, and final surface.</p><p><strong>Claim reliability:</strong> whether stated facts, timelines, methods, identities, citations, or content claims need checking.</p><p><strong>Disclosure / provenance:</strong> explicit or known information about AI use, translation, edits, source notes, or workflow.</p></div><button class="text-button" data-view="evidence">Open Evidence</button> <button class="text-button" data-view="claims">Open Claims</button></div><div class="legend-panel"><h3>Flag Legend</h3>${legend('green','Stable / anchored','Continuity, source detail, or baseline-like texture.')}${legend('yellow','Observe','Weak or ambiguous signal; keep watching.')}${legend('blue','Mediated layer','Translation, AI polish, workflow, or layer separation.')}${legend('orange','Review','Meaning shift, weak support, or boundary issue.')}</div></div><h3>First Places To Inspect</h3><div class="focus-list">${g.focus.map(f=>`<div class="focus-item"><span class="flag ${f[0]}">${esc(f[1])}</span><p><strong>${esc(f[2])}:</strong> ${esc(f[3])} - ${esc(f[4])}</p></div>`).join('')}</div></section><section class="screening-grid">${['Recommended action','Evidence completeness','Known provenance','Blind-reading value','Overclaim risk'].map((l,i)=>`<div class="panel"><p class="kicker">${l}</p><p>${esc(c.screening[i])}</p></div>`).join('')}<div class="panel"><h3>Next Checks</h3><ul class="guide">${c.checks.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></section></div>`}function cell(l,v){return `<article><span>${esc(l)}</span><p>${esc(v)}</p></article>`}function bar(l,n,t,cls){return `<div class="bar"><span>${esc(l)}</span><div class="track"><div class="fill ${cls}" style="width:${Math.max(0,Math.min(100,n/t*100))}%"></div></div><strong>${n}/${t}</strong></div>`}function pressure(x){return x==='High'?'orange':x==='Moderate'?'yellow':'green'}function legend(a,b,c){return `<div class="legend-item"><span class="flag ${a}">${esc(b)}</span><p>${esc(c)}</p></div>`}function textureAxis(e){if(e[7]==='human'||e[7]==='machine')return e[7];if(e[7]==='none')return'none';const t=(e[0]+' '+e[3]).toLowerCase(),h=/human|source-backed|domain|specific|non-native|rough|idiosyncratic/.test(t),m=/polish|machine|smooth|generalization|template/.test(t);return h&&!m?'human':m&&!h?'machine':'none'}function evidenceId(i){return'evidence-'+(i+1)}function textureList(title,axis){const c=cur(),items=c.evidence.map((e,i)=>({e,i})).filter(x=>textureAxis(x.e)===axis);return `<div class="texture-evidence-list"><h4>${esc(title)}</h4>${items.length?items.map(x=>`<button class="texture-evidence-item" data-evidence-target="${evidenceId(x.i)}"><span class="flag ${x.e[1]}">${esc(x.e[2])}</span><strong>${esc(x.e[0])}</strong><span class="axis-source">${x.e[7]?'Explicit texture-axis card':'Inferred from evidence label/text'}</span><small>${esc(x.e[3]).slice(0,150)}${x.e[3].length>150?'...':''}</small>${x.e[4]?.[0]?.[0]?`<small>Marked: ${esc(x.e[4][0][0]).slice(0,120)}</small>`:''}</button>`).join(''):`<p class="defs">No explicit ${esc(title.toLowerCase())} cards in this synthetic case.</p>`}</div>`}function axisBadge(e){const a=textureAxis(e);return a==='human'?'<span class="texture-badge yellow">Human / source texture - '+(e[7]?'explicit':'inferred')+'</span>':a==='machine'?'<span class="texture-badge blue">Machine / editorial cleanliness - '+(e[7]?'explicit':'inferred')+'</span>':''}function timeline(){const c=cur();$('#timeline').innerHTML='<div class="stack">'+c.materials.map(m=>`<article class="card message ${m[2]==='context'?'context':''}"><div class="meta"><strong>${esc(m[0])}</strong><br><span>${esc(m[1])}</span><br><span>${esc(m[3])}</span><br><span>${esc(m[4])}</span></div><div class="body"><p>${esc(m[5])}</p><div class="flag-row">${m[6].map(f=>`<span class="flag ${m[2]==='context'?'gray':'green'}">${esc(f)}</span>`).join('')}</div></div></article>`).join('')+'</div>'}function claims(){const c=cur();$('#claims').innerHTML=`<section class="panel"><h3>Claim Map</h3><table class="table"><thead><tr><th>Claim / Observation</th><th>Type</th><th>Status</th><th>Review Posture</th></tr></thead><tbody>${c.claims.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td><span class="flag ${/Verify|Review|Overextended/i.test(r[3])?'yellow':'green'}">${esc(r[3])}</span></td></tr>`).join('')}</tbody></table></section>`}function evidence(){const c=cur();$('#evidence').innerHTML='<div class="stack">'+c.evidence.map((e,i)=>`<article class="card body" id="${evidenceId(i)}" data-evidence-card="${evidenceId(i)}"><div><span class="tag">${esc(e[2])}</span><h3>${esc(e[0])}</h3><div class="flag-row">${axisBadge(e)}<span class="flag ${e[1]}">${esc(e[1])}</span></div></div><blockquote>${esc(e[3])}</blockquote><section class="marked"><p class="kicker">Marked Text</p>${e[4].map(m=>`<div class="mark"><code>${esc(m[0])}</code><span>${esc(m[1])}</span><p>${esc(m[2])}</p></div>`).join('')}</section><div class="grid"><section class="box"><h3>Reasoning Chain</h3><ol>${e[5].map(x=>`<li>${esc(x)}</li>`).join('')}</ol></section><section class="box"><h3>Alternative Explanations</h3><ul>${e[6].map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section></div></article>`).join('')+'</div>'}function sources(){const c=cur();$('#sources').innerHTML=`<section class="panel"><h3>Synthetic Source Inventory</h3><table class="table"><thead><tr><th>ID</th><th>Role</th><th>Date</th><th>Demo Source ID</th><th>Summary</th></tr></thead><tbody>${c.materials.map(m=>`<tr><td>${esc(m[0])}</td><td>${esc(m[1])}</td><td>${esc(m[3])}</td><td>${esc(m[4])}</td><td>${esc(m[5])}</td></tr>`).join('')}</tbody></table></section>`}document.addEventListener('click',e=>{const c=e.target.closest('[data-case]');if(c){selected=c.dataset.case;view='summary';render();return}const target=e.target.closest('[data-evidence-target]');if(target){view='evidence';viewRender();requestAnimationFrame(()=>{const card=document.querySelector(`[data-evidence-card="${CSS.escape(target.dataset.evidenceTarget)}"]`);if(!card)return;card.scrollIntoView({behavior:'smooth',block:'start'});card.classList.add('evidence-card-focus');setTimeout(()=>card.classList.remove('evidence-card-focus'),1800)});return}const t=e.target.closest('[data-view]');if(t){view=t.dataset.view;viewRender()}});render();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tracewright Uncertainty Map Demo</title>
+  <style>
+    :root {
+      --paper: #f7f3eb;
+      --panel: #fffdf8;
+      --ink: #202124;
+      --muted: #6b6258;
+      --line: #d9d0c3;
+      --accent: #315f72;
+      --blue: #d7e3f5;
+      --green: #dcebd9;
+      --yellow: #f5e8bd;
+      --orange: #f3cfaa;
+      --gray: #e7e3dd;
+      --red: #efd0c8;
+      --shadow: 0 8px 18px rgba(35,31,26,.05);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      line-height: 1.45;
+    }
+    .shell { display: grid; grid-template-columns: 320px 1fr; min-height: 100vh; }
+    aside {
+      padding: 28px 22px;
+      background: #ece5d9;
+      border-right: 1px solid var(--line);
+    }
+    main { padding: 32px; max-width: 1220px; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-size: 28px; line-height: 1.1; }
+    h2 { margin-bottom: 4px; }
+    h3 { margin-bottom: 10px; font-size: 17px; }
+    .kicker {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+    .notice, .summary-overview {
+      border-left: 4px solid var(--accent);
+      background: #dcecf0;
+      padding: 14px 16px;
+      margin: 18px 0;
+      line-height: 1.55;
+    }
+    .case-list, .stack { display: grid; gap: 12px; }
+    .case-button {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255,253,248,.75);
+      padding: 14px;
+      text-align: left;
+      cursor: pointer;
+    }
+    .case-button.active { border-color: var(--accent); background: var(--panel); }
+    .case-button span { display: block; margin-top: 4px; color: var(--muted); font-size: 13px; }
+    .header { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 14px; }
+    .status { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; align-content: flex-start; }
+    .tag, .flag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      min-height: 28px;
+      padding: 5px 10px;
+      background: var(--panel);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .green { background: var(--green); }
+    .yellow { background: var(--yellow); }
+    .orange { background: var(--orange); }
+    .blue { background: var(--blue); }
+    .gray { background: var(--gray); }
+    .red { background: var(--red); }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+    .tab {
+      border: 1px solid transparent;
+      border-bottom: 0;
+      border-radius: 8px 8px 0 0;
+      background: transparent;
+      padding: 10px 14px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .tab.active { border-color: var(--line); background: var(--panel); color: var(--ink); }
+    .view { display: none; }
+    .view.active { display: block; }
+    .panel, .card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+    }
+    .panel, .body { padding: 18px; }
+    .panel-note { color: var(--muted); font-size: 14px; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .tri { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .overview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .overview-grid article { border-right: 1px solid rgba(49,95,114,.2); padding-right: 12px; }
+    .overview-grid article:last-child { border-right: 0; }
+    .overview-grid span { display: block; color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .overview-note { margin-bottom: 0; font-weight: 700; }
+    .review-guide { display: grid; gap: 16px; }
+    .guide-layout { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr); gap: 14px; }
+    .attention-panel, .legend-panel { border: 1px solid var(--line); border-radius: 8px; background: #fbf8f1; padding: 14px; }
+    .attention-bars { display: grid; gap: 9px; margin: 10px 0 14px; }
+    .bar { display: grid; grid-template-columns: 180px 1fr 52px; gap: 10px; align-items: center; }
+    .track { height: 10px; border-radius: 999px; background: #ece5d9; overflow: hidden; }
+    .fill { height: 100%; border-radius: 999px; }
+    .fill.review { background: #af6e4d; }
+    .fill.mediated { background: #567ca0; }
+    .fill.anchor { background: #62835f; }
+    .fill.claims { background: #b79b49; }
+    .attention-definitions { display: grid; gap: 8px; margin: 10px 0 16px; color: var(--muted); font-size: 14px; }
+    .attention-definitions p { margin-bottom: 0; }
+    .texture-evidence-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 14px 0 16px; }
+    .texture-evidence-list { border: 1px solid var(--line); border-radius: 8px; background: #fffaf0; padding: 12px; }
+    .texture-evidence-list h4 { margin: 0 0 8px; color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .texture-evidence-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 8px; width: 100%; border: 0; border-top: 1px solid var(--line); background: transparent; padding: 10px 0; text-align: left; cursor: pointer; }
+    .texture-evidence-item:first-of-type { border-top: 0; }
+    .texture-evidence-item strong { min-width: 0; overflow-wrap: anywhere; font-size: 13px; }
+    .texture-evidence-item small { grid-column: 1 / -1; color: var(--muted); line-height: 1.45; }
+    .texture-evidence-item .axis-source { grid-column: 1 / -1; color: var(--muted); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+    .texture-badge { display: inline-flex; align-items: center; min-height: 28px; border: 1px solid var(--line); border-radius: 8px; padding: 5px 9px; margin-left: 4px; color: var(--ink); font-size: 12px; font-weight: 800; }
+    .evidence-card-focus { outline: 3px solid rgba(36, 105, 121, 0.45); outline-offset: 4px; box-shadow: 0 0 0 7px rgba(36, 105, 121, 0.12); }
+    .legend-list { display: grid; gap: 10px; }
+    .legend-item p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+    .focus-list { display: grid; gap: 10px; }
+    .focus-item { border: 1px solid var(--line); border-radius: 8px; background: #fbf8f1; padding: 12px; }
+    .focus-item p { margin: 8px 0 0; }
+    .guide-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .text-button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 8px 12px;
+      color: var(--accent);
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .screening-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+    .screening-card p { margin-bottom: 0; }
+    .guide-list { margin: 8px 0 0; padding-left: 20px; line-height: 1.6; }
+    .message { display: grid; grid-template-columns: 190px 1fr; }
+    .message.context { background: #f2f0ec; border-style: dashed; opacity: .82; }
+    .meta { padding: 18px; border-right: 1px solid var(--line); background: rgba(236,229,217,.5); }
+    .flag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    blockquote { margin: 0 0 14px; border-left: 4px solid var(--accent); background: #f4efe5; padding: 14px 16px; line-height: 1.6; }
+    .marked { margin: 14px 0; border: 1px solid var(--line); border-radius: 8px; background: #fffaf0; padding: 14px; }
+    .mark { display: grid; grid-template-columns: 180px 170px 1fr; gap: 10px; margin-top: 10px; }
+    code { background: var(--orange); border-radius: 6px; padding: 4px 7px; white-space: normal; }
+    .box { border: 1px solid var(--line); border-radius: 8px; background: #fbf8f1; padding: 14px; }
+    .source-table { width: 100%; border-collapse: collapse; }
+    .source-table th, .source-table td { border-bottom: 1px solid var(--line); padding: 12px; text-align: left; vertical-align: top; }
+    .source-table th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .claim-status { min-width: 130px; }
+    @media (max-width: 980px) {
+      .shell, .message, .grid, .tri, .mark, .overview-grid, .guide-layout, .screening-grid { grid-template-columns: 1fr; }
+      .texture-evidence-grid { grid-template-columns: 1fr; }
+      main { padding: 22px; }
+      aside { border-right: 0; border-bottom: 1px solid var(--line); }
+      .bar { grid-template-columns: 1fr; }
+      .header { display: block; }
+      .status { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <p class="kicker">Tracewright Demo</p>
+      <h1>Uncertainty Map</h1>
+      <div class="notice">
+        <strong>This is not an AI detector.</strong><br>
+        Tracewright is not designed to expose people. It is designed to slow down premature judgment. All cases below are synthetic review materials.
+      </div>
+      <div id="caseList" class="case-list"></div>
+    </aside>
+    <main>
+      <header class="header">
+        <div>
+          <p class="kicker" id="stage">Demo case</p>
+          <h2 id="name">Case</h2>
+        </div>
+        <div class="status">
+          <span class="tag" id="count">0 materials</span>
+          <span class="tag" id="level">Review posture</span>
+        </div>
+      </header>
+      <nav class="tabs">
+        <button class="tab active" data-view="summary">Summary</button>
+        <button class="tab" data-view="timeline">Timeline</button>
+        <button class="tab" data-view="claims">Claims</button>
+        <button class="tab" data-view="evidence">Evidence</button>
+        <button class="tab" data-view="sources">Synthetic Source Inventory</button>
+      </nav>
+      <section id="summary" class="view active"></section>
+      <section id="timeline" class="view"></section>
+      <section id="claims" class="view"></section>
+      <section id="evidence" class="view"></section>
+      <section id="sources" class="view"></section>
+    </main>
+  </div>
+
+<script>
+const cases = [
+  {
+    id: "baseline",
+    name: "Case A: Self-Written Baseline",
+    stage: "Personal correspondence",
+    level: "Baseline-like pattern",
+    intuition: "The correspondent appears to write directly, with light or no tool support.",
+    overview: "Strong response alignment, stable claims, concrete callbacks, and small local imperfections support a self-written or lightly checked reading.",
+    posture: "Use as a reading baseline, not as proof. The point is to map evidence, not to certify authorship.",
+    screening: {
+      recommended_action: "Baseline reference",
+      evidence_completeness: "Medium: three synthetic messages only",
+      known_provenance: "Synthetic demo data; no real private letter included.",
+      blind_reading_value: "Shows what stable human texture can look like.",
+      overclaim_risk: "Medium if treated as a universal standard.",
+      next_checks: ["Collect more letters.", "Check whether small irregularities persist.", "Avoid using this as a rigid normal."]
+    },
+    guide: {
+      texture: { human: 4, machine: 1, total: 5 },
+      lanes: { authorship: 2, claims: 2, disclosure: 1, total: 5, pressure: "Low" },
+      focus: [
+        ["green", "C001", "Authorship / mediation", "Human texture", "Small unpolished phrasing remains visible while the reply still answers the context directly."],
+        ["green", "C002", "Claim reliability", "Continuity", "The second reply naturally reuses earlier details."]
+      ]
+    },
+    claims: [
+      ["Works in a local technical business.", "Verifiable background claim", "First appeared", "Stable"],
+      ["Learned Japanese for personal reasons.", "Self-history claim", "Repeated with detail", "Stable"],
+      ["May use grammar checking.", "Tool-use possibility", "Unknown", "Ask only if relevant"]
+    ],
+    messages: [
+      ["A001", "Reviewer / context", "context", "2026-04-01", "synthetic:A001", "The reviewer asks about local work, music, and language learning.", ["Context only"]],
+      ["C001", "Correspondent / target", "target", "2026-04-03", "synthetic:C001", "The correspondent answers directly, gives concrete work details, and asks a specific return question.", ["Stable", "Direct response", "Human texture"]],
+      ["C002", "Correspondent / target", "target", "2026-04-10", "synthetic:C002", "The second reply reuses earlier details naturally and keeps the same uneven but fluent style.", ["Continuity", "Stable style"]]
+    ],
+    evidence: [
+      ["Human Texture", "green", "synthetic:C001", "I tried to explain it better, but maybe I make the sentence too long...", [["make the sentence too long", "non-native phrasing", "A small local irregularity remains in an otherwise clear sentence."]], ["The phrase is clear but not polished flat.", "The writer process is visible.", "This supports human texture but does not prove authorship."], ["A tool could preserve original phrasing.", "A non-native writer may also use grammar checking."], "human"]
+    ]
+  },
+  {
+    id: "translation",
+    name: "Case B: Cross-Language Influence",
+    stage: "Personal correspondence",
+    level: "Multiple plausible explanations",
+    intuition: "The voice feels personal, but the English surface may be translation-supported.",
+    overview: "Specific memories and continuity appear alongside collocation and syntax that may show source-language transfer.",
+    posture: "Do not treat translation as deception. Ask what layer was translated, checked, or rewritten.",
+    screening: {
+      recommended_action: "Writing-workflow clarification",
+      evidence_completeness: "Medium",
+      known_provenance: "Synthetic demo data.",
+      blind_reading_value: "Shows how cross-language influence differs from AI-polished composition.",
+      overclaim_risk: "High if cross-language English is treated as AI generation.",
+      next_checks: ["Ask writing-language workflow gently.", "Compare supported and unsupported passages.", "Track continuity independent of grammar."]
+    },
+    guide: {
+      texture: { human: 3, machine: 2, total: 5 },
+      lanes: { authorship: 3, claims: 1, disclosure: 2, total: 5, pressure: "Moderate" },
+      focus: [
+        ["blue", "C001", "Authorship / mediation", "Cross-language influence", "The English surface has local friction, but the content remains personal and responsive."],
+        ["yellow", "C001", "Disclosure / provenance", "Workflow unknown", "The next useful question is how the text was written or translated."]
+      ]
+    },
+    claims: [
+      ["Writes in English or translates into English.", "Process claim", "Unknown", "Verify gently"],
+      ["Has personal memories connected to the topic.", "Experience claim", "Supported by detail", "Stable"],
+      ["The English surface reflects source-language influence.", "Analytic observation", "Observed once", "Low-confidence"]
+    ],
+    messages: [
+      ["A001", "Reviewer / context", "context", "2026-04-04", "synthetic:A001", "The reviewer asks whether the correspondent writes directly in English or translates.", ["Context only"]],
+      ["C001", "Correspondent / target", "target", "2026-04-06", "synthetic:C001", "The correspondent gives a personal answer but uses unusual collocations and direct source-language structure.", ["Cross-language influence", "Stable", "Verify gently"]]
+    ],
+    evidence: [
+      ["Cross-Language Influence", "blue", "synthetic:C001", "I am respectful for this old music, but I cannot imagine how it is living in your day.", [["respectful for", "preposition drift", "Clear meaning, unusual English collocation."], ["how it is living", "source-language shaping", "Possibly source-language structure carried into English."]], ["The content is personal and responsive.", "The English surface contains local non-native friction.", "This supports cross-language uncertainty, not AI authorship."], ["Direct non-native English.", "Machine translation with light editing.", "Human translation preserving source structure."], "human"]
+    ]
+  },
+  {
+    id: "mixed",
+    name: "Case C: Mixed Authorship / AI-Polish",
+    stage: "Correspondence plus domain content",
+    level: "Segment-level review recommended",
+    intuition: "Short domain-specific parts feel personal; longer reflective passages feel polished.",
+    overview: "Operational domain details remain grounded, while longer reflective passages show editorial or AI-polish signals.",
+    posture: "Avoid one label for the whole person. Separate domain turns, emotional response, and polished prose.",
+    screening: {
+      recommended_action: "Segment-level review",
+      evidence_completeness: "Medium-high",
+      known_provenance: "Synthetic demo data.",
+      blind_reading_value: "Shows why mixed-composition analysis matters.",
+      overclaim_risk: "High if the polished passage is used to judge every message.",
+      next_checks: ["Compare short and long segments.", "Ask drafting workflow naturally.", "Preserve domain-specific evidence separately."]
+    },
+    guide: {
+      texture: { human: 3, machine: 4, total: 5 },
+      lanes: { authorship: 4, claims: 2, disclosure: 2, total: 5, pressure: "High" },
+      focus: [
+        ["blue", "C001", "Authorship / mediation", "AI / editorial polish", "The reflective sentence is compact, balanced, and more polished than the operational material."],
+        ["green", "C001", "Claim reliability", "Domain anchor", "The chess correction should be reviewed separately from the literary surface."]
+      ]
+    },
+    claims: [
+      ["The chess correction follows the current board state.", "Domain claim", "Source-grounded", "Stable"],
+      ["The literary interpretation is polished and general.", "Style observation", "Segment-specific", "Review"],
+      ["Different segments may have different creation histories.", "Mediation hypothesis", "Plausible", "Do not overclaim"]
+    ],
+    messages: [
+      ["A001", "Reviewer / context", "context", "2026-04-05", "synthetic:A001", "The reviewer asks about a novel and continues a slow chess game.", ["Context only"]],
+      ["C001", "Correspondent / target", "target", "2026-04-06", "synthetic:C001", "The reply contains a precise chess correction and a polished literary reflection.", ["Domain anchor", "AI/editorial polish?", "Segment split"]]
+    ],
+    evidence: [
+      ["AI / Editorial Polish", "blue", "synthetic:C001", "The refuge becomes a quiet cage, a poetic punishment for refusing growth.", [["quiet cage", "aphoristic polish", "Compact literary metaphor."], ["poetic punishment", "balanced evaluative phrase", "Smooth review-like cadence."]], ["The prose is more polished than earlier operational messages.", "The same message also contains domain-specific handling.", "This supports a mixed-composition hypothesis."], ["Careful human drafting.", "Human prose edited by AI.", "AI-generated reflection plus personal insertion."], "machine"],
+      ["Domain Authorship Anchor", "green", "synthetic:C001", "You wrote Nd2, but from this position I think you meant Nbd2.", [["Nbd2", "domain-specific correction", "Requires tracking the game state."]], ["The correction is operational and specific.", "It differs from the polished literary cadence.", "Analyze it separately from the prose surface."], ["A domain tool could assist, but no evidence requires that."], "human"]
+    ]
+  },
+  {
+    id: "newsletter",
+    name: "Case D: Institutional Newsletter",
+    stage: "Public document",
+    level: "Multiple plausible explanations",
+    intuition: "No reader intuition supplied. Blind review mode.",
+    overview: "The document appears source-rich and institutionally edited. Final English may include translation, editorial smoothing, or AI assistance.",
+    posture: "Separate source provenance, fact-checking, cross-language surface, and final prose polish.",
+    screening: {
+      recommended_action: "Workflow review",
+      evidence_completeness: "Medium",
+      known_provenance: "Synthetic demo data modeled as a public newsletter.",
+      blind_reading_value: "Shows how this method can extend beyond personal letters.",
+      overclaim_risk: "High if polished institutional English is treated as AI authorship.",
+      next_checks: ["Compare source notes and final article.", "Ask whether translation or AI tools were used.", "Fact-check claims separately."]
+    },
+    guide: {
+      texture: { human: 3, machine: 3, total: 5 },
+      lanes: { authorship: 3, claims: 4, disclosure: 3, total: 5, pressure: "Moderate" },
+      focus: [
+        ["green", "D001", "Claim reliability", "Source-backed specificity", "Material details point to a source layer that should be kept separate from the final prose layer."],
+        ["yellow", "D001", "Authorship / mediation", "Low-confidence surface signal", "Formal collocations are weak clues without workflow evidence."]
+      ]
+    },
+    claims: [
+      ["The cassette contains two platform versions.", "Material fact", "Source-backed", "Verify with archive record"],
+      ["The materials are available for consultation.", "Access claim", "Public-facing", "Verify"],
+      ["Final English may hide source-language workflow.", "Method caution", "Low-confidence", "Use provenance evidence"]
+    ],
+    messages: [
+      ["D001", "Document / target", "target", "2026-04-20", "synthetic:D001", "A public newsletter combines archive object metadata, historical framing, and a polished support appeal.", ["Institutional template", "Archive specificity", "Editorial polish"]]
+    ],
+    evidence: [
+      ["Source-Backed Specificity", "green", "synthetic:D001", "The original cassette contains two platform versions on opposite sides, catalogued under the same acquisition record.", [["opposite sides", "material detail", "Physical-object detail suggests source notes or archive knowledge."], ["acquisition record", "provenance cue", "Links final prose to archival practice."]], ["The detail is too specific for generic promotional prose.", "It may come from human notes later edited or translated.", "Source layer and sentence layer should be separated."], ["A well-prompted AI could rewrite supplied source notes."], "human"],
+      ["Low-Confidence Surface Signal", "yellow", "synthetic:D001", "These materials served for the preparation of this article and are available for consultation.", [["served for the preparation", "collocation heaviness", "Possible translation or institutional English; low confidence."], ["available for consultation", "formal register", "Could be human institutional phrasing."]], ["Final English is clean enough that source language is not detectable with confidence.", "Small collocation clues are weak alone.", "Workflow evidence matters more than surface guessing."], ["Human non-native English.", "Human translation.", "LLM translation plus human check.", "Institutional style."], "none"]
+    ]
+  },
+  {
+    id: "academic",
+    name: "Case E: Academic Paper Review",
+    stage: "Research article",
+    level: "Claim-level verification recommended",
+    intuition: "No reader intuition supplied. Blind review mode.",
+    overview: "The paper has a coherent scholarly surface, but several claims require source-level verification before the argument should be relied on.",
+    posture: "Separate prose polish from research reliability. A fluent academic surface can coexist with weak methods, unsupported citations, or overgeneralized conclusions.",
+    screening: {
+      recommended_action: "Claim-level verification before citation or reuse",
+      evidence_completeness: "Medium: abstract, method excerpt, and conclusion excerpt only",
+      known_provenance: "Synthetic demo paper; no real unpublished manuscript included.",
+      blind_reading_value: "Shows how the same framework can review academic material without reducing it to authorship.",
+      overclaim_risk: "High if polished prose is mistaken for methodological strength.",
+      next_checks: ["Trace each quantitative claim to method and table support.", "Check whether cited studies actually support the operational definition.", "Ask for dataset, inclusion criteria, and coding protocol."]
+    },
+    guide: {
+      texture: { human: 2, machine: 3, total: 5 },
+      lanes: { authorship: 2, claims: 5, disclosure: 1, total: 5, pressure: "High" },
+      focus: [
+        ["orange", "P002", "Claim reliability", "Method specificity gap", "The sample and coding procedure are not detailed enough to carry the conclusion."],
+        ["orange", "P003", "Claim reliability", "Overgeneralization risk", "A limited corpus is used to make a broad institutional workflow claim."],
+        ["blue", "P001", "Authorship / mediation", "Polished academic surface", "The prose is smooth, but that is secondary to evidence support."]
+      ]
+    },
+    claims: [
+      ["The study uses a 42-document corpus.", "Method claim", "Partially specified", "Verify sampling protocol"],
+      ["The proposed review workflow improved analyst accuracy by 31%.", "Quantitative result", "Requires table support", "Verify"],
+      ["The findings generalize to institutional review workflows.", "Scope claim", "Overextended from excerpt", "Review"],
+      ["Prior studies establish the same operational definition of narrative provenance.", "Citation claim", "Citation support unknown", "Verify cited sources"]
+    ],
+    messages: [
+      ["P001", "Paper / abstract", "target", "2026-05-02", "synthetic:P001", "The abstract introduces a narrative-provenance review method and reports improved analyst performance.", ["Scholarly surface", "Quantitative claim", "Claim review"]],
+      ["P002", "Paper / methods", "target", "2026-05-02", "synthetic:P002", "The methods section describes a 42-document corpus but gives limited sampling and coding detail.", ["Method gap", "Verify dataset"]],
+      ["P003", "Paper / conclusion", "target", "2026-05-02", "synthetic:P003", "The conclusion generalizes from the limited corpus to institutional review workflows.", ["Scope expansion", "Review"]]
+    ],
+    evidence: [
+      ["Method Specificity Gap", "orange", "synthetic:P002", "We selected forty-two documents representative of the field and coded them for provenance ambiguity.", [["representative of the field", "sampling claim", "The population and selection method are not defined."], ["coded them", "method compression", "No coder count, codebook, or agreement metric is visible in the excerpt."]], ["The sentence makes a methodological claim but leaves the sampling frame underspecified.", "The reader cannot yet tell whether the corpus supports the result.", "This is a claim-reliability issue, not an authorship judgment."], ["Details may appear elsewhere in the paper.", "Supplementary materials may contain the protocol.", "This may be an excerpt-level limitation."], "none"],
+      ["Overgeneralization Risk", "orange", "synthetic:P003", "These results demonstrate that narrative-provenance mapping can improve institutional review workflows across domains.", [["demonstrate", "strong causal verb", "The excerpt supports caution better than proof."], ["across domains", "scope expansion", "The claim reaches beyond the visible corpus description."]], ["The conclusion uses stronger language than the visible method supports.", "This should prompt source and scope review before citation.", "The issue is evidential strength rather than whether the prose is human or AI-written."], ["The full paper may include cross-domain validation.", "The authors may be using demonstration in a softer rhetorical sense."], "machine"],
+      ["Citation Support Check", "yellow", "synthetic:P001", "Prior work has established narrative provenance as a stable operational category.", [["established", "citation strength", "A broad literature claim needs source-level checking."], ["stable operational category", "definition claim", "The definition may vary across fields."]], ["The phrase signals a literature-foundation claim.", "A reviewer should inspect whether the cited sources actually use the same definition.", "This belongs in the claim lane even if the writing style is polished."], ["The literature review may define the term carefully later.", "The abstract may compress a nuanced discussion."], "none"]
+    ]
+  },
+  {
+    id: "public_figures",
+    name: "Case F: Public AI Leadership Narrative Dossier",
+    stage: "Public-source narrative review",
+    level: "Source-boundary review recommended",
+    intuition: "No private reader intuition supplied. This demo uses public materials about AI leaders to show how Tracewright separates authored statements, corporate pages, external reporting, adversarial sources, and source-inventory gaps.",
+    overview: "The useful question is not whether one public figure is consistent or inconsistent in the abstract. The review task is to map which source said what, in what role, at what time, and with what evidentiary weight.",
+    posture: "Do not collapse a public person, their company, a news report, a competitor statement, and a technical paper into one flat narrative. Treat this as source-boundary and chronology review, not personality judgment.",
+    screening: {
+      recommended_action: "Source-boundary and chronology review",
+      evidence_completeness: "Low-medium: representative public sources only, not a complete biography or fact investigation",
+      known_provenance: "Public web materials: authored essays/posts, company pages, collective open letters, and external or adversarial sources.",
+      blind_reading_value: "Shows how the same uncertainty-map method can review public narratives without becoming a reputational verdict.",
+      overclaim_risk: "High if company claims, reported remarks, external allegations, and adversarial statements are attributed directly to a person without source-role labels.",
+      next_checks: ["Keep direct authored texts separate from company policy pages.", "Treat external reporting and adversarial statements as attributed sources, not settled fact.", "Build dated timelines before asserting contradiction.", "Use primary filings, transcripts, or full article text before escalating claims."]
+    },
+    guide: {
+      texture: { human: 4, machine: 2, total: 5 },
+      lanes: { authorship: 4, claims: 5, disclosure: 4, total: 5, pressure: "High" },
+      focus: [
+        ["orange", "PF003", "Disclosure / provenance", "Source-role boundary", "A competitor or adversarial company page can be evidence-bearing while still requiring attribution and corroboration."],
+        ["orange", "PF004", "Claim reliability", "Chronology pressure", "A public safety posture and later product acceleration should be reviewed as a dated implementation question, not as an instant contradiction."],
+        ["blue", "PF002", "Authorship / mediation", "Corporate-policy layer", "Company policy pages may reflect an organization, not one individual author's personal statement."]
+      ]
+    },
+    claims: [
+      ["Authored essays or blog posts can support a person's stated position at a date.", "Source-boundary claim", "Supported by public sources", "Stable"],
+      ["Corporate policy pages should not automatically be treated as single-person statements.", "Method claim", "General review rule", "Stable"],
+      ["External reporting and adversarial statements require attribution and corroboration.", "Reliability claim", "High-priority rule", "Review"],
+      ["Apparent changes in AI policy posture should be tested through chronology before being called contradictions.", "Chronology claim", "Review method", "Review"]
+    ],
+    messages: [
+      ["PF001", "Authored essay / public post", "target", "2024-2026", "public:authored-essays", "Representative authored materials include Dario Amodei essays and Sam Altman blog posts. They can anchor dated self-positioning but not every company action.", ["Authored layer", "Date anchor"]],
+      ["PF002", "Company policy / product page", "target", "2025-2026", "public:company-pages", "Representative company materials include Anthropic policy pages and xAI product/company pages. They show organizational posture and implementation claims.", ["Corporate layer", "Implementation claim"]],
+      ["PF003", "External or adversarial source", "target", "2024-2026", "public:external-sources", "External reporting, open letters, and competitor statements may be important, but each needs role labeling and corroboration.", ["Source boundary", "Attribution required"]],
+      ["PF004", "Chronology map", "target", "2023-2026", "public:timeline", "A public narrative may change over time as models, companies, law, risk perception, and competition change. The first review step is dated mapping.", ["Chronology", "Review pressure"]]
+    ],
+    evidence: [
+      ["Authored-position anchor", "green", "public:authored-essays", "A signed essay or personal blog post can anchor that a person publicly held or framed a position at a given time.", [["signed essay", "source role", "Authored text is stronger for self-positioning than for proving implementation."], ["at a given time", "chronology", "The date matters before consistency is assessed."]], ["This is useful human/source texture because the source role is clear.", "It should not be expanded to every corporate action or later media narrative.", "The review should preserve the distinction between position, aspiration, and implementation."], ["A post may be edited, ghost-edited, or strategically framed.", "A public post may omit internal constraints or later changes."], "human"],
+      ["Corporate-policy boundary", "blue", "public:company-pages", "Company pages and policy announcements can describe commitments, product posture, or safety processes, but they are organizational documents.", [["company pages", "organizational source", "Do not treat as a single individual's direct authored claim."], ["commitments", "implementation claim", "Requires evidence of actual process or enforcement."]], ["The source can be public and useful while still being role-bound.", "This belongs in Disclosure / provenance because authority depends on source type.", "Tracewright should keep the corporate layer visible."], ["The leader may have approved the page.", "A policy may reflect legal, communications, or team drafting."], "machine"],
+      ["Adversarial-source warning", "orange", "public:adversarial-source", "A competitor statement, lawsuit-position page, or strongly interested source may contain useful documents while still requiring attribution and corroboration.", [["competitor statement", "source boundary", "Evidence-bearing does not mean neutral."], ["requires attribution", "handling rule", "Claims should remain attached to the source until checked."]], ["This is a central public-figure dossier risk.", "The source may contain real records, but framing can be strategic.", "The dashboard should prevent the reader from silently absorbing it as neutral biography."], ["The adversarial source may be accurate.", "The opposing side may dispute or contextualize it.", "Court filings or primary documents may settle part of the record."], "none"],
+      ["Chronology / implementation pressure", "orange", "public:timeline", "A safety-warning statement, later product launch, government deployment claim, or regulation proposal may look inconsistent unless placed in a dated timeline with role labels.", [["safety-warning statement", "early posture", "Could be collective, personal, or company-level."], ["later product launch", "implementation layer", "Should be compared with actual safeguards and dates."], ["dated timeline", "review method", "Chronology comes before contradiction."]], ["The same person can hold risk concerns while building products; that is tension, not automatically contradiction.", "The review should ask whether implementation evidence matches the public risk posture.", "This card shows how Tracewright slows reputational judgment."], ["The timeline may reveal a genuine contradiction.", "Product or policy details may resolve the tension.", "External reporting may be incomplete."], "human"]
+    ]
+  }
+];
+
+let selected = cases[0].id;
+let view = "summary";
+const $ = (selector) => document.querySelector(selector);
+const esc = (value) => String(value)
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("'", "&#039;");
+
+function item() { return cases.find((demoCase) => demoCase.id === selected); }
+
+function render() {
+  renderList();
+  renderHead();
+  renderView();
+}
+
+function renderList() {
+  $("#caseList").innerHTML = cases.map((demoCase) => `
+    <button class="case-button ${demoCase.id === selected ? "active" : ""}" data-case="${esc(demoCase.id)}">
+      <strong>${esc(demoCase.name)}</strong>
+      <span>${esc(demoCase.level)}</span>
+    </button>
+  `).join("");
+}
+
+function renderHead() {
+  const current = item();
+  $("#stage").textContent = current.stage;
+  $("#name").textContent = current.name;
+  $("#count").textContent = `${current.messages.length} review materials`;
+  $("#level").textContent = current.level;
+}
+
+function renderView() {
+  document.querySelectorAll(".view").forEach((element) => element.classList.remove("active"));
+  document.querySelectorAll(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
+  $(`#${view}`).classList.add("active");
+  ({ summary, timeline, claims, evidence, sources }[view])();
+}
+
+function summary() {
+  const current = item();
+  const guide = current.guide;
+  $("#summary").innerHTML = `
+    <div class="stack">
+      <section class="summary-overview">
+        <h3>Summary</h3>
+        <div class="overview-grid">
+          ${overviewCell("Reader intuition", current.intuition)}
+          ${overviewCell("Analysis overview", current.overview)}
+          ${overviewCell("Uncertainty posture", current.posture)}
+        </div>
+        <p class="overview-note">Tracewright is not designed to expose people. It is designed to slow down premature judgment.</p>
+      </section>
+      <section class="panel review-guide">
+        <div>
+          <h3>Review Guide</h3>
+          <p class="panel-note">This is an attention guide, not an AI probability score. It shows where review effort should go first.</p>
+        </div>
+        <div class="guide-layout">
+          <div class="attention-panel">
+            <h3>Texture Axes</h3>
+            <p class="panel-note">These are evidence-card counts and review cues, not authenticity percentages. Ambiguous cards remain in Evidence for human review.</p>
+            <div class="attention-bars">
+              ${bar("Human / source texture", guide.texture.human, guide.texture.total, "anchor")}
+              ${bar("Machine / editorial cleanliness", guide.texture.machine, guide.texture.total, "mediated")}
+            </div>
+            <div class="attention-definitions">
+              <p><strong>Human / source texture:</strong> visible writerly agency, specific source detail, revision traces, hesitation, local judgment, rough edges, or idiosyncratic phrasing.</p>
+              <p><strong>Machine / editorial cleanliness:</strong> automated-synthesis or editorial surface: clean coverage, weak close reading, template flow, fast generalization, or polished prose without visible ownership.</p>
+            </div>
+            <div class="texture-evidence-grid">
+              ${textureEvidenceList("Human / source texture evidence", "human")}
+              ${textureEvidenceList("Machine / editorial cleanliness evidence", "machine")}
+            </div>
+            <h3>Review Lanes</h3>
+            <p class="panel-note">These counts show what kind of question the evidence cards answer.</p>
+            <div class="attention-bars">
+              ${bar("Authorship / mediation", guide.lanes.authorship, guide.lanes.total, "mediated")}
+              ${bar("Claim reliability", guide.lanes.claims, guide.lanes.total, "claims")}
+              ${bar("Disclosure / provenance", guide.lanes.disclosure, guide.lanes.total, "anchor")}
+              <div class="bar"><span>Review pressure</span><span class="flag ${pressureColor(guide.lanes.pressure)}">${esc(guide.lanes.pressure)}</span><strong></strong></div>
+            </div>
+            <div class="attention-definitions">
+              <p><strong>Authorship / mediation:</strong> who shaped wording, style, continuity, translation, and final surface.</p>
+              <p><strong>Claim reliability:</strong> whether stated facts, timelines, methods, identities, citations, or content claims need checking.</p>
+              <p><strong>Disclosure / provenance:</strong> explicit or known information about AI use, translation, fiction, edits, source notes, or workflow.</p>
+            </div>
+            <div class="guide-actions">
+              <button class="text-button" data-view="evidence">Open Evidence</button>
+              <button class="text-button" data-view="claims">Open Claims</button>
+              <button class="text-button" data-view="sources">Open Review Materials</button>
+            </div>
+          </div>
+          <div class="legend-panel">
+            <h3>Flag Legend</h3>
+            <div class="legend-list">
+              ${legend("green", "Stable / anchored", "Continuity, source detail, or baseline-like texture.")}
+              ${legend("yellow", "Observe", "Weak or ambiguous signal; keep watching.")}
+              ${legend("blue", "Mediated layer", "Translation, AI polish, workflow, or layer separation.")}
+              ${legend("orange", "Review", "Meaning shift, weak support, strong tool involvement, or boundary issue.")}
+              ${legend("red", "High attention", "Known heavy AI composition, major mismatch, or severe claim problem.")}
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>First Places To Inspect</h3>
+          <div class="focus-list">
+            ${guide.focus.map((focus) => `
+              <div class="focus-item">
+                <span class="flag ${esc(focus[0])}">${esc(focus[1])}</span>
+                <p><strong>${esc(focus[2])}:</strong> ${esc(focus[3])} - ${esc(focus[4])}</p>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      </section>
+      <section class="screening-grid">
+        ${screeningCard("Recommended action", current.screening.recommended_action)}
+        ${screeningCard("Evidence completeness", current.screening.evidence_completeness)}
+        ${screeningCard("Known provenance", current.screening.known_provenance)}
+        ${screeningCard("Blind-reading value", current.screening.blind_reading_value)}
+        ${screeningCard("Overclaim risk", current.screening.overclaim_risk)}
+        <section class="panel screening-card">
+          <h3>Next Checks</h3>
+          <ul class="guide-list">${current.screening.next_checks.map((check) => `<li>${esc(check)}</li>`).join("")}</ul>
+        </section>
+      </section>
+    </div>
+  `;
+}
+
+function overviewCell(label, value) {
+  return `<article><span>${esc(label)}</span><p>${esc(value)}</p></article>`;
+}
+
+function screeningCard(label, value) {
+  return `<section class="panel screening-card"><p class="kicker">${esc(label)}</p><p>${esc(value)}</p></section>`;
+}
+
+function bar(label, value, total, className) {
+  const width = total ? Math.max(0, Math.min(100, (value / total) * 100)) : 0;
+  return `
+    <div class="bar">
+      <span>${esc(label)}</span>
+      <div class="track"><div class="fill ${esc(className)}" style="width:${width}%"></div></div>
+      <strong>${esc(value)}/${esc(total)}</strong>
+    </div>
+  `;
+}
+
+function pressureColor(level) {
+  if (level === "High") return "orange";
+  if (level === "Moderate") return "yellow";
+  return "green";
+}
+
+function legend(level, label, description) {
+  return `<div class="legend-item"><span class="flag ${esc(level)}">${esc(label)}</span><p>${esc(description)}</p></div>`;
+}
+
+function textureEvidenceList(title, axis) {
+  const current = item();
+  const items = current.evidence
+    .map((card, index) => ({ card, index }))
+    .filter((entry) => textureAxis(entry.card) === axis);
+  return `
+    <div class="texture-evidence-list">
+      <h4>${esc(title)}</h4>
+      ${items.length
+        ? items.map(({ card, index }) => `
+          <button class="texture-evidence-item" data-evidence-target="${esc(evidenceId(index))}">
+            <span class="flag ${esc(card[1])}">${esc(card[2])}</span>
+            <strong>${esc(card[0])}</strong>
+            <span class="axis-source">${card[7] ? "Explicit texture-axis card" : "Inferred from evidence label/text"}</span>
+            <small>${esc(card[3]).slice(0, 150)}${card[3].length > 150 ? "..." : ""}</small>
+            ${card[4]?.[0]?.[0] ? `<small>Marked: ${esc(card[4][0][0]).slice(0, 120)}${card[4][0][0].length > 120 ? "..." : ""}</small>` : ""}
+          </button>
+        `).join("")
+        : `<p class="panel-note">No explicit ${esc(title.toLowerCase())} cards in this synthetic case.</p>`}
+    </div>
+  `;
+}
+
+function textureAxis(card) {
+  if (card[7] === "human" || card[7] === "machine") return card[7];
+  if (card[7] === "none") return "none";
+  const text = `${card[0]} ${card[3]}`.toLowerCase();
+  const human = /human texture|source-backed|domain authorship|specificity|non-native|rough|idiosyncratic/.test(text);
+  const machine = /editorial polish|machine|polished|generalization|template|smooth/.test(text);
+  if (human && !machine) return "human";
+  if (machine && !human) return "machine";
+  return "none";
+}
+
+function textureAxisBadge(card) {
+  const axis = textureAxis(card);
+  if (axis === "human") return `<span class="texture-badge yellow">Human / source texture - ${card[7] ? "explicit" : "inferred"}</span>`;
+  if (axis === "machine") return `<span class="texture-badge blue">Machine / editorial cleanliness - ${card[7] ? "explicit" : "inferred"}</span>`;
+  return "";
+}
+
+function evidenceId(index) {
+  return `evidence-${index + 1}`;
+}
+
+function timeline() {
+  const current = item();
+  $("#timeline").innerHTML = `<div class="stack">${current.messages.map((message) => `
+    <article class="card message ${message[2] === "context" ? "context" : ""}">
+      <div class="meta">
+        <strong>${esc(message[0])}</strong><br>
+        <span>${esc(message[1])}</span><br>
+        <span>${esc(message[3])}</span><br>
+        <span>${esc(message[4])}</span>
+      </div>
+      <div class="body">
+        <p>${esc(message[5])}</p>
+        <div class="flag-row">${message[6].map((flag) => `<span class="flag ${message[2] === "context" ? "gray" : "green"}">${esc(flag)}</span>`).join("")}</div>
+      </div>
+    </article>
+  `).join("")}</div>`;
+}
+
+function claims() {
+  const current = item();
+  $("#claims").innerHTML = `
+    <section class="panel">
+      <h3>Claim Map</h3>
+      <table class="source-table">
+        <thead><tr><th>Claim / Observation</th><th>Type</th><th>Status</th><th>Review Posture</th></tr></thead>
+        <tbody>
+          ${current.claims.map((claim) => `
+            <tr>
+              <td>${esc(claim[0])}</td>
+              <td>${esc(claim[1])}</td>
+              <td class="claim-status">${esc(claim[2])}</td>
+              <td><span class="flag ${claimColor(claim[3])}">${esc(claim[3])}</span></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </section>
+  `;
+}
+
+function claimColor(label) {
+  return /Verify|Review|Overextended|checking/i.test(label) ? "yellow" : "green";
+}
+
+function evidence() {
+  const current = item();
+  $("#evidence").innerHTML = `<div class="stack">${current.evidence.map((card) => `
+    <article class="card body" id="${esc(evidenceId(current.evidence.indexOf(card)))}" data-evidence-card="${esc(evidenceId(current.evidence.indexOf(card)))}">
+      <div class="header">
+        <div><span class="tag">${esc(card[2])}</span><h3>${esc(card[0])}</h3></div>
+        <div class="flag-row">
+          ${textureAxisBadge(card)}
+          <span class="flag ${esc(card[1])}">${esc(card[1])}</span>
+        </div>
+      </div>
+      <blockquote>${esc(card[3])}</blockquote>
+      <section class="marked">
+        <p class="kicker">Marked Text</p>
+        ${card[4].map((mark) => `
+          <div class="mark">
+            <code>${esc(mark[0])}</code>
+            <span>${esc(mark[1])}</span>
+            <p>${esc(mark[2])}</p>
+          </div>
+        `).join("")}
+      </section>
+      <div class="grid">
+        <section class="box"><h3>Reasoning Chain</h3><ol>${card[5].map((line) => `<li>${esc(line)}</li>`).join("")}</ol></section>
+        <section class="box"><h3>Alternative Explanations</h3><ul>${card[6].map((line) => `<li>${esc(line)}</li>`).join("")}</ul></section>
+      </div>
+    </article>
+  `).join("")}</div>`;
+}
+
+function sources() {
+  const current = item();
+  $("#sources").innerHTML = `
+    <section class="panel">
+      <h3>Synthetic Source Inventory</h3>
+      <table class="source-table">
+        <thead><tr><th>ID</th><th>Role</th><th>Date</th><th>Demo Source ID</th><th>Summary</th></tr></thead>
+        <tbody>${current.messages.map((message) => `
+          <tr>
+            <td>${esc(message[0])}</td>
+            <td>${esc(message[1])}</td>
+            <td>${esc(message[3])}</td>
+            <td>${esc(message[4])}</td>
+            <td>${esc(message[5])}</td>
+          </tr>
+        `).join("")}</tbody>
+      </table>
+    </section>
+  `;
+}
+
+document.addEventListener("click", (event) => {
+  const caseButton = event.target.closest("[data-case]");
+  if (caseButton) {
+    selected = caseButton.dataset.case;
+    view = "summary";
+    render();
+    return;
+  }
+  const viewButton = event.target.closest("[data-view]");
+  if (viewButton) {
+    view = viewButton.dataset.view;
+    renderView();
+  }
+  const evidenceButton = event.target.closest("[data-evidence-target]");
+  if (evidenceButton) {
+    view = "evidence";
+    renderView();
+    requestAnimationFrame(() => {
+      const card = document.querySelector(`[data-evidence-card="${CSS.escape(evidenceButton.dataset.evidenceTarget)}"]`);
+      if (!card) return;
+      card.scrollIntoView({ behavior: "smooth", block: "start" });
+      card.classList.add("evidence-card-focus");
+      window.setTimeout(() => card.classList.remove("evidence-card-focus"), 1800);
+    });
+  }
+});
+
+render();
+</script>
+</body>
+</html>
