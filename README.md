@@ -4,6 +4,20 @@ Tracewright is not designed to expose people. It is designed to slow down premat
 
 This prototype helps reviewers inspect AI-mediated or potentially AI-mediated text without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
 
+## Why This Exists
+
+Tracewright began as a way to read narrative materials more responsibly in an AI-mediated world. The original question was not simply "was this written by a human?" The more useful question was: when a reviewer faces documents, statements, drafts, correspondence, public narratives, academic material, or mixed-source dossiers, what can be trusted, what needs checking, what has changed over time, and what should be done next?
+
+The tool is designed to support careful review rather than exposure. It can help make visible:
+
+- shifts in the public or private narrative around a particular person, organization, or project
+- small contradictions, missing context, or changes in stated position across a timeline
+- whether academic or technical prose still preserves the author's intention after editing, translation, or AI-assisted polishing
+- where machine-generated or heavily mediated text leaves weak reasoning, unsupported claims, missing evidence, or unclear responsibility
+- how materials written by different authors, in different roles, and in different contexts relate to each other
+
+In that sense, Tracewright is a tool for improvement and verification. It helps a reviewer decide whether to ask a follow-up question, check a source, add evidence, revise a draft, separate source roles, or escalate to a qualified human reviewer. It is not built to judge people.
+
 ## Intended Workflow
 
 Tracewright is designed for a human-in-the-loop review flow:
@@ -21,6 +35,7 @@ The intended output is not a verdict. It is a review map.
 - A browser-based demo for reviewing narrative materials.
 - A method for mapping uncertainty around authorship, mediation, disclosure, and claim reliability.
 - A reviewer-support tool for provenance-aware reading.
+- A way to review mixed narrative sets: correspondence, public statements, articles, academic drafts, institutional pages, transcripts, and other source materials.
 - A synthetic public demo; no private correspondence is included.
 
 ## What This Is Not
@@ -36,7 +51,7 @@ The intended output is not a verdict. It is a review map.
 
 Open `index.html` in a browser. The same demo is also available at `demo/index.html`.
 
-The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab includes a review guide, texture axes, review lanes, and an attention mix so that the tool is framed as narrative-material review rather than AI detection.
+The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab gives a short triage view, while the Interpretation Guide explains how to read review lanes, texture axes, evidence cards, source roles, and escalation rules without turning them into detector scores.
 
 The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, and academic paper review. These genres should not be reviewed with identical prompts or assumptions.
 

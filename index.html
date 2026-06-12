@@ -144,6 +144,13 @@
     .focus-item { border: 1px solid var(--line); border-radius: 8px; background: #fbf8f1; padding: 12px; }
     .focus-item p { margin: 8px 0 0; }
     .guide-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .interpretation-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+    .principle-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .principle-card { border: 1px solid var(--line); border-radius: 8px; background: #fbf8f1; padding: 14px; }
+    .principle-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
+    .handling-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .handling-card { border: 1px solid var(--line); border-radius: 8px; background: #fffaf0; padding: 14px; }
+    .handling-card p { margin-bottom: 0; color: var(--muted); font-size: 14px; }
     .text-button {
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -170,7 +177,7 @@
     .source-table th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
     .claim-status { min-width: 130px; }
     @media (max-width: 980px) {
-      .shell, .message, .grid, .tri, .mark, .overview-grid, .guide-layout, .screening-grid { grid-template-columns: 1fr; }
+      .shell, .message, .grid, .tri, .mark, .overview-grid, .guide-layout, .screening-grid, .interpretation-grid, .principle-grid, .handling-grid { grid-template-columns: 1fr; }
       .texture-evidence-grid { grid-template-columns: 1fr; }
       main { padding: 22px; }
       aside { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -204,12 +211,14 @@
       </header>
       <nav class="tabs">
         <button class="tab active" data-view="summary">Summary</button>
+        <button class="tab" data-view="interpretation">Interpretation Guide</button>
         <button class="tab" data-view="timeline">Timeline</button>
         <button class="tab" data-view="claims">Claims</button>
         <button class="tab" data-view="evidence">Evidence</button>
         <button class="tab" data-view="sources">Synthetic Source Inventory</button>
       </nav>
       <section id="summary" class="view active"></section>
+      <section id="interpretation" class="view"></section>
       <section id="timeline" class="view"></section>
       <section id="claims" class="view"></section>
       <section id="evidence" class="view"></section>
@@ -496,7 +505,7 @@ function renderView() {
   document.querySelectorAll(".view").forEach((element) => element.classList.remove("active"));
   document.querySelectorAll(".tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
   $(`#${view}`).classList.add("active");
-  ({ summary, timeline, claims, evidence, sources }[view])();
+  ({ summary, interpretation, timeline, claims, evidence, sources }[view])();
 }
 
 function summary() {
@@ -513,10 +522,58 @@ function summary() {
         </div>
         <p class="overview-note">Tracewright is not designed to expose people. It is designed to slow down premature judgment.</p>
       </section>
+      <section class="panel">
+        <h3>First Places To Inspect</h3>
+        <p class="panel-note">A short triage list only. Use Interpretation Guide to decide how to handle these observations without turning them into verdicts.</p>
+        <div class="focus-list">
+          ${guide.focus.map((focus) => `
+            <div class="focus-item">
+              <span class="flag ${esc(focus[0])}">${esc(focus[1])}</span>
+              <p><strong>${esc(focus[2])}:</strong> ${esc(focus[3])} - ${esc(focus[4])}</p>
+            </div>
+          `).join("")}
+        </div>
+        <div class="guide-actions">
+          <button class="text-button" data-view="interpretation">Open Interpretation Guide</button>
+          <button class="text-button" data-view="evidence">Open Evidence</button>
+          <button class="text-button" data-view="claims">Open Claims</button>
+        </div>
+      </section>
+      <section class="screening-grid">
+        ${screeningCard("Recommended action", current.screening.recommended_action)}
+        ${screeningCard("Evidence completeness", current.screening.evidence_completeness)}
+        ${screeningCard("Known provenance", current.screening.known_provenance)}
+        ${screeningCard("Blind-reading value", current.screening.blind_reading_value)}
+        ${screeningCard("Overclaim risk", current.screening.overclaim_risk)}
+        <section class="panel screening-card">
+          <h3>Next Checks</h3>
+          <ul class="guide-list">${current.screening.next_checks.map((check) => `<li>${esc(check)}</li>`).join("")}</ul>
+        </section>
+      </section>
+    </div>
+  `;
+}
+
+function interpretation() {
+  const current = item();
+  const guide = current.guide;
+  $("#interpretation").innerHTML = `
+    <div class="stack">
+      <section class="summary-overview">
+        <h3>Interpretation Guide</h3>
+        <p>This tab explains how to read the dashboard. It is not a detector and not a verdict surface; it turns uncertainty into review posture, accountability, and next handling.</p>
+        <p class="overview-note">Evidence first. Source roles visible. Judgment delayed until the reviewer has checked what the observation actually supports.</p>
+      </section>
+      <section class="principle-grid">
+        ${principleCard("Not a detector", "The dashboard does not decide whether a person used AI. It shows what requires closer reading, corroboration, or context.")}
+        ${principleCard("Not a verdict", "A flag is a handling cue, not a finding. A polished surface, rough texture, or contradiction cue can have several explanations.")}
+        ${principleCard("Source roles matter", "Self-description, third-party reporting, legal material, institutional pages, transcripts, and drafts should not be collapsed into one voice.")}
+        ${principleCard("Improve or verify", "The goal is to decide the next responsible action: verify a claim, ask a follow-up, revise a draft, add evidence, or escalate review.")}
+      </section>
       <section class="panel review-guide">
         <div>
-          <h3>Review Guide</h3>
-          <p class="panel-note">This is an attention guide, not an AI probability score. It shows where review effort should go first.</p>
+          <h3>How To Read This Case</h3>
+          <p class="panel-note">These are evidence-card counts and review cues, not authenticity percentages. Ambiguous cards remain in Evidence for human review.</p>
         </div>
         <div class="guide-layout">
           <div class="attention-panel">
@@ -564,31 +621,29 @@ function summary() {
             </div>
           </div>
         </div>
-        <div>
-          <h3>First Places To Inspect</h3>
-          <div class="focus-list">
-            ${guide.focus.map((focus) => `
-              <div class="focus-item">
-                <span class="flag ${esc(focus[0])}">${esc(focus[1])}</span>
-                <p><strong>${esc(focus[2])}:</strong> ${esc(focus[3])} - ${esc(focus[4])}</p>
-              </div>
-            `).join("")}
-          </div>
+      </section>
+      <section class="panel">
+        <h3>Handling Model</h3>
+        <div class="handling-grid">
+          ${handlingCard("Authorship / mediation", "Ask who shaped wording, translation, continuity, polish, and final surface. Do not convert style cues into identity claims.")}
+          ${handlingCard("Claim reliability", "Ask whether factual statements, chronology, citations, methods, or public narratives need corroboration. This lane can matter even when authorship is clear.")}
+          ${handlingCard("Disclosure / provenance", "Record explicit workflow information: AI use, translation, editing, fiction, source notes, institutional authorship, or known drafting process.")}
         </div>
       </section>
-      <section class="screening-grid">
-        ${screeningCard("Recommended action", current.screening.recommended_action)}
-        ${screeningCard("Evidence completeness", current.screening.evidence_completeness)}
-        ${screeningCard("Known provenance", current.screening.known_provenance)}
-        ${screeningCard("Blind-reading value", current.screening.blind_reading_value)}
-        ${screeningCard("Overclaim risk", current.screening.overclaim_risk)}
-        <section class="panel screening-card">
-          <h3>Next Checks</h3>
-          <ul class="guide-list">${current.screening.next_checks.map((check) => `<li>${esc(check)}</li>`).join("")}</ul>
-        </section>
+      <section class="panel">
+        <h3>Escalation Rule</h3>
+        <p class="panel-note">If an observation could affect employment, legal exposure, academic evaluation, publication, insurance, reputation, or fiduciary decisions, the dashboard should route the matter to qualified human review. Tracewright is a review map, not the final decision-maker.</p>
       </section>
     </div>
   `;
+}
+
+function principleCard(title, text) {
+  return `<article class="principle-card"><h3>${esc(title)}</h3><p>${esc(text)}</p></article>`;
+}
+
+function handlingCard(title, text) {
+  return `<article class="handling-card"><h3>${esc(title)}</h3><p>${esc(text)}</p></article>`;
 }
 
 function overviewCell(label, value) {
