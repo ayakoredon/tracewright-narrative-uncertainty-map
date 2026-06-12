@@ -4,6 +4,14 @@ Tracewright is not designed to expose people. It is designed to slow down premat
 
 This prototype helps reviewers inspect AI-mediated or potentially AI-mediated text without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
 
+## View the Demo
+
+Open the public demo here:
+
+https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+
+The demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
+
 ## Why This Exists
 
 Tracewright began as a way to read narrative materials more responsibly in an AI-mediated world. The original question was not simply "was this written by a human?" The more useful question was: when a reviewer faces documents, statements, drafts, correspondence, public narratives, academic material, or mixed-source dossiers, what can be trusted, what needs checking, what has changed over time, and what should be done next?
@@ -49,11 +57,25 @@ The intended output is not a verdict. It is a review map.
 
 ## Demo
 
-Open `index.html` in a browser. The same demo is also available at `demo/index.html`.
+Open the live demo here:
+
+https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+
+You can also open `index.html` locally in a browser. The same demo is available at `demo/index.html`.
 
 The demo uses synthetic review materials only. The cases are designed to show how stable human texture, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab gives a short triage view, while the Interpretation Guide explains how to read review lanes, texture axes, evidence cards, source roles, and escalation rules without turning them into detector scores.
 
 The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, academic paper review, public narrative dossiers, and art-provenance review. These genres should not be reviewed with identical prompts or assumptions.
+
+## Demo Cases
+
+- **Case A: Self-Written Baseline** shows what a stable, lightly mediated personal-writing baseline can look like without treating it as a universal standard.
+- **Case B: Cross-Language Influence** shows how translation, non-native phrasing, and source-language thinking can be reviewed without treating them as deception.
+- **Case C: Mixed Authorship / AI-Polish** shows why one document or exchange may need segment-level review rather than one label for the whole person or text.
+- **Case D: Institutional Newsletter-Style Prose** shows how source-backed details, editorial polish, translation workflow, and public-facing institutional claims can be separated.
+- **Case E: Academic Paper Review** shows how the framework can support academic quality review by surfacing weak claims, method gaps, citation uncertainty, and overgeneralization, not just possible AI mediation.
+- **Case F: Public AI Leadership Narrative Dossier** shows how public statements, company positions, reporting, and adversarial sources can be mapped to test narrative consistency without turning the review into a reputational verdict.
+- **Case G: Eighteenth-Century Painting Provenance Dossier** shows how art and collection provenance files can be reviewed across diaries, auction records, researcher notes, material analysis, wartime gaps, and archival silence.
 
 ## Reproducing the Method Locally
 
