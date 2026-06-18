@@ -2,6 +2,8 @@
 
 Tracewright maps uncertainty in text review. It treats AI mediation as one possible explanation among several, rather than as a binary target to detect.
 
+The method is also a practice of uncertainty literacy: learning how to read mediated materials without rushing to accusation, dismissal, or false certainty.
+
 ## Operational Flow
 
 The expected workflow is:
@@ -15,6 +17,8 @@ The expected workflow is:
 7. **Action decision**: the reviewer chooses what to verify, ask, ignore, monitor, or escalate.
 
 The method assumes that AI can help organize evidence, but the human reviewer remains responsible for judgment.
+
+For employment, legal, academic, reputational, provenance, publication, financial, or other high-impact contexts, Tracewright output should be treated only as preparation for qualified human review.
 
 ## Review Inputs
 
@@ -133,6 +137,8 @@ Simple scores encourage premature judgment. Tracewright instead shows:
 - what alternative explanations remain plausible
 - what evidence is missing
 - what a reviewer should inspect next
+
+Evidence cards are not suspicion cards. They preserve observations and reasoning so that a reviewer can inspect them, challenge them, and decide what to verify next.
 
 ## Limits
 

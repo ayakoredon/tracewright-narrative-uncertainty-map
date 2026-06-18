@@ -14,7 +14,7 @@ It can also be used to improve human-written work: clarifying arguments, extract
   https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
 - **Download the Starter Kit:**  
-  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
+  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.5.zip
 
 <sub>Japanese guide / 日本語ガイド: https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md</sub>
 
@@ -35,13 +35,15 @@ It can also be used to improve human-written work: clarifying arguments, extract
 
 Tracewright helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
 
+Another way to describe the project is **uncertainty literacy**: learning how to read without rushing, especially when documents may have been drafted, edited, translated, polished, summarized, or mediated by AI.
+
 ## Try It With Your Own AI
 
 You can use the Starter Kit with an AI assistant you already have, including free AI tools that can read attached files or pasted text. The simplest path does not require Codex, coding, or dashboard generation. It can produce a Markdown review map for checking a paper draft, article, correspondence thread, creative text, provenance file, or other written material.
 
 **Download the Starter Kit:**
 
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.5.zip
 
 After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS_WITH_YOUR_AI.md` to your AI assistant and paste the short starter message. The AI should then check file safety, ask what kind of review you want, and guide the next step.
 
@@ -137,7 +139,7 @@ For the non-dashboard workflow, see `simple-ai-example.html`. It shows a reconst
 
 Download the local starter kit here:
 
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.5.zip
 
 The starter kit includes two entry paths:
 
@@ -145,6 +147,10 @@ The starter kit includes two entry paths:
 - **Dashboard Builder**: for Codex users, local HTML/JSON users, or reviewers who want to adapt the dashboard itself.
 
 After downloading and unzipping the starter kit, open `START_HERE.md` first. Non-technical users can attach `USE_THIS_WITH_YOUR_AI.md` to their AI assistant and paste one short message. The AI should then check file safety, ask what kind of review is needed, and guide the next step.
+
+If you feel lost, start with only one file: `USE_THIS_WITH_YOUR_AI.md`. Attach it to your AI assistant and ask it to guide you before uploading any review materials.
+
+The Starter Kit is not a free analysis service operated by Ayako Redon. It is a set of files you can use with your own AI environment, subject to that environment's privacy, security, and capability limits.
 
 ## Demo Cases
 
@@ -185,6 +191,8 @@ The starter kit includes a review-intake worksheet for choosing a primary review
 
 The dashboard is only as useful as the structured analysis that feeds it. AI output should be treated as a draft review map, not as ground truth.
 
+If a review may affect employment, legal, academic, reputational, provenance, publication, or financial decisions, Tracewright output should be treated only as preparation for qualified human review.
+
 ## Future Product Shape
 
 A full product would need more than this repository:
@@ -214,14 +222,18 @@ See `docs/oecd-ai-catalogue-submission-draft.md` for a draft submission text and
 
 The tool is built around review posture, not verdicts. Labels such as "segment-level review recommended" are meant to guide attention, not to classify people or texts.
 
+Evidence Cards are observation cards, not suspicion cards. They should never be used as a list of "people to suspect" or as a ranking of authenticity.
+
 ## Repository Contents
 
 - `index.html`: public synthetic demo for GitHub Pages.
 - `demo/index.html`: duplicate local demo entry point.
+- `CHANGELOG.md`: public version notes.
 - `docs/methodology.md`: method and review model.
 - `docs/ai-analysis-instructions.md`: prompt guidance for local AI-assisted analysis.
 - `docs/ethics.md`: privacy, consent, and misuse boundaries.
 - `LICENSE`: source-available non-commercial license.
 - `COMMERCIAL_USE.md`: plain-language commercial-use summary.
+
 
 

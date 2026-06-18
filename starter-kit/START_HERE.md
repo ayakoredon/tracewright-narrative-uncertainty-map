@@ -30,6 +30,8 @@ I do not want an AI-detector verdict. I want a careful uncertainty review map.
 
 That is enough for a first test.
 
+If you feel lost, do not open the other files yet. Start with `USE_THIS_WITH_YOUR_AI.md` only.
+
 ## Path 2: I Want To Build Or Adapt The Dashboard
 
 Use this path if you use Codex, local HTML, JSON, or another AI-assisted coding workflow.
@@ -60,3 +62,5 @@ Before uploading anything to an AI assistant, ask yourself:
 If the answer is uncertain, do not upload the documents. Use redacted, anonymized, synthetic, or non-sensitive excerpts first.
 
 Tracewright does not provide privacy protection by itself. Privacy depends on the AI service, account settings, local environment, and document choices.
+
+If the review may affect employment, legal, academic, reputational, provenance, publication, or financial decisions, treat Tracewright output only as preparation for qualified human review.

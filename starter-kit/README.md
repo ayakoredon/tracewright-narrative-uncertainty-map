@@ -23,6 +23,14 @@ You will attach one file, `USE_THIS_WITH_YOUR_AI.md`, to your AI assistant and p
 
 This path works even if your AI assistant only produces a Markdown review map instead of a dashboard.
 
+If you feel lost, use only this file first:
+
+```text
+USE_THIS_WITH_YOUR_AI.md
+```
+
+Attach it to your AI assistant and ask the AI to guide you before uploading any review materials.
+
 ## If You Want To Build Or Adapt A Dashboard
 
 Open:
@@ -69,6 +77,12 @@ Do not upload private, confidential, personal, unpublished, legally sensitive, o
 If you are not sure, use redacted, anonymized, synthetic, or non-sensitive excerpts first.
 
 Tracewright does not provide privacy protection by itself. Privacy depends on the AI service, account settings, local environment, and documents you choose to use.
+
+## High-Impact Review Warning
+
+Tracewright output is a draft review map, not a decision system. If the review may affect employment, legal, academic, reputational, provenance, publication, or financial decisions, use it only as preparation for qualified human review.
+
+Do not use Evidence Cards as a suspicion list or as a ranking of people, authors, or sources.
 
 ## License And Commercial Use
 
