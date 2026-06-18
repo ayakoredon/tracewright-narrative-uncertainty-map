@@ -8,7 +8,7 @@ This prototype helps reviewers inspect AI-mediated or potentially AI-mediated te
 
 Open the public demo here:
 
-https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+https://jdh8zv5cnb-sudo.github.io/tracewright-narrative-uncertainty-map/
 
 The demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
 
@@ -59,7 +59,7 @@ The intended output is not a verdict. It is a review map.
 
 Open the live demo here:
 
-https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+https://jdh8zv5cnb-sudo.github.io/tracewright-narrative-uncertainty-map/
 
 You can also open `index.html` locally in a browser. The same demo is available at `demo/index.html`.
 

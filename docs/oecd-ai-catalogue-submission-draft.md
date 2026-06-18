@@ -8,11 +8,11 @@ https://oecd.ai/en/catalogue/tools/submit
 
 Public demo:
 
-https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+https://jdh8zv5cnb-sudo.github.io/tracewright-narrative-uncertainty-map/
 
 GitHub repository:
 
-https://github.com/jdh8zv5cnb-sudo/tracewright-letter-uncertainty-map
+https://github.com/jdh8zv5cnb-sudo/tracewright-narrative-uncertainty-map
 
 ## Positioning
 
@@ -82,11 +82,11 @@ The tool is designed for improvement and verification rather than punishment. It
 
 Link to the tool's website:
 
-https://jdh8zv5cnb-sudo.github.io/tracewright-letter-uncertainty-map/
+https://jdh8zv5cnb-sudo.github.io/tracewright-narrative-uncertainty-map/
 
 GitHub repository of the tool:
 
-https://github.com/jdh8zv5cnb-sudo/tracewright-letter-uncertainty-map
+https://github.com/jdh8zv5cnb-sudo/tracewright-narrative-uncertainty-map
 
 Tool package:
 
