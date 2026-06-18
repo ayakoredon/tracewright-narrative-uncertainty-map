@@ -2,7 +2,27 @@
 
 Tracewright is not designed to expose people. It is designed to slow down premature judgment.
 
-This prototype helps reviewers inspect AI-mediated or potentially AI-mediated text without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
+Tracewright is a review method and dashboard for examining written materials: papers, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets. The goal is not to decide "AI or human?" The goal is to make the logic, claims, gaps, contradictions, evidence, source roles, and next review actions visible.
+
+Use it when you want to ask:
+
+- Does this argument hold together?
+- Which claims need evidence?
+- Where are the contradictions, missing context, or weak links?
+- What changed over time?
+- What should be checked, revised, or escalated next?
+
+This prototype helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
+
+## Try It With Your Own AI
+
+You can use the Starter Kit with an AI assistant you already have, including free AI tools that can read attached files or pasted text. The simplest path does not require Codex, coding, or dashboard generation. It can produce a Markdown review map for checking a paper draft, article, correspondence thread, creative text, provenance file, or other written material.
+
+Download the Starter Kit:
+
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
+
+After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS_WITH_YOUR_AI.md` to your AI assistant and paste the short starter message. The AI should then check file safety, ask what kind of review you want, and guide the next step.
 
 ## View the Demo
 

@@ -55,6 +55,29 @@
       margin: 18px 0;
       line-height: 1.55;
     }
+    .starter-card {
+      border: 1px solid #b99250;
+      border-radius: 8px;
+      background: #fff6d9;
+      padding: 14px;
+      margin: 14px 0 16px;
+      box-shadow: var(--shadow);
+    }
+    .starter-card strong { display: block; margin-bottom: 6px; }
+    .starter-card p { margin-bottom: 10px; color: #504638; font-size: 13px; }
+    .starter-card a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      border-radius: 8px;
+      background: #315f72;
+      color: #fff;
+      padding: 8px 11px;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
     .resource-links { display: grid; gap: 8px; margin: 12px 0 18px; }
     .resource-links a {
       display: block;
@@ -206,10 +229,15 @@
       <h1>Narrative Uncertainty Map</h1>
       <div class="notice">
         <strong>This is not an AI detector.</strong><br>
-        Tracewright is not designed to expose people. It is designed to slow down premature judgment. All cases below are synthetic review materials.
+        Tracewright reviews written materials by mapping claims, evidence, gaps, contradictions, source roles, and next checks. It can support paper review, creative revision, public narrative analysis, provenance review, and correspondence review. All cases below are synthetic.
+      </div>
+      <div class="starter-card">
+        <strong>Try it with your own AI</strong>
+        <p>Download the Starter Kit and attach one file to ChatGPT, Claude, Gemini, or another AI assistant. Even without coding, you can get a Markdown review map for papers, drafts, stories, records, or other written materials.</p>
+        <a href="downloads/tracewright-narrative-starter-kit-v0.2.zip" download>Download Starter Kit</a>
       </div>
       <div class="resource-links">
-        <a href="downloads/tracewright-narrative-starter-kit-v0.2.zip" download>Download Starter Kit</a>
+        <a href="downloads/tracewright-narrative-starter-kit-v0.2.zip" download>Download Starter Kit ZIP</a>
         <a href="https://github.com/ayakoredon/tracewright-narrative-uncertainty-map">View on GitHub</a>
       </div>
       <div id="caseList" class="case-list"></div>
