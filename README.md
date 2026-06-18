@@ -12,13 +12,15 @@ It can also be used to improve human-written work: clarifying arguments, extract
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
 **Download the Starter Kit:**  
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.3.zip
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
 
 **Japanese guide / 日本語ガイド:**  
 https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md
 
 **Open the dashboard demo:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
+
+**License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`.
 
 ## Use It When You Want To Ask
 
@@ -36,7 +38,7 @@ You can use the Starter Kit with an AI assistant you already have, including fre
 
 **Download the Starter Kit:**
 
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.3.zip
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
 
 After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS_WITH_YOUR_AI.md` to your AI assistant and paste the short starter message. The AI should then check file safety, ask what kind of review you want, and guide the next step.
 
@@ -102,6 +104,17 @@ The intended output is not a verdict. It is a review map.
 - It does not replace consent, context, or human judgment.
 - It is not a hosted analysis platform.
 - It does not currently include document upload, storage, or API-backed analysis.
+- It is not a grant of permission to commercially exploit the Tracewright concept, name, methodology, starter kit, dashboard, prompts, templates, or distinctive review structure.
+
+## License And Commercial Use
+
+Tracewright Narrative Uncertainty Map is free to study, test, adapt, and use for personal, educational, research, and other non-commercial purposes.
+
+Commercial use is not granted by the public license. This includes selling Tracewright-based tools, dashboards, prompts, workflows, or services; building a hosted commercial platform from this repository; packaging the Starter Kit into a paid product; or using the Tracewright name or distinctive method as part of a commercial product without permission.
+
+For commercial collaboration, licensing, institutional use, or product integration, please contact Ayako Redon first.
+
+See `LICENSE` and `COMMERCIAL_USE.md`.
 
 ## Demo
 
@@ -121,7 +134,7 @@ For the non-dashboard workflow, see `simple-ai-example.html`. It shows a reconst
 
 Download the local starter kit here:
 
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.3.zip
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
 
 The starter kit includes two entry paths:
 
@@ -205,5 +218,7 @@ The tool is built around review posture, not verdicts. Labels such as "segment-l
 - `docs/methodology.md`: method and review model.
 - `docs/ai-analysis-instructions.md`: prompt guidance for local AI-assisted analysis.
 - `docs/ethics.md`: privacy, consent, and misuse boundaries.
-- `LICENSE`: initial open license.
+- `LICENSE`: source-available non-commercial license.
+- `COMMERCIAL_USE.md`: plain-language commercial-use summary.
+
 

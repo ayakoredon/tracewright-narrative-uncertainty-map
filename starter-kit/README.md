@@ -70,6 +70,14 @@ If you are not sure, use redacted, anonymized, synthetic, or non-sensitive excer
 
 Tracewright does not provide privacy protection by itself. Privacy depends on the AI service, account settings, local environment, and documents you choose to use.
 
+## License And Commercial Use
+
+This Starter Kit is free for personal, educational, research, and other non-commercial review work.
+
+Commercial use is not granted without prior written permission. Do not sell, repackage, host, or integrate Tracewright-based tools, prompts, workflows, dashboards, or services as a commercial product without permission from Ayako Redon.
+
+See the project `LICENSE`, `COMMERCIAL_USE.md`, and `COMMERCIAL_USE.ja.md`.
+
 ## Public Project Links
 
 Public demo:

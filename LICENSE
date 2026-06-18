@@ -1,21 +1,60 @@
-MIT License
+Tracewright Narrative Uncertainty Map
+Source-Available Non-Commercial License v0.1
 
-Copyright (c) 2026 Tracewright contributors
+Copyright (c) 2026 Ayako Redon and Tracewright contributors.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is made available so that individuals, students, researchers,
+writers, educators, reviewers, and other non-commercial users can study, test,
+adapt, and use the Tracewright Narrative Uncertainty Map method and demo.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Permission is granted, free of charge, to use, copy, modify, and share this
+software, documentation, starter kit, prompts, templates, and synthetic demo
+materials for non-commercial purposes, subject to the conditions below.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Permitted non-commercial uses include:
+
+- personal study and document review
+- educational use
+- academic research
+- non-commercial writing, editing, and review workflows
+- internal evaluation by individuals or non-commercial groups
+- experimentation with local AI assistants, Codex, ChatGPT, Claude, Gemini, or
+  similar tools
+
+Commercial use is not granted by this license.
+
+Commercial use includes, but is not limited to:
+
+- selling access to Tracewright-based tools, dashboards, prompts, workflows, or
+  services
+- offering Tracewright-based review as a paid service
+- incorporating the Tracewright method, name, dashboard, prompts, starter kit,
+  templates, or distinctive review structure into a commercial product
+- using this repository to build a hosted commercial platform
+- sublicensing, reselling, or packaging this work as part of a paid product
+- using the Tracewright name, branding, or public demo materials to imply
+  endorsement, partnership, certification, or official affiliation
+
+Commercial use requires prior written permission from the copyright holder.
+
+Attribution is required. Copies, substantial portions, adaptations, or public
+derivatives must preserve attribution to:
+
+Tracewright Narrative Uncertainty Map by Ayako Redon and Tracewright
+contributors.
+
+The names "Tracewright" and "Tracewright Narrative Uncertainty Map" are not
+licensed for use as a product name, service name, brand, certification mark, or
+endorsement without prior written permission.
+
+No private or unpublished materials are included in this repository. The public
+demo uses synthetic review cases only.
+
+THE WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY, OR FITNESS FOR ANY PARTICULAR
+REVIEW, LEGAL, ACADEMIC, JOURNALISTIC, COMMERCIAL, OR PROFESSIONAL USE. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES,
+OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE WORK OR THE
+USE OF THE WORK.
+
