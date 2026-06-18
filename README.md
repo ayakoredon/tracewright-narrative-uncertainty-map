@@ -1,10 +1,21 @@
 # Tracewright Narrative Uncertainty Map
 
-Tracewright is not designed to expose people. It is designed to slow down premature judgment.
+## Tracewright is a review method and dashboard for examining written materials.
 
-Tracewright is a review method and dashboard for examining written materials: papers, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets. The goal is not to decide "AI or human?" The goal is to make the logic, claims, gaps, contradictions, evidence, source roles, and next review actions visible.
+Use it with papers, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets.
 
-Use it when you want to ask:
+The goal is not to decide **"AI or human?"** The goal is to make the **logic, claims, gaps, contradictions, evidence, source roles, and next review actions** visible.
+
+**Open the dashboard demo:**  
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
+
+**See the simple AI-chat example:**  
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
+
+**Download the Starter Kit:**  
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
+
+## Use It When You Want To Ask
 
 - Does this argument hold together?
 - Which claims need evidence?
@@ -12,13 +23,13 @@ Use it when you want to ask:
 - What changed over time?
 - What should be checked, revised, or escalated next?
 
-This prototype helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
+Tracewright helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
 
 ## Try It With Your Own AI
 
 You can use the Starter Kit with an AI assistant you already have, including free AI tools that can read attached files or pasted text. The simplest path does not require Codex, coding, or dashboard generation. It can produce a Markdown review map for checking a paper draft, article, correspondence thread, creative text, provenance file, or other written material.
 
-Download the Starter Kit:
+**Download the Starter Kit:**
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
 
@@ -26,17 +37,21 @@ After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS
 
 ## View the Demo
 
-Open the public dashboard demo here:
+**Open the public dashboard demo:**
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
 
 The dashboard demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
 
-Simple AI Review example:
+**Simple AI Review example:**
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
 This separate page shows what the lightweight Starter Kit workflow can look like when a user attaches one Tracewright instruction file to a familiar AI assistant and receives a Markdown review map instead of an interactive dashboard.
+
+## Design Principle
+
+Tracewright is not designed to expose people. It is designed to slow down premature judgment.
 
 ## Why This Exists
 
@@ -173,8 +188,6 @@ See `docs/oecd-ai-catalogue-submission-draft.md` for a draft submission text and
 - **Authorship / Mediation**: wording, style, AI/editorial polish, continuity, and final-surface mediation.
 - **Disclosure / Provenance**: explicit or known information about AI use, translation, editing, fiction, or workflow.
 - **Claim Reliability**: factual claims, identity or timeline statements, contradictions, and verification needs.
-
-## Design Principle
 
 The tool is built around review posture, not verdicts. Labels such as "segment-level review recommended" are meant to guide attention, not to classify people or texts.
 
