@@ -8,17 +8,20 @@ The goal is not to decide **"AI or human?"** The goal is to make the **logic, cl
 
 It can also be used to improve human-written work: clarifying arguments, extracting key issues, finding weak links, and identifying what should be revised before publication, submission, citation, or escalation.
 
-**See the simple AI-chat example:**  
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
+## Quick Links
 
-**Download the Starter Kit:**  
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
+- **Simple AI-chat example:**  
+  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
-**Japanese guide / 日本語ガイド:**  
-https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md
+- **Download the Starter Kit:**  
+  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.4.zip
 
-**Open the dashboard demo:**  
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
+<sub>Japanese guide / 日本語ガイド: https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md</sub>
+
+<br>
+
+- **Open the dashboard demo:**  
+  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
 
 **License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`.
 
