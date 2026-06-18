@@ -8,14 +8,14 @@ The goal is not to decide **"AI or human?"** The goal is to make the **logic, cl
 
 It can also be used to improve human-written work: clarifying arguments, extracting key issues, finding weak links, and identifying what should be revised before publication, submission, citation, or escalation.
 
-**Open the dashboard demo:**  
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
-
 **See the simple AI-chat example:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
 **Download the Starter Kit:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
+
+**Open the dashboard demo:**  
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
 
 ## Use It When You Want To Ask
 
@@ -39,17 +39,17 @@ After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS
 
 ## View the Demo
 
-**Open the public dashboard demo:**
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
-
-The dashboard demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
-
 **Simple AI Review example:**
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
 This separate page shows what the lightweight Starter Kit workflow can look like when a user attaches one Tracewright instruction file to a familiar AI assistant and receives a Markdown review map instead of an interactive dashboard.
+
+**Open the public dashboard demo:**
+
+https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
+
+The dashboard demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
 
 ## Design Principle
 
