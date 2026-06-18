@@ -2,9 +2,11 @@
 
 ## Tracewright is a review method and dashboard for examining written materials.
 
-Use it with papers, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets.
+Use it with papers, academic writings, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets.
 
 The goal is not to decide **"AI or human?"** The goal is to make the **logic, claims, gaps, contradictions, evidence, source roles, and next review actions** visible.
+
+It can also be used to improve human-written work: clarifying arguments, extracting key issues, finding weak links, and identifying what should be revised before publication, submission, citation, or escalation.
 
 **Open the dashboard demo:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
