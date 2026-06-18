@@ -4,6 +4,11 @@ Tracewright is not designed to expose people. It is designed to slow down premat
 
 This starter kit has two paths.
 
+Japanese guide files are included:
+
+- `START_HERE.ja.md`
+- `USE_THIS_WITH_YOUR_AI.ja.md`
+
 ## If You Want The Simplest Possible Start
 
 Open:
@@ -33,8 +38,14 @@ This path is for Codex users, local HTML/JSON users, or people who want to conve
 - `START_HERE.md`  
   The shortest entry point. Choose the simple AI-review path or the dashboard-builder path.
 
+- `START_HERE.ja.md`  
+  Japanese entry point for the simplest AI-review path.
+
 - `USE_THIS_WITH_YOUR_AI.md`  
   A single file that non-technical users can attach to ChatGPT, Claude, Gemini, or another AI assistant.
+
+- `USE_THIS_WITH_YOUR_AI.ja.md`  
+  Japanese instruction file for use with an AI assistant.
 
 - `DASHBOARD_BUILDER_GUIDE.md`  
   Instructions for users who want to adapt the dashboard or structured data.

@@ -14,6 +14,9 @@ https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-exa
 **Download the Starter Kit:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
 
+**Japanese guide / 日本語ガイド:**  
+https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md
+
 **Open the dashboard demo:**  
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
 
@@ -36,6 +39,8 @@ You can use the Starter Kit with an AI assistant you already have, including fre
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.2.zip
 
 After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS_WITH_YOUR_AI.md` to your AI assistant and paste the short starter message. The AI should then check file safety, ask what kind of review you want, and guide the next step.
+
+Japanese users can start with `START_HERE.ja.md` and `USE_THIS_WITH_YOUR_AI.ja.md`.
 
 ## View the Demo
 
