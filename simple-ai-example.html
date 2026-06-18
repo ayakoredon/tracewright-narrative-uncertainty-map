@@ -91,6 +91,48 @@
       font-size: 14px;
       line-height: 1.55;
     }
+    .rendered-md h2 {
+      margin: 0 0 14px;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+    .rendered-md h3 {
+      margin: 22px 0 8px;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+    .rendered-md ul, .rendered-md ol {
+      margin: 8px 0 14px;
+      padding-left: 24px;
+    }
+    .rendered-md table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px;
+      font-size: 14px;
+    }
+    .rendered-md th, .rendered-md td {
+      border: 1px solid #d9d0c3;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .rendered-md th {
+      background: #f4efe5;
+      color: #6b6258;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+    .rendered-md blockquote {
+      margin: 10px 0 12px;
+      border-left: 4px solid #315f72;
+      background: #f4efe5;
+      padding: 10px 12px;
+    }
+    .rendered-md .meta {
+      color: #6b6258;
+      font-size: 14px;
+    }
     .footer-note {
       margin-top: 20px;
       color: #6b6258;
@@ -180,104 +222,89 @@ I will treat the result as a draft review map, not final academic judgment.</pre
 
       <article class="turn ai">
         <p class="speaker">AI returns Markdown</p>
-        <div class="message">
-<pre>
-# Tracewright Academic Review Map
+        <div class="message rendered-md">
+          <h2>Tracewright Academic Review Map</h2>
 
-## 1. Review Setup
+          <h3>1. Review Setup</h3>
+          <ul>
+            <li><strong>Review mode:</strong> Academic Review</li>
+            <li><strong>Documents reviewed:</strong> thesis excerpt on Lyotard, postmodern knowledge, scientific paralogy, and artistic deviation</li>
+            <li><strong>Known context:</strong> user states the draft is human-written</li>
+            <li><strong>What this review is not claiming:</strong> this is not an AI-authorship judgment and not a final supervisor decision</li>
+          </ul>
 
-- Review mode: Academic Review
-- Documents reviewed: thesis excerpt on Lyotard, postmodern knowledge,
-  scientific paralogy, and artistic deviation
-- Known context: user states the draft is human-written
-- What this review is not claiming:
-  - this is not an AI-authorship judgment
-  - this is not a final supervisor decision
+          <h3>2. Short Orientation</h3>
+          <p>The excerpt has a serious philosophical ambition and a recognizable interpretive structure.</p>
+          <p>The main risk is not surface polish. The main risk is whether several large conceptual moves are sufficiently bridged for thesis-level work.</p>
 
-## 2. Short Orientation
+          <h3>3. Key Claims To Check</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Claim</th>
+                <th>Support</th>
+                <th>Uncertainty</th>
+                <th>Next check</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Scientific paralogy and avant-garde artistic deviation can be treated as parallel forms of postmodern knowledge-making.</td>
+                <td>Partially argued</td>
+                <td>The comparison level is underspecified.</td>
+                <td>Define the shared criterion: rule-breaking, invention, resistance to consensus, the unpresentable, or another concept.</td>
+              </tr>
+              <tr>
+                <td>Lyotard's endless escape from ideology becomes another ideology.</td>
+                <td>Potentially sharp but fragile</td>
+                <td>The critique may be external rather than internal to Lyotard's own logic.</td>
+                <td>Address differend, plurality, justice, and resistance to consensus on their own terms.</td>
+              </tr>
+            </tbody>
+          </table>
 
-The excerpt has a serious philosophical ambition and a recognizable
-interpretive structure.
+          <h3>4. Evidence Card: Conceptual Bridge Gap</h3>
+          <p class="meta"><strong>Lane:</strong> Claim Reliability<br><strong>Attention:</strong> Review</p>
+          <blockquote>The thesis treats scientific paralogy and artistic deviation as parallel forms of postmodern knowledge, but the level at which they are comparable remains underspecified.</blockquote>
+          <p><strong>Reasoning chain:</strong></p>
+          <ol>
+            <li>Scientific paralogy operates inside a game of proof, falsification, and disciplinary contest.</li>
+            <li>Avant-garde artistic deviation may suspend, transform, or expose aesthetic rules.</li>
+            <li>These can be compared, but the thesis must name the level of comparison instead of relying on a broad "rule-breaking" similarity.</li>
+          </ol>
+          <p><strong>Alternative explanations:</strong></p>
+          <ul>
+            <li>The full thesis may later supply this bridge.</li>
+            <li>The author may be using a broad analogy intentionally.</li>
+            <li>The excerpt may compress a more nuanced argument.</li>
+          </ul>
+          <p><strong>Next action:</strong> Add a paragraph that explicitly explains why these two domains can be placed under the same Lyotardian category, or separate them into two related but non-identical examples.</p>
 
-The main risk is not surface polish. The main risk is whether several large
-conceptual moves are sufficiently bridged for thesis-level work.
+          <h3>5. Evidence Card: Internal Critique Gap</h3>
+          <p class="meta"><strong>Lane:</strong> Claim Reliability<br><strong>Attention:</strong> High Attention</p>
+          <blockquote>The critique of "endless escape" risks asking Lyotard for a stable resolution his framework may intentionally refuse.</blockquote>
+          <p><strong>Reasoning chain:</strong></p>
+          <ol>
+            <li>The draft says that constant escape from ideology becomes another ideology.</li>
+            <li>This is rhetorically strong, but it may miss Lyotard's own commitment to plurality, differend, and resistance to consensus.</li>
+            <li>A stronger thesis must show why this refusal becomes a failure inside Lyotard's framework, not merely from outside it.</li>
+          </ol>
+          <p><strong>Alternative explanations:</strong></p>
+          <ul>
+            <li>The author may intend an external critique.</li>
+            <li>A later chapter may address differend and justice.</li>
+            <li>A human supervisor may disagree with this reading.</li>
+          </ul>
+          <p><strong>Next action:</strong> Either make the critique explicitly external, or answer Lyotard from within his own account of differend, plurality, and justice.</p>
 
-## 3. Key Claims To Check
+          <h3>6. Limitations</h3>
+          <ul>
+            <li>This review is based on an excerpt, not the whole thesis.</li>
+            <li>The AI cannot verify whether later chapters resolve these gaps.</li>
+            <li>The output is a revision map, not a final academic verdict.</li>
+          </ul>
 
-| Claim | Support | Uncertainty | Next check |
-| --- | --- | --- | --- |
-| Scientific paralogy and avant-garde artistic deviation can be treated as parallel forms of postmodern knowledge-making. | Partially argued | The comparison level is underspecified. | Define the shared criterion: rule-breaking, invention, resistance to consensus, the unpresentable, or another concept. |
-| Lyotard's endless escape from ideology becomes another ideology. | Potentially sharp but fragile | The critique may be external rather than internal to Lyotard's own logic. | Address differend, plurality, justice, and resistance to consensus on their own terms. |
-
-## 4. Evidence Card: Conceptual Bridge Gap
-
-Lane: Claim Reliability
-Attention: Review
-
-Observation:
-The thesis treats scientific paralogy and artistic deviation as parallel forms
-of postmodern knowledge, but the level at which they are comparable remains
-underspecified.
-
-Reasoning chain:
-
-1. Scientific paralogy operates inside a game of proof, falsification, and
-   disciplinary contest.
-2. Avant-garde artistic deviation may suspend, transform, or expose aesthetic
-   rules.
-3. These can be compared, but the thesis must name the level of comparison
-   instead of relying on a broad "rule-breaking" similarity.
-
-Alternative explanations:
-
-- The full thesis may later supply this bridge.
-- The author may be using a broad analogy intentionally.
-- The excerpt may compress a more nuanced argument.
-
-Next action:
-Add a paragraph that explicitly explains why these two domains can be placed
-under the same Lyotardian category, or separate them into two related but
-non-identical examples.
-
-## 5. Evidence Card: Internal Critique Gap
-
-Lane: Claim Reliability
-Attention: High Attention
-
-Observation:
-The critique of "endless escape" risks asking Lyotard for a stable resolution
-his framework may intentionally refuse.
-
-Reasoning chain:
-
-1. The draft says that constant escape from ideology becomes another ideology.
-2. This is rhetorically strong, but it may miss Lyotard's own commitment to
-   plurality, differend, and resistance to consensus.
-3. A stronger thesis must show why this refusal becomes a failure inside
-   Lyotard's framework, not merely from outside it.
-
-Alternative explanations:
-
-- The author may intend an external critique.
-- A later chapter may address differend and justice.
-- A human supervisor may disagree with this reading.
-
-Next action:
-Either make the critique explicitly external, or answer Lyotard from within his
-own account of differend, plurality, and justice.
-
-## 6. Limitations
-
-- This review is based on an excerpt, not the whole thesis.
-- The AI cannot verify whether later chapters resolve these gaps.
-- The output is a revision map, not a final academic verdict.
-
----
-
-[Human reviewer]
-The user should now check the AI's source references, correct mistakes, and ask
-for a second pass if the review is too broad, too harsh, too vague, or missing
-evidence.</pre>
+          <p class="meta"><strong>Human reviewer:</strong> The user should now check the AI's source references, correct mistakes, and ask for a second pass if the review is too broad, too harsh, too vague, or missing evidence.</p>
         </div>
       </article>
     </section>
