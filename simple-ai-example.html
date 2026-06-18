@@ -12,6 +12,7 @@
       --muted: #6b6258;
       --line: #d9d0c3;
       --accent: #315f72;
+      --soft: #ece5d9;
       --green: #dcebd9;
       --yellow: #f5e8bd;
       --orange: #f3cfaa;
@@ -28,7 +29,7 @@
     }
     .wrap { max-width: 1120px; margin: 0 auto; padding: 34px 22px 52px; }
     h1, h2, h3, p { margin-top: 0; }
-    h1 { max-width: 850px; font-size: 34px; line-height: 1.1; }
+    h1 { max-width: 880px; font-size: 34px; line-height: 1.1; }
     h2 { margin-bottom: 8px; }
     h3 { margin-bottom: 8px; font-size: 18px; }
     .kicker {
@@ -39,14 +40,13 @@
       text-transform: uppercase;
       letter-spacing: 0;
     }
-    .hero {
+    .hero, .chat-shell, .panel {
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--panel);
       box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 18px;
     }
+    .hero { padding: 24px; margin-bottom: 18px; }
     .notice {
       border-left: 4px solid var(--accent);
       background: #dcecf0;
@@ -66,16 +66,45 @@
       font-weight: 800;
       text-decoration: none;
     }
-    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-    .panel, .card {
+    .chat-shell { overflow: hidden; }
+    .chat-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+      padding: 14px 16px;
+    }
+    .chat-title strong { display: block; }
+    .chat-title span { color: var(--muted); font-size: 13px; }
+    .chat-body { display: grid; gap: 16px; padding: 18px; }
+    .turn { display: grid; gap: 8px; max-width: 860px; }
+    .turn.user { justify-self: end; }
+    .turn.ai { justify-self: start; }
+    .speaker { color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; }
+    .bubble {
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      padding: 18px;
-      margin-bottom: 14px;
+      padding: 14px 16px;
+      background: #fbf8f1;
     }
-    .muted { color: var(--muted); }
+    .user .bubble { background: #e9f1f3; border-color: #c5d8dd; }
+    .ai .bubble { background: #fffdf8; }
+    .bubble p:last-child, .bubble ul:last-child, .bubble ol:last-child { margin-bottom: 0; }
+    .attachments { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+    .file-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffaf0;
+      padding: 5px 9px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 800;
+    }
     .tag {
       display: inline-flex;
       min-height: 28px;
@@ -91,28 +120,31 @@
     .yellow { background: var(--yellow); }
     .orange { background: var(--orange); }
     .blue { background: var(--blue); }
-    .step {
-      display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 12px;
-      border-top: 1px solid var(--line);
-      padding: 14px 0;
+    .markdown {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbf8f1;
+      padding: 14px;
+      margin-top: 10px;
     }
-    .step:first-child { border-top: 0; }
-    .step strong { color: var(--accent); }
+    .markdown h4 { margin: 0 0 8px; font-size: 16px; }
+    .markdown h5 { margin: 16px 0 6px; font-size: 14px; color: var(--accent); }
     blockquote {
-      margin: 12px 0;
+      margin: 10px 0;
       border-left: 4px solid var(--accent);
       background: #f4efe5;
-      padding: 14px 16px;
+      padding: 12px 14px;
     }
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-    th, td { border-bottom: 1px solid var(--line); padding: 11px; text-align: left; vertical-align: top; }
+    th, td { border-bottom: 1px solid var(--line); padding: 10px; text-align: left; vertical-align: top; }
     th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
     code { background: var(--orange); border-radius: 6px; padding: 3px 6px; }
+    .panel { padding: 18px; margin-top: 18px; }
+    .muted { color: var(--muted); }
     @media (max-width: 820px) {
-      .grid, .step { grid-template-columns: 1fr; }
       h1 { font-size: 28px; }
+      .turn { max-width: 100%; }
+      .chat-top { display: block; }
     }
   </style>
 </head>
@@ -120,11 +152,11 @@
   <div class="wrap">
     <section class="hero">
       <p class="kicker">Simple AI Review Example</p>
-      <h1>What it can look like when you use Tracewright with your own AI assistant</h1>
-      <p>This page is separate from the dashboard demo. The dashboard shows a structured interface. This page shows the lighter path: attach the Starter Kit instruction file to a familiar AI assistant and ask for a Markdown review map.</p>
+      <h1>What it can look like inside your own AI chat</h1>
+      <p>This page is separate from the dashboard demo. It shows the lighter path: attach one Tracewright instruction file to a familiar AI assistant, paste the starter message, and receive a Markdown review map.</p>
       <div class="notice">
         <strong>This is not an AI detector.</strong><br>
-        The example below is reconstructed and anonymized from a user-run academic-review trial. No real unpublished thesis text is included.
+        This is a reconstructed, anonymized example based on a user-run academic-review trial. No real unpublished thesis text is included.
       </div>
       <div class="links">
         <a href="downloads/tracewright-narrative-starter-kit-v0.2.zip" download>Download Starter Kit</a>
@@ -133,96 +165,139 @@
       </div>
     </section>
 
-    <section class="grid">
-      <article class="panel">
-        <h2>Setup</h2>
-        <p><span class="tag blue">General-purpose AI</span><span class="tag green">No coding</span><span class="tag yellow">Markdown output</span></p>
-        <p>The user attached the simple Tracewright instruction file to an ordinary AI assistant, selected <strong>Academic Review</strong>, and asked for a strict logic review of a human-written philosophy thesis excerpt about Lyotard.</p>
-        <p class="muted">The assistant could not read the original PDF, so it asked for pasted text or a more readable file format, then recommended starting with the smallest useful excerpt.</p>
-      </article>
-      <article class="panel">
-        <h2>Why This Matters</h2>
-        <p>The result was not a dashboard and did not require a custom app. It was a Markdown review map with source inventory, segment summary, claim map, evidence cards, limitations, and next actions.</p>
-        <p class="muted">This is the low-barrier Tracewright path: good enough to help a student, writer, researcher, editor, or creator see where a draft needs stronger reasoning before final submission.</p>
-      </article>
+    <section class="chat-shell">
+      <div class="chat-top">
+        <div class="chat-title">
+          <strong>Example AI Chat</strong>
+          <span>General-purpose AI assistant + Tracewright Starter Kit</span>
+        </div>
+        <div>
+          <span class="tag blue">No coding</span>
+          <span class="tag green">Markdown result</span>
+        </div>
+      </div>
+
+      <div class="chat-body">
+        <article class="turn user">
+          <div class="speaker">User</div>
+          <div class="bubble">
+            <div class="attachments">
+              <span class="file-chip">USE_THIS_WITH_YOUR_AI.md</span>
+            </div>
+            <p>Please read the attached Tracewright file first.</p>
+            <p>Before I upload any documents, please help me check whether this AI environment is appropriate for my files, ask what kind of review I want, and guide me step by step.</p>
+            <p>I do not want an AI-detector verdict. I want a careful uncertainty review map.</p>
+          </div>
+        </article>
+
+        <article class="turn ai">
+          <div class="speaker">AI assistant</div>
+          <div class="bubble">
+            <p>I can read the Tracewright instruction file. Before you upload review documents, please pause and check whether this AI environment is appropriate for the material.</p>
+            <ul>
+              <li>Upload only documents you are allowed to share here.</li>
+              <li>Do not upload private, confidential, unpublished, legally sensitive, or third-party materials unless you understand this AI service's data handling.</li>
+              <li>If uncertain, use redacted, anonymized, synthetic, or non-sensitive excerpts first.</li>
+            </ul>
+            <p>Please choose a primary review mode:</p>
+            <p><span class="tag yellow">Claim and Fact Consistency</span><span class="tag yellow">Academic Review</span><span class="tag yellow">Correspondence Continuity</span><span class="tag yellow">Authorship / Mediation</span><span class="tag yellow">Provenance / Source Role</span></p>
+            <p>What kind of documents do you want to review, and what question are you trying to answer?</p>
+          </div>
+        </article>
+
+        <article class="turn user">
+          <div class="speaker">User</div>
+          <div class="bubble">
+            <div class="attachments">
+              <span class="file-chip">thesis_excerpt.txt</span>
+            </div>
+            <p>I want an academic review for a document. I want to check whether this paper is strong enough for a thesis-level submission.</p>
+            <p>Please be clear and strict about the philosophical writing. It was fully written by a human, so do not focus on AI authorship. Focus on logical consistency.</p>
+          </div>
+        </article>
+
+        <article class="turn ai">
+          <div class="speaker">AI assistant</div>
+          <div class="bubble">
+            <p>Understood. I will use <strong>Academic Review</strong> as the primary mode.</p>
+            <p>Because you have stated that the text is human-written, I will lower the priority of authorship/AI-texture analysis and focus on argument structure, concept stability, source support, and logical transitions.</p>
+            <p>If the document is long, I recommend beginning with the smallest useful section: the introduction, thesis statement, and one core argument section. I will treat the result as a draft review map, not final academic judgment.</p>
+          </div>
+        </article>
+
+        <article class="turn ai">
+          <div class="speaker">AI assistant</div>
+          <div class="bubble">
+            <p>Here is a reconstructed example of the kind of Markdown review map this workflow can produce.</p>
+            <div class="markdown">
+              <h4># Tracewright Academic Review Map</h4>
+              <h5>1. Review Setup</h5>
+              <ul>
+                <li><strong>Review mode:</strong> Academic Review</li>
+                <li><strong>Documents reviewed:</strong> thesis excerpt on Lyotard, postmodern knowledge, scientific paralogy, and artistic deviation</li>
+                <li><strong>Known context:</strong> user states the draft is human-written</li>
+                <li><strong>What this review is not claiming:</strong> this is not an AI-authorship judgment and not a final supervisor decision</li>
+              </ul>
+
+              <h5>2. Short Orientation</h5>
+              <p>The excerpt has a serious philosophical ambition and a recognizable interpretive structure. The main risk is not surface polish. The main risk is whether several large conceptual moves are sufficiently bridged for thesis-level work.</p>
+
+              <h5>3. Key Claims To Check</h5>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Claim</th>
+                    <th>Support</th>
+                    <th>Uncertainty</th>
+                    <th>Next check</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Scientific paralogy and avant-garde artistic deviation can be treated as parallel forms of postmodern knowledge-making.</td>
+                    <td>Partially argued</td>
+                    <td>The comparison level is underspecified.</td>
+                    <td>Define the shared criterion: rule-breaking, invention, resistance to consensus, the unpresentable, or another concept.</td>
+                  </tr>
+                  <tr>
+                    <td>Lyotard's endless escape from ideology becomes another ideology.</td>
+                    <td>Potentially sharp but fragile</td>
+                    <td>The critique may be external rather than internal to Lyotard's own logic.</td>
+                    <td>Address differend, plurality, justice, and resistance to consensus on their own terms.</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h5>4. Evidence Card: Conceptual Bridge Gap</h5>
+              <p><span class="tag orange">Claim Reliability</span><span class="tag yellow">Review</span></p>
+              <blockquote>The thesis treats scientific paralogy and artistic deviation as parallel forms of postmodern knowledge, but the level at which they are comparable remains underspecified.</blockquote>
+              <p><strong>Reasoning chain:</strong> scientific paralogy operates inside a game of proof, falsification, and disciplinary contest. Avant-garde artistic deviation may suspend, transform, or expose aesthetic rules. These can be compared, but the thesis must name the level of comparison instead of relying on a broad "rule-breaking" similarity.</p>
+              <p><strong>Alternative explanations:</strong> the full thesis may later supply this bridge; the author may be using a broad analogy intentionally; the excerpt may compress a more nuanced argument.</p>
+              <p><strong>Next action:</strong> add a paragraph that explicitly explains why these two domains can be placed under the same Lyotardian category, or separate them into two related but non-identical examples.</p>
+
+              <h5>5. Evidence Card: Internal Critique Gap</h5>
+              <p><span class="tag orange">Claim Reliability</span><span class="tag orange">High Attention</span></p>
+              <blockquote>The critique of "endless escape" risks asking Lyotard for a stable resolution his framework may intentionally refuse.</blockquote>
+              <p><strong>Reasoning chain:</strong> the draft says that constant escape from ideology becomes another ideology. This is rhetorically strong, but it may miss Lyotard's own commitment to plurality, differend, and resistance to consensus. A stronger thesis must show why this refusal becomes a failure inside Lyotard's framework, not merely from outside it.</p>
+              <p><strong>Alternative explanations:</strong> the author may intend an external critique; a later chapter may address differend and justice; a human supervisor may disagree with this reading.</p>
+              <p><strong>Next action:</strong> either make the critique explicitly external, or answer Lyotard from within his own account of differend, plurality, and justice.</p>
+
+              <h5>6. Limitations</h5>
+              <ul>
+                <li>This review is based on an excerpt, not the whole thesis.</li>
+                <li>The AI cannot verify whether later chapters resolve these gaps.</li>
+                <li>The output is a revision map, not a final academic verdict.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section class="panel">
-      <h2>Interaction Flow</h2>
-      <div class="step">
-        <strong>1. Upload</strong>
-        <p>The user attached the Tracewright starter instruction and pasted the starter message.</p>
-      </div>
-      <div class="step">
-        <strong>2. Safety</strong>
-        <p>The AI confirmed the starter materials, warned about private or sensitive files, and asked the user to choose a review mode.</p>
-      </div>
-      <div class="step">
-        <strong>3. Mode</strong>
-        <p>The user chose Academic Review and asked for a clear, strict judgment of logical consistency rather than AI-authorship analysis.</p>
-      </div>
-      <div class="step">
-        <strong>4. Scope</strong>
-        <p>When the PDF could not be opened, the AI asked for text in a readable format and recommended beginning with the first third of the thesis.</p>
-      </div>
-      <div class="step">
-        <strong>5. Output</strong>
-        <p>The AI produced a Markdown review map focused on philosophical claim reliability, conceptual bridges, internal critique, and revision actions.</p>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Excerpt From The Reconstructed Review Map</h2>
-      <p class="muted">The following is an English reconstruction of the academic feedback pattern, not a publication of the original thesis excerpt.</p>
-      <table>
-        <thead>
-          <tr>
-            <th>Review Item</th>
-            <th>AI Review Observation</th>
-            <th>Why It Helps</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Conceptual bridge gap</td>
-            <td>The draft links scientific paralogy and avant-garde artistic deviation as if both were the same kind of postmodern knowledge-making. The review asks for the missing level of comparison.</td>
-            <td>It turns a broad analogy into a precise revision task: define the shared criterion or separate the two domains.</td>
-          </tr>
-          <tr>
-            <td>External critique risk</td>
-            <td>The draft argues that endless escape from ideology becomes another ideology. The review warns that this may criticize Lyotard from outside his own logic rather than answering his account of plurality, differend, and resistance to consensus.</td>
-            <td>It shows how a clever objection can be strengthened into an internal philosophical critique.</td>
-          </tr>
-          <tr>
-            <td>Evidence card behavior</td>
-            <td>The AI did not merely say "weak argument." It named the claim, described the reasoning chain, gave alternative explanations, and proposed the next source check.</td>
-            <td>This is the difference between casual feedback and a usable revision map.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="grid">
-      <article class="card">
-        <h3>Evidence Card: Conceptual Bridge Gap</h3>
-        <p><span class="tag orange">Claim Reliability</span><span class="tag yellow">Review</span></p>
-        <blockquote>The thesis treats scientific paralogy and artistic deviation as parallel forms of postmodern knowledge, but the level at which they are comparable remains underspecified.</blockquote>
-        <p><strong>Alternative explanations:</strong> the full thesis may later supply the bridge; the author may be using a broad analogy; the excerpt may compress a more nuanced argument.</p>
-        <p><strong>Next action:</strong> define whether the comparison rests on rule-breaking, invention, resistance to consensus, the unpresentable, or another shared criterion.</p>
-      </article>
-      <article class="card">
-        <h3>Evidence Card: Internal Critique Gap</h3>
-        <p><span class="tag orange">Claim Reliability</span><span class="tag orange">High Attention</span></p>
-        <blockquote>The critique of "endless escape" risks asking Lyotard for a stable resolution his framework may intentionally refuse.</blockquote>
-        <p><strong>Alternative explanations:</strong> the author may intend an external critique; a later chapter may address differend and justice; a supervisor may disagree with the AI's reading.</p>
-        <p><strong>Next action:</strong> either make the critique explicitly external, or answer Lyotard from within his own account of differend, plurality, and justice.</p>
-      </article>
-    </section>
-
-    <section class="panel">
-      <h2>Important Limits</h2>
-      <p>This example does not prove that every AI assistant will perform equally well. File access, model capability, language, prompt quality, and user instructions matter. The output should be treated as a draft review map, not as final academic judgment.</p>
-      <p>Still, it shows the core promise of the Starter Kit: even without a dashboard, a familiar AI assistant can help a user think more carefully about written work.</p>
+      <h2>What This Example Shows</h2>
+      <p>Tracewright can work as a dashboard, but it can also work as a review protocol inside an ordinary AI chat. The user does not need to begin with code. The first useful result can be a structured Markdown map that helps them revise a paper, draft, story, dossier, or other written material.</p>
+      <p class="muted">Different AI assistants may behave differently. File access, model capability, prompt quality, language, and user instructions matter. Treat the first output as a draft review map and ask for a second pass when needed.</p>
     </section>
   </div>
 </body>
