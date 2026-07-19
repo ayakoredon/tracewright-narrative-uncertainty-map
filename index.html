@@ -424,7 +424,7 @@ function renderView() {
   document.querySelectorAll(".review-section").forEach((element) => element.classList.remove("active"));
   document.querySelectorAll(".review-tab").forEach((tab) => tab.classList.toggle("active", tab.dataset.view === view));
   $(`#${view}`).classList.add("active");
-  ({ summary, claims, evidence, sources, followUp }[view])();
+  ({ summary, claims, evidence, sources, "follow-up": followUp }[view])();
 }
 
 function summary() {

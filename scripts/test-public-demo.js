@@ -32,7 +32,8 @@ function element(id = "") {
 
 const ids = [...html.matchAll(/id="([^"]+)"/g)].map(match => match[1]);
 const elements = new Map(ids.map(id => [id, element(id)]));
-const reviewPanels = ["summary", "claims", "evidence", "sources", "follow-up"].map(id => elements.get(id));
+const reviewViews = ["summary", "claims", "evidence", "sources", "follow-up"];
+const reviewPanels = reviewViews.map(id => elements.get(id));
 
 const documentStub = {
   querySelector(selector) {
@@ -62,14 +63,12 @@ for (let index = 0; index < caseCount; index += 1) {
     selected = cases[${index}].id;
     renderList();
     renderHead();
-    summary();
-    claims();
-    evidence();
-    sources();
-    followUp();
   `, context);
 
-  for (const panel of reviewPanels) {
+  for (const viewName of reviewViews) {
+    const panel = elements.get(viewName);
+    panel.innerHTML = "";
+    vm.runInContext(`view = ${JSON.stringify(viewName)}; renderView();`, context);
     if (!panel.innerHTML.trim()) throw new Error(`Case ${index + 1} left #${panel.id} empty.`);
   }
 }
