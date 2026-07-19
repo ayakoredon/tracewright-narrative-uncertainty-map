@@ -78,7 +78,7 @@ Tracewright is designed for a human-in-the-loop review flow:
 2. The reviewer provides the materials to an AI assistant or analysis pipeline.
 3. The AI segments the materials, extracts claims, identifies evidence, records uncertainty, and proposes alternative explanations.
 4. The structured result is loaded into a dashboard like this one.
-5. A human reviewer inspects the Summary, Claims, Timeline, Evidence, and Source Inventory before deciding what to verify, ask, ignore, or escalate.
+5. A human reviewer inspects the Summary, Claims, Evidence, Sources, and Follow-up views before deciding what to verify, ask, ignore, or escalate.
 
 The intended output is not a verdict. It is a review map.
 
@@ -129,7 +129,7 @@ https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
 
 You can also open `index.html` locally in a browser. The same demo is available at `demo/index.html`.
 
-The demo uses synthetic review materials only. The cases are designed to show how source-grounded texture cues, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. The Summary tab gives a short triage view, while the Interpretation Guide explains how to read review lanes, texture axes, evidence cards, source roles, and escalation rules without turning them into detector scores.
+The demo uses synthetic review materials only and presents them as a read-only Workbench review map. The cases are designed to show how source-grounded texture cues, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. Summary includes the Interpretation Guide; Sources preserves chronology and source-role boundaries; Evidence leaves the excerpt, reasoning chain, alternatives, and next human action inspectable.
 
 The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, academic paper review, public narrative dossiers, and art-provenance review. These genres should not be reviewed with identical prompts or assumptions.
 

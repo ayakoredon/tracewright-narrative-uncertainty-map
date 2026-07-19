@@ -8,6 +8,7 @@
 - Added model-variation warnings, human-readable bundle names, JSON import diagnostics, and stronger navigation for review-map tabs.
 - Added application, .NET license, third-party notice, checksum, and unsigned-beta documentation to the release package.
 - Reorganized the public README and demo entry points so the Windows Workbench is the recommended path, the dashboard demo is the preview path, and the Starter Kit remains available as the no-install, Mac, or chat-only alternative.
+- Rebuilt the public dashboard as a read-only Workbench-style review map with matching Summary, Claims, Evidence, Sources, and Follow-up navigation.
 
 ## v0.6
 
