@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "review_setup",
+    "orientation",
+    "sources",
+    "claims",
+    "evidence",
+    "follow_up",
+    "limitations"
+  ],
+  "properties": {
+    "review_setup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "primary_mode",
+        "secondary_mode",
+        "review_question",
+        "known_context",
+        "must_not_conclude",
+        "high_impact_context",
+        "qualified_human_review_required"
+      ],
+      "properties": {
+        "title": { "type": "string" },
+        "primary_mode": { "type": "string" },
+        "secondary_mode": { "type": "string" },
+        "review_question": { "type": "string" },
+        "known_context": { "type": "string" },
+        "must_not_conclude": { "type": "array", "items": { "type": "string" } },
+        "high_impact_context": { "type": "array", "items": { "type": "string" } },
+        "qualified_human_review_required": { "type": "boolean" }
+      }
+    },
+    "orientation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["posture", "overview", "evidence_completeness", "overclaim_risk"],
+      "properties": {
+        "posture": { "type": "string" },
+        "overview": { "type": "string" },
+        "evidence_completeness": { "type": "string" },
+        "overclaim_risk": { "type": "string" }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "role", "date", "author_role", "target_status", "summary", "known_provenance", "limitations"],
+        "properties": {
+          "source_id": { "type": "string" },
+          "role": { "type": "string" },
+          "date": { "type": "string" },
+          "author_role": { "type": "string" },
+          "target_status": { "type": "string" },
+          "summary": { "type": "string" },
+          "known_provenance": { "type": "string" },
+          "limitations": { "type": "string" }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim_id", "claim", "type", "source_ids", "support_status", "contradiction_or_gap", "review_posture", "next_check"],
+        "properties": {
+          "claim_id": { "type": "string" },
+          "claim": { "type": "string" },
+          "type": { "type": "string" },
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "support_status": { "type": "string" },
+          "contradiction_or_gap": { "type": "string" },
+          "review_posture": { "type": "string" },
+          "next_check": { "type": "string" }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "title",
+          "lane",
+          "attention",
+          "source_id",
+          "source_excerpt",
+          "marked_text",
+          "observation",
+          "reasoning_chain",
+          "alternative_explanations",
+          "next_action",
+          "texture_axis"
+        ],
+        "properties": {
+          "evidence_id": { "type": "string" },
+          "title": { "type": "string" },
+          "lane": {
+            "type": "string",
+            "enum": ["Authorship / mediation", "Claim reliability", "Disclosure / provenance"]
+          },
+          "attention": {
+            "type": "string",
+            "enum": ["Stable / anchored", "Observe", "Mediated layer", "Review", "High attention"]
+          },
+          "source_id": { "type": "string" },
+          "source_excerpt": { "type": "string" },
+          "marked_text": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text", "label", "reason"],
+              "properties": {
+                "text": { "type": "string" },
+                "label": { "type": "string" },
+                "reason": { "type": "string" }
+              }
+            }
+          },
+          "observation": { "type": "string" },
+          "reasoning_chain": { "type": "array", "items": { "type": "string" } },
+          "alternative_explanations": { "type": "array", "items": { "type": "string" } },
+          "next_action": { "type": "string" },
+          "texture_axis": {
+            "type": "string",
+            "enum": ["source_texture", "mediation_polish", "not_applicable"]
+          }
+        }
+      }
+    },
+    "follow_up": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "question_or_action", "source_ids", "priority"],
+        "properties": {
+          "kind": { "type": "string" },
+          "question_or_action": { "type": "string" },
+          "source_ids": { "type": "array", "items": { "type": "string" } },
+          "priority": { "type": "string", "enum": ["Low", "Medium", "High"] }
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

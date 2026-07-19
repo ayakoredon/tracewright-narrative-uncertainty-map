@@ -10,6 +10,8 @@ It can also be used to improve human-written work: clarifying arguments, extract
 
 ## Quick Links
 
+- **[Download Tracewright Workbench for Windows (beta)](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
+
 - **Simple AI-chat example:**  
   https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
 
@@ -26,6 +28,28 @@ It can also be used to improve human-written work: clarifying arguments, extract
 **License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`.
 
 This repository is publicly visible, but commercial use is not granted by default.
+
+## Install The Windows Workbench
+
+**Tracewright Workbench v0.3.0-beta** is a local-first Windows application for people who want the full review workflow without building a dashboard themselves.
+
+**Download the Windows installer:**
+
+https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe
+
+The installer adds Start Menu and optional desktop shortcuts. The workbench opens in your browser, but the application and review files remain on your computer. Tracewright does not operate a hosted document server and does not receive your materials.
+
+The Workbench helps you:
+
+- define the review mode and question before analysis
+- classify source roles and separate review targets from context-only materials
+- create a bounded bundle for an AI environment you choose
+- import structured JSON results into Summary, Claims, Evidence, Sources, and Follow-up views
+- inspect the source excerpt, reasoning, alternatives, and next action behind an observation
+
+The installer is currently an unsigned Windows x64 beta. Windows SmartScreen may show an unrecognized-app warning. Install only a copy downloaded from this repository, and compare the SHA256 file on the release page when integrity matters.
+
+Windows Workbench source and build instructions are under `workbench/`.
 
 ## Use It When You Want To Ask
 
@@ -98,6 +122,7 @@ The intended output is not a verdict. It is a review map.
 ## What This Is
 
 - A browser-based demo for reviewing narrative materials.
+- A downloadable local-first Windows Workbench for preparing review bundles and inspecting structured results.
 - A method for mapping uncertainty around authorship, mediation, disclosure, and claim reliability.
 - A reviewer-support tool for provenance-aware reading.
 - A way to review mixed narrative sets: correspondence, public statements, articles, academic drafts, institutional pages, transcripts, art-provenance files, historical records, and other source materials.
@@ -110,7 +135,8 @@ The intended output is not a verdict. It is a review map.
 - It does not produce authenticity scores.
 - It does not replace consent, context, or human judgment.
 - It is not a hosted analysis platform.
-- It does not currently include document upload, storage, or API-backed analysis.
+- It does not provide hosted storage, a Tracewright cloud, or free AI computing resources.
+- The Windows Workbench includes local material intake and structured-result import, but no direct provider API connection yet.
 - It is not a grant of permission to commercially exploit the Tracewright concept, name, methodology, starter kit, dashboard, prompts, templates, or distinctive review structure.
 
 ## License And Commercial Use
@@ -204,18 +230,19 @@ The dashboard is only as useful as the structured analysis that feeds it. AI out
 
 If a review may affect employment, legal, academic, reputational, provenance, publication, or financial decisions, Tracewright output should be treated only as preparation for qualified human review.
 
-## Future Product Shape
+## Current Workbench And Future Product Shape
 
-A full product would need more than this repository:
+The Windows Workbench now provides local material intake, review setup, bounded bundle generation, structured JSON import, and an inspectable review dashboard. It keeps files under the user's local application-data folder and uses the user's chosen AI environment.
 
-- document upload and text extraction
-- local or server-side storage
+A future hosted or multi-user product would still need:
+
+- broader document text extraction
+- optional encrypted collaboration and retention controls
 - an API-backed analysis layer
-- structured JSON output
 - reviewer editing and audit logs
-- privacy, retention, and consent controls
+- provider-specific key storage, consent, and cost controls
 
-The current repository demonstrates the review model and interface logic; it does not provide that backend.
+The current repository does not provide that hosted backend.
 
 ## AI Analysis Instructions
 
@@ -237,6 +264,7 @@ Evidence Cards are observation cards, not suspicion cards. They should never be 
 
 ## Repository Contents
 
+- `workbench/`: source and Windows packaging scripts for the local-first Tracewright Workbench.
 - `index.html`: public synthetic demo for GitHub Pages.
 - `demo/index.html`: duplicate local demo entry point.
 - `CHANGELOG.md`: public version notes.
