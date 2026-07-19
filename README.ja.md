@@ -12,29 +12,39 @@ Tracewright Narrative Uncertainty Map は、文章や資料を「AIか人間か�
 - 文章が編集、翻訳、AI補助、共同執筆などでどう変形している可能性があるか
 - 次に何を確認、修正、質問、保留すべきか
 
-## まず試したい場合
+## 推奨: Windows Workbenchを使う
 
-### Windowsアプリで使う
+Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。これが、現在のTracewrightを一連の流れで使うための主な入口です。
 
-Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。
+**[Tracewright Workbench v0.3.0-betaをダウンロード](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
 
-https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe
+Workbenchでは、次の作業をひとつの画面から進められます。
+
+- レビューの目的とモードを最初に決める
+- 分析対象と周辺コンテクストを分けて資料を登録する
+- 自分で選んだAIへ渡す、範囲を限定したレビュー用ファイルを作る
+- AIが返したJSONを読み込む
+- Summary、Claims、Evidence、Sources、Follow-upから、観察の根拠や代替説明を確認する
 
 インストールすると、スタートメニューと、希望する場合はデスクトップにショートカットが作られます。資料とレビュー結果は自分のPC内に保存され、TracewrightやAyakoのサーバーへ自動送信されることはありません。AIへ渡す場合だけ、自分で選んだAI環境へレビュー用ファイルをアップロードします。
 
-現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。必ず、この公式GitHubリポジトリから取得したものだけを実行してください。
+現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。必ず、この公式GitHubリポジトリから取得したものだけを実行してください。チェックサムや更新内容は[リリースページ](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.3.0-beta)で確認できます。
 
-### いつものAIだけで使う
+## インストール前にデモを見る
 
-スターターキットをダウンロードしてください。
+**[ダッシュボード形式の公開デモを開く](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)**
 
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip
+公開デモでは、架空の私信、論文、公開言説、作品来歴などを使い、レビュー結果をどう読むか確認できます。実際の私信、未公開原稿、個人資料は含まれていません。
 
-ZIPを解凍したら、まず `START_HERE.ja.md` を開いてください。
+## Windows以外・インストールなしで使う
 
-いちばん簡単な使い方は、`USE_THIS_WITH_YOUR_AI.ja.md` を ChatGPT、Claude、Gemini など普段使っているAIに添付し、そこに書かれている短い開始文をチャット画面に貼ることです。
+Macを使っている場合や、アプリを入れず普段のAIチャットだけで試したい場合は、[Starter Kit](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip)を使えます。
 
-そのAIが、ファイルを読めたか確認し、アップロード前の注意を伝え、どんなレビューをしたいか質問してくれる想定です。
+ZIPを解凍したら、まず `START_HERE.ja.md` を開いてください。いちばん簡単な使い方は、`USE_THIS_WITH_YOUR_AI.ja.md` を ChatGPT、Claude、Gemini など普段使っているAIに添付し、そこに書かれている短い開始文をチャット画面に貼ることです。
+
+そのAIが、ファイルを読めたか確認し、アップロード前の注意を伝え、どんなレビューをしたいか質問してくれる想定です。出力はWorkbenchではなく、Markdown形式のレビュー地図になります。
+
+実際のチャットに近い見え方は、[Simple AI Reviewの例](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html)で確認できます。
 
 ## 注意
 
@@ -43,18 +53,6 @@ Tracewrightは、プライバシー保護や機密管理を自動で行うもの
 未公開資料、個人情報、第三者の資料、法的に慎重な資料、機密資料をAIにアップロードする前に、そのAI環境に入れてよいものか必ず確認してください。
 
 不安がある場合は、最初は匿名化、要約、抜粋、架空資料、公開済み資料で試してください。
-
-## デモ
-
-シンプルなAIチャットで使った場合のイメージ:
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
-
-ダッシュボード形式のデモ:
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
-
-公開デモには、実際の私信、未公開原稿、個人資料は含まれていません。
 
 ## ライセンスと商用利用
 
