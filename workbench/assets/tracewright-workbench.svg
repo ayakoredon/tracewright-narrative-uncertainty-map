@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Tracewright Workbench</title>
+  <rect width="256" height="256" rx="48" fill="#173d35"/>
+  <rect x="12" y="12" width="232" height="232" rx="39" fill="none" stroke="#d9cdb8" stroke-width="8"/>
+  <path d="M66 67h124v29h-46v99h-32V96H66z" fill="#f5f1e8"/>
+  <circle cx="183" cy="181" r="19" fill="#c96f4b"/>
+</svg>

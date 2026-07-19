@@ -1,0 +1,9 @@
+bin/
+obj/
+dist/
+release/
+data/
+.dotnet10/
+.tools/
+*.user
+*.suo

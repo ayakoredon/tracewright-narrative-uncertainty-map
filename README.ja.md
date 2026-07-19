@@ -14,6 +14,18 @@ Tracewright Narrative Uncertainty Map は、文章や資料を「AIか人間か�
 
 ## まず試したい場合
 
+### Windowsアプリで使う
+
+Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。
+
+https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe
+
+インストールすると、スタートメニューと、希望する場合はデスクトップにショートカットが作られます。資料とレビュー結果は自分のPC内に保存され、TracewrightやAyakoのサーバーへ自動送信されることはありません。AIへ渡す場合だけ、自分で選んだAI環境へレビュー用ファイルをアップロードします。
+
+現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。必ず、この公式GitHubリポジトリから取得したものだけを実行してください。
+
+### いつものAIだけで使う
+
 スターターキットをダウンロードしてください。
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip

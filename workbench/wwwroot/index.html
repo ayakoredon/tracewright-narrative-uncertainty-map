@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Tracewright Workbench</title>
+  <link rel="stylesheet" href="app.css?v=0.3.0-beta">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand-block">
+        <span class="brand-mark" aria-hidden="true">T</span>
+        <div>
+          <strong>Tracewright</strong>
+          <span>Local Workbench <small id="app-version">v0.3.0-beta</small></span>
+        </div>
+      </div>
+
+      <button class="primary wide" id="new-review-button" type="button">New review</button>
+
+      <div class="side-heading">
+        <span>Review files</span>
+        <span id="project-count">0</span>
+      </div>
+      <nav class="project-list" id="project-list" aria-label="Review files"></nav>
+
+      <div class="local-note">
+        <span class="status-dot local" aria-hidden="true"></span>
+        <div>
+          <strong>Local workspace</strong>
+          <span>Tracewright has no hosted document server.</span>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div>
+          <span class="eyebrow" id="workspace-eyebrow">WORKBENCH</span>
+          <h1 id="workspace-title">Narrative review, with the reasoning left visible.</h1>
+        </div>
+        <div class="topbar-actions">
+          <div class="topbar-status" id="save-status" role="status">Ready</div>
+          <button class="quit-button" id="quit-workbench" type="button" disabled>Quit Workbench</button>
+        </div>
+      </header>
+
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+      <section class="empty-state" id="empty-state">
+        <div class="empty-copy">
+          <span class="section-label">START A REVIEW</span>
+          <h2>Connect your documents, your review question, and an AI you control.</h2>
+          <p>Tracewright prepares an inspectable review map. It does not decide whether a person or an AI wrote something, and it does not send documents to Ayako or a Tracewright cloud.</p>
+          <button class="primary" id="empty-new-review-button" type="button">Create review file</button>
+        </div>
+        <div class="process-map" aria-label="Tracewright review flow">
+          <div><span>1</span><strong>Frame</strong><small>State what you need to learn.</small></div>
+          <div><span>2</span><strong>Bound</strong><small>Classify targets and context.</small></div>
+          <div><span>3</span><strong>Connect</strong><small>Choose your own AI route.</small></div>
+          <div><span>4</span><strong>Review</strong><small>Inspect evidence and next checks.</small></div>
+        </div>
+      </section>
+
+      <section id="workspace" hidden>
+        <nav class="workflow-tabs" aria-label="Review workflow">
+          <button class="workflow-tab active" type="button" data-view="brief"><span>1</span>Review Brief</button>
+          <button class="workflow-tab" type="button" data-view="materials"><span>2</span>Materials</button>
+          <button class="workflow-tab" type="button" data-view="connection"><span>3</span>AI Connection</button>
+          <button class="workflow-tab" type="button" data-view="review"><span>4</span>Review Map</button>
+        </nav>
+
+        <section class="view-panel active" data-panel="brief">
+          <div class="panel-heading">
+            <div>
+              <span class="section-label">REVIEW BRIEF</span>
+              <h2>Tell the AI what kind of reading this is.</h2>
+            </div>
+            <p>This brief controls the analysis. Model quality matters, but a well-bounded question matters too.</p>
+          </div>
+
+          <form id="brief-form" class="form-layout">
+            <div class="form-section">
+              <h3>Purpose</h3>
+              <div class="field full">
+                <label for="project-title">Review title</label>
+                <input id="project-title" name="title" maxlength="120" required>
+              </div>
+              <div class="field-grid two">
+                <div class="field">
+                  <label for="primary-mode">Primary review mode</label>
+                  <select id="primary-mode" name="primaryMode">
+                    <option>Claim and Fact Consistency</option>
+                    <option>Academic Review</option>
+                    <option>Correspondence / Personal Narrative Continuity</option>
+                    <option>Authorship / Mediation Workflow</option>
+                    <option>Provenance / Source-Role Review</option>
+                    <option>Mixed Narrative Review</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="secondary-mode">Secondary mode</label>
+                  <select id="secondary-mode" name="secondaryMode">
+                    <option value="">None</option>
+                    <option>Claim and Fact Consistency</option>
+                    <option>Academic Review</option>
+                    <option>Correspondence / Personal Narrative Continuity</option>
+                    <option>Authorship / Mediation Workflow</option>
+                    <option>Provenance / Source-Role Review</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field full">
+                <label for="review-question">What do you need to understand or decide?</label>
+                <textarea id="review-question" name="reviewQuestion" rows="4" placeholder="Example: Check whether the paper's central comparison is sufficiently supported, and identify the claims that need citation or narrower wording." required></textarea>
+                <small>Describe the reading task, not the verdict you hope to receive.</small>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Known context</h3>
+              <div class="field full">
+                <label for="known-provenance">Known provenance, workflow, or disclosure</label>
+                <textarea id="known-provenance" name="knownProvenance" rows="3" placeholder="Known translation, editing, AI assistance, publication history, draft status, source relationships, or unknown."></textarea>
+              </div>
+              <div class="field full">
+                <label for="reviewer-intuition">Reviewer intuition <span class="muted">optional</span></label>
+                <textarea id="reviewer-intuition" name="reviewerIntuition" rows="3" placeholder="Record your starting impression. Tracewright will keep it separate from evidence."></textarea>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h3>Boundaries</h3>
+              <div class="field full">
+                <label for="must-not-conclude">What must this review not conclude?</label>
+                <textarea id="must-not-conclude" name="mustNotConclude" rows="3" placeholder="One boundary per line."></textarea>
+                <small>Example: Do not identify an anonymous writer. Do not turn style cues into an AI probability.</small>
+              </div>
+              <fieldset class="field full">
+                <legend>Could this review affect a high-impact decision?</legend>
+                <div class="check-grid" id="high-impact-contexts">
+                  <label><input type="checkbox" value="Academic assessment"> Academic assessment</label>
+                  <label><input type="checkbox" value="Employment"> Employment</label>
+                  <label><input type="checkbox" value="Legal"> Legal</label>
+                  <label><input type="checkbox" value="Reputation"> Reputation</label>
+                  <label><input type="checkbox" value="Financial"> Financial</label>
+                  <label><input type="checkbox" value="Ownership / provenance"> Ownership / provenance</label>
+                  <label><input type="checkbox" value="Publication"> Publication</label>
+                </div>
+              </fieldset>
+              <label class="safety-confirmation">
+                <input type="checkbox" id="privacy-confirmed">
+                <span><strong>I checked the document boundary.</strong> I understand that files stay on this computer until I choose an AI connection, and that my chosen AI provider may receive them.</span>
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary">Save review brief</button>
+              <button type="button" class="secondary next-view" data-next="materials">Continue to materials</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="view-panel" data-panel="materials">
+          <div class="panel-heading">
+            <div>
+              <span class="section-label">REVIEW MATERIALS</span>
+              <h2>Preserve who wrote what, and what counts as context.</h2>
+            </div>
+            <p>Every file receives a stable source ID. Context-only material stays visually and analytically separate.</p>
+          </div>
+
+          <div class="materials-layout">
+            <form id="upload-form" class="upload-panel">
+              <label class="drop-zone" for="material-files" id="drop-zone">
+                <strong>Add review materials</strong>
+                <span>Drop files here or choose files</span>
+                <small>PDF, text, Markdown, RTF, Office, OpenDocument, JSON, CSV, HTML. Up to 50 MB each.</small>
+                <input id="material-files" name="files" type="file" multiple accept=".pdf,.txt,.md,.json,.csv,.html,.htm,.xml,.doc,.docx,.rtf,.odt,.ppt,.pptx,.xls,.xlsx">
+              </label>
+              <div id="selected-file-summary" class="selected-file-summary">No files selected</div>
+              <div class="field-grid two compact">
+                <div class="field">
+                  <label for="material-role">Material role</label>
+                  <select id="material-role">
+                    <option>Primary material</option>
+                    <option>Supporting source</option>
+                    <option>Earlier version</option>
+                    <option>Later commentary</option>
+                    <option>External reference</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="author-role">Author / source role</label>
+                  <input id="author-role" value="Unknown / mixed" placeholder="Author, correspondent, editor, institution...">
+                </div>
+                <div class="field">
+                  <label for="source-date">Date or sequence</label>
+                  <input id="source-date" placeholder="2026-07-18, c. 1945, Letter 3...">
+                </div>
+                <div class="field">
+                  <label for="context-status">Analysis status</label>
+                  <select id="context-status">
+                    <option>Analysis target</option>
+                    <option>Context only</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="primary wide">Add selected files</button>
+            </form>
+
+            <div class="inventory-panel">
+              <div class="inventory-heading">
+                <div>
+                  <h3>Source inventory</h3>
+                  <span id="material-count">0 files</span>
+                </div>
+                <button type="button" class="secondary next-view" data-next="connection">Continue to AI connection</button>
+              </div>
+              <div id="material-list" class="material-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view-panel" data-panel="connection">
+          <div class="panel-heading">
+            <div>
+              <span class="section-label">AI CONNECTION</span>
+              <h2>Choose the AI route you control.</h2>
+            </div>
+            <p>Tracewright provides the review protocol and interface. The model, account terms, and computing resources remain yours.</p>
+          </div>
+
+          <div class="transmission-boundary" id="transmission-boundary">
+            <div class="boundary-title"><span class="status-dot local"></span><strong>Before anything leaves this computer</strong></div>
+            <div class="boundary-grid">
+              <div><span>Selected materials</span><strong id="boundary-file-count">0 files</strong></div>
+              <div><span>Tracewright server</span><strong>None</strong></div>
+              <div><span>Current route</span><strong id="boundary-route">Manual AI Bridge</strong></div>
+              <div><span>Provider receives files</span><strong id="boundary-provider">Only after you upload them</strong></div>
+            </div>
+          </div>
+
+          <aside class="model-quality-notice">
+            <div>
+              <span class="section-label">ANALYSIS QUALITY</span>
+              <h3>The same Tracewright request may produce different results in different AI environments.</h3>
+            </div>
+            <div>
+              <p>Model capability and version, custom instructions, prior chat context, context-window limits, and file-reading support can all change the depth and accuracy of the review.</p>
+              <p><strong>For a cleaner comparison:</strong> use a new chat when possible, confirm that every file was read, record the model/version if known, and verify important Evidence Cards against the originals.</p>
+            </div>
+          </aside>
+
+          <div class="connector-grid">
+            <article class="connector-card" id="manual-connector-card">
+              <div class="connector-topline">
+                <span class="connector-type">WORKS WITH MOST FILE-CAPABLE AI</span>
+                <span class="badge ready">Ready</span>
+              </div>
+              <h3>Manual AI Bridge</h3>
+              <p>Download one bounded bundle, give it to your usual AI, then import the structured JSON result. No API key is stored here.</p>
+              <ol>
+                <li>Download the selected materials and review request.</li>
+                <li>Upload them to an AI environment you trust.</li>
+                <li>Import the returned JSON review map.</li>
+              </ol>
+              <div class="connector-actions">
+                <a class="button primary" id="download-bundle" href="#">Download review bundle</a>
+                <button class="secondary" id="preview-request" type="button">Preview request</button>
+              </div>
+              <div class="import-row">
+                <input id="review-result-file" type="file" accept=".json,application/json">
+                <button class="secondary" id="import-review" type="button">Import AI result</button>
+              </div>
+              <p class="import-status" id="import-status" role="status">No AI result imported in this session.</p>
+            </article>
+
+            <article class="connector-card" id="codex-connector-card">
+              <div class="connector-topline">
+                <span class="connector-type">LOCAL AUTOMATION</span>
+                <span class="badge checking" id="codex-badge">Checking</span>
+              </div>
+              <h3>Codex CLI</h3>
+              <p>Run the bounded review from this computer using your existing Codex sign-in. The run is read-only and the result returns directly to this dashboard.</p>
+              <div class="connector-detail" id="codex-availability">Checking this computer...</div>
+              <div class="connector-actions">
+                <button class="primary" id="run-codex" type="button">Run with Codex</button>
+              </div>
+              <div class="run-status" id="run-status">No run started.</div>
+            </article>
+
+            <article class="connector-card disabled" aria-disabled="true">
+              <div class="connector-topline">
+                <span class="connector-type">FUTURE CONNECTOR</span>
+                <span class="badge later">Later</span>
+              </div>
+              <h3>Direct provider API</h3>
+              <p>Bring-your-own-key connections can be added after local secret storage, provider-specific consent, and cost controls are designed carefully.</p>
+            </article>
+          </div>
+
+          <div class="connection-footer">
+            <button type="button" class="secondary next-view" data-next="review">Open review map</button>
+          </div>
+        </section>
+
+        <section class="view-panel" data-panel="review">
+          <div class="panel-heading review-heading">
+            <div>
+              <span class="section-label">REVIEW MAP</span>
+              <h2>Read the map, then decide the next human action.</h2>
+            </div>
+            <p id="review-generated-status">No structured result yet.</p>
+          </div>
+
+          <div id="review-empty" class="review-empty">
+            <h3>No review map has been imported yet.</h3>
+            <p>Use Codex locally or the Manual AI Bridge. Tracewright will place claims, evidence, source roles, limitations, and follow-up actions here.</p>
+            <button class="primary next-view" type="button" data-next="connection">Choose an AI connection</button>
+          </div>
+
+          <div id="review-content" hidden>
+            <nav class="review-tabs" aria-label="Review map sections">
+              <button class="review-tab active" type="button" data-review-view="summary">Summary</button>
+              <button class="review-tab" type="button" data-review-view="claims">Claims <span id="claim-count"></span></button>
+              <button class="review-tab" type="button" data-review-view="evidence">Evidence <span id="evidence-count"></span></button>
+              <button class="review-tab" type="button" data-review-view="sources">Sources <span id="source-count"></span></button>
+              <button class="review-tab" type="button" data-review-view="follow-up">Follow-up <span id="follow-up-count"></span></button>
+            </nav>
+            <section class="review-section active" data-review-panel="summary" id="summary-panel"></section>
+            <section class="review-section" data-review-panel="claims" id="claims-panel"></section>
+            <section class="review-section" data-review-panel="evidence" id="evidence-panel"></section>
+            <section class="review-section" data-review-panel="sources" id="sources-panel"></section>
+            <section class="review-section" data-review-panel="follow-up" id="follow-up-panel"></section>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="request-dialog">
+    <div class="dialog-heading">
+      <div>
+        <span class="section-label">GENERATED REQUEST</span>
+        <h2>What the AI will be asked to do</h2>
+      </div>
+      <button type="button" class="icon-button" id="close-request-dialog" aria-label="Close">x</button>
+    </div>
+    <pre id="request-preview"></pre>
+    <div class="dialog-actions">
+      <button type="button" class="secondary" id="copy-request">Copy request</button>
+      <button type="button" class="primary" id="done-request">Done</button>
+    </div>
+  </dialog>
+
+  <script src="app.js?v=0.3.0-beta"></script>
+</body>
+</html>

@@ -1,5 +1,13 @@
 # Changelog
 
+## Workbench v0.3.0-beta
+
+- Added a self-contained Windows x64 Workbench with local material intake, bounded AI review bundles, structured JSON import, and inspectable Summary, Claims, Evidence, Sources, and Follow-up views.
+- Added a per-user Windows installer with Start Menu, optional desktop shortcut, launch-after-install, and uninstall support.
+- Kept review data outside the application directory so updates and uninstall do not automatically remove user reviews.
+- Added model-variation warnings, human-readable bundle names, JSON import diagnostics, and stronger navigation for review-map tabs.
+- Added application, .NET license, third-party notice, checksum, and unsigned-beta documentation to the release package.
+
 ## v0.6
 
 - Added FAQ, misuse examples, safe use cases, schema notes, contribution guidance, and private-material warning.

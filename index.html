@@ -78,6 +78,12 @@
       font-weight: 800;
       text-decoration: none;
     }
+    .workbench-card {
+      border-color: #6f9186;
+      background: #e5efeb;
+    }
+    .workbench-card a { background: #173d35; }
+    .workbench-card small { display: block; margin-top: 9px; color: #5b6964; line-height: 1.45; }
     .resource-links { display: grid; gap: 8px; margin: 12px 0 18px; }
     .resource-links a {
       display: block;
@@ -230,6 +236,12 @@
       <div class="notice">
         <strong>This is not an AI detector.</strong><br>
         Tracewright reviews written materials by mapping claims, evidence, gaps, contradictions, source roles, and next checks. It can support paper review, creative revision, public narrative analysis, provenance review, and correspondence review. All cases below are synthetic.
+      </div>
+      <div class="starter-card workbench-card">
+        <strong>Install the Windows Workbench</strong>
+        <p>Use the full local review flow: prepare materials, define the review question, give a bounded bundle to your own AI, and inspect the returned Summary, Claims, Evidence, Sources, and Follow-up map.</p>
+        <a href="https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe">Download Windows Beta</a>
+        <small>Windows x64 · local-first · unsigned beta. Files are not sent to a Tracewright server.</small>
       </div>
       <div class="starter-card">
         <strong>Try it with your own AI</strong>

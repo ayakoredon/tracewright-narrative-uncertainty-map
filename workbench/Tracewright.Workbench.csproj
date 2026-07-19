@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Tracewright Workbench</AssemblyName>
+    <RootNamespace>Tracewright.Workbench</RootNamespace>
+    <Product>Tracewright Workbench</Product>
+    <Description>Local-first narrative review workspace</Description>
+    <Version>0.3.0-beta</Version>
+    <ApplicationIcon>assets\tracewright-workbench.ico</ApplicationIcon>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <DefaultItemExcludes>$(DefaultItemExcludes);release\**;.dotnet10\**</DefaultItemExcludes>
+  </PropertyGroup>
+
+</Project>
