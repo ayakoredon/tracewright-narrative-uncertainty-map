@@ -8,48 +8,37 @@ The goal is not to decide **"AI or human?"** The goal is to make the **logic, cl
 
 It can also be used to improve human-written work: clarifying arguments, extracting key issues, finding weak links, and identifying what should be revised before publication, submission, citation, or escalation.
 
-## Quick Links
+## Get Tracewright
 
-- **[Download Tracewright Workbench for Windows (beta)](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
+### 1. Install the Windows Workbench (recommended)
 
-- **Simple AI-chat example:**  
-  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
+**[Download Tracewright Workbench v0.3.0-beta for Windows](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
 
-- **Download the Starter Kit:**  
-  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip
+This is the main way to use Tracewright. The local-first Workbench guides the full review flow without requiring you to build a dashboard:
 
-<sub>Japanese guide / 日本語ガイド: https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md</sub>
+- define the review question and mode before analysis
+- add and classify materials while keeping review targets separate from context
+- create a bounded review bundle for an AI environment you choose
+- import the AI's structured JSON result
+- inspect Summary, Claims, Evidence, Sources, and Follow-up views, including the reasoning and alternatives behind each observation
 
-<br>
+The installer adds a Start Menu shortcut and can add a desktop shortcut. The browser-based interface and review files stay on your computer; Tracewright does not operate a hosted document server and does not receive your materials.
 
-- **Open the dashboard demo:**  
-  https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
+**Requirements:** Windows 10/11 x64. This is an unsigned beta, so Windows SmartScreen may show an unrecognized-app warning. Download it only from this repository. Checksums, release notes, and integrity guidance are available on the [Workbench release page](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.3.0-beta).
 
-**License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`.
+### 2. See the dashboard before installing
 
-This repository is publicly visible, but commercial use is not granted by default.
+**[Open the public dashboard demo](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)**
 
-## Install The Windows Workbench
+The demo shows the review map across synthetic correspondence, academic, public-narrative, and provenance cases. It contains no private correspondence, collector file, manuscript, or real unpublished source material.
 
-**Tracewright Workbench v0.3.0-beta** is a local-first Windows application for people who want the full review workflow without building a dashboard themselves.
+### Other ways to use Tracewright
 
-**Download the Windows installer:**
+- **No installation, Mac, or chat-only workflow:** use the [Starter Kit](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip) with ChatGPT, Claude, Gemini, or another file-capable AI assistant. It returns a Markdown review map instead of the interactive Workbench.
+- **See the lightweight workflow first:** open the [Simple AI Review example](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html).
+- **日本語で始める:** open the [Japanese guide / 日本語ガイド](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md).
 
-https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe
-
-The installer adds Start Menu and optional desktop shortcuts. The workbench opens in your browser, but the application and review files remain on your computer. Tracewright does not operate a hosted document server and does not receive your materials.
-
-The Workbench helps you:
-
-- define the review mode and question before analysis
-- classify source roles and separate review targets from context-only materials
-- create a bounded bundle for an AI environment you choose
-- import structured JSON results into Summary, Claims, Evidence, Sources, and Follow-up views
-- inspect the source excerpt, reasoning, alternatives, and next action behind an observation
-
-The installer is currently an unsigned Windows x64 beta. Windows SmartScreen may show an unrecognized-app warning. Install only a copy downloaded from this repository, and compare the SHA256 file on the release page when integrity matters.
-
-Windows Workbench source and build instructions are under `workbench/`.
+**License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`. Public visibility does not grant commercial-use rights.
 
 ## Use It When You Want To Ask
 
@@ -62,32 +51,6 @@ Windows Workbench source and build instructions are under `workbench/`.
 Tracewright helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
 
 Another way to describe the project is **uncertainty literacy**: learning how to read without rushing, especially when documents may have been drafted, edited, translated, polished, summarized, or mediated by AI.
-
-## Try It With Your Own AI
-
-You can use the Starter Kit with an AI assistant you already have, including free AI tools that can read attached files or pasted text. The simplest path does not require Codex, coding, or dashboard generation. It can produce a Markdown review map for checking a paper draft, article, correspondence thread, creative text, provenance file, or other written material.
-
-**Download the Starter Kit:**
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip
-
-After unzipping it, open `START_HERE.md`. For the easiest path, attach `USE_THIS_WITH_YOUR_AI.md` to your AI assistant and paste the short starter message. The AI should then check file safety, ask what kind of review you want, and guide the next step.
-
-Japanese users can start with `START_HERE.ja.md` and `USE_THIS_WITH_YOUR_AI.ja.md`.
-
-## View the Demo
-
-**Simple AI Review example:**
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html
-
-This separate page shows what the lightweight Starter Kit workflow can look like when a user attaches one Tracewright instruction file to a familiar AI assistant and receives a Markdown review map instead of an interactive dashboard.
-
-**Open the public dashboard demo:**
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
-
-The dashboard demo is a static GitHub Pages site. It uses synthetic cases only; no private correspondence, collector file, manuscript, or real unpublished source material is included.
 
 ## Design Principle
 
@@ -158,7 +121,7 @@ See `LICENSE` and `COMMERCIAL_USE.md`.
 - `SECURITY.md`: do not post private review materials in public issues.
 - `CONTRIBUTING.md`: contribution principles.
 
-## Demo
+## Public Dashboard Demo
 
 Open the live dashboard demo here:
 
@@ -172,9 +135,9 @@ The demo includes several document genres: personal correspondence, mixed AI/edi
 
 For the non-dashboard workflow, see `simple-ai-example.html`. It shows a reconstructed academic review map generated through the simple "use this with your AI" path.
 
-## Download the Starter Kit
+## No-Install Starter Kit
 
-Download the local starter kit here:
+The Starter Kit is the secondary route for Mac users, people who do not want to install an application, or anyone who prefers to work directly in a familiar AI chat:
 
 https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip
 

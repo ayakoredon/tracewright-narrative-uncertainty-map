@@ -78,6 +78,37 @@
       font-weight: 800;
       text-decoration: none;
     }
+    .workbench-card {
+      border: 2px solid #537c70;
+      background: #e5efeb;
+    }
+    .workbench-card strong { font-size: 18px; }
+    .workbench-card a { background: #173d35; }
+    .workbench-card small { display: block; margin-top: 9px; color: #5b6964; line-height: 1.45; }
+    .route-label {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: #173d35;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+    .demo-cue {
+      border-left: 3px solid #315f72;
+      padding: 4px 0 4px 12px;
+      margin: 16px 0;
+    }
+    .demo-cue strong { display: block; margin-bottom: 4px; }
+    .demo-cue p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; }
+    .secondary-path {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 14px 2px;
+      margin: 14px 0;
+    }
+    .secondary-path strong { display: block; margin-bottom: 5px; font-size: 14px; }
+    .secondary-path p { margin-bottom: 8px; color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .secondary-path a { color: var(--accent); font-size: 12px; font-weight: 800; }
     .resource-links { display: grid; gap: 8px; margin: 12px 0 18px; }
     .resource-links a {
       display: block;
@@ -231,15 +262,26 @@
         <strong>This is not an AI detector.</strong><br>
         Tracewright reviews written materials by mapping claims, evidence, gaps, contradictions, source roles, and next checks. It can support paper review, creative revision, public narrative analysis, provenance review, and correspondence review. All cases below are synthetic.
       </div>
-      <div class="starter-card">
-        <strong>Try it with your own AI</strong>
-        <p>Download the Starter Kit and attach one file to ChatGPT, Claude, Gemini, or another AI assistant. Even without coding, you can get a Markdown review map for papers, drafts, stories, records, or other written materials.</p>
-        <p>Japanese guide: <a href="../README.ja.md">README.ja.md</a></p>
+      <div class="starter-card workbench-card">
+        <span class="route-label">Recommended on Windows</span>
+        <strong>Install the Windows Workbench</strong>
+        <p>Use the full local review flow: prepare materials, define the review question, give a bounded bundle to your own AI, and inspect the returned Summary, Claims, Evidence, Sources, and Follow-up map.</p>
+        <a href="https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe">Download Windows Beta</a>
+        <small>Windows x64 · local-first · unsigned beta. Files are not sent to a Tracewright server.</small>
+      </div>
+      <div class="demo-cue">
+        <strong>Next: explore the dashboard demo</strong>
+        <p>Select one of the synthetic cases below to see how Tracewright separates claims, evidence, source roles, uncertainty, and next actions.</p>
+      </div>
+      <div class="secondary-path">
+        <strong>No-install, Mac, or chat-only route</strong>
+        <p>Use the Starter Kit with ChatGPT, Claude, Gemini, or another file-capable AI to receive a Markdown review map without installing the Workbench.</p>
         <a href="../downloads/tracewright-narrative-starter-kit-v0.6.zip" download>Download Starter Kit</a>
+        <span aria-hidden="true"> · </span>
+        <a href="../README.ja.md">日本語ガイド</a>
       </div>
       <div class="resource-links">
-        <a href="../simple-ai-example.html">Simple AI Review Example</a>
-        <a href="../downloads/tracewright-narrative-starter-kit-v0.6.zip" download>Download Starter Kit ZIP</a>
+        <a href="../simple-ai-example.html">Preview the no-install AI-chat workflow</a>
         <a href="../COMMERCIAL_USE.md">License / Commercial Use</a>
         <a href="https://github.com/ayakoredon/tracewright-narrative-uncertainty-map">View on GitHub</a>
       </div>
