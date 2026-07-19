@@ -196,6 +196,18 @@ main.main-area {
   .demo-frame { padding: 20px 14px 52px; }
   .demo-notice { grid-template-columns: 1fr; }
   .demo-case-meta { padding: 12px 0 0; border-top: 1px solid #bdd0d6; border-left: 0; }
-  .demo-frame .review-tabs { margin-bottom: 16px; }
+  .demo-frame .review-tabs {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    display: grid;
+    margin-bottom: 16px;
+    overflow: visible;
+  }
+  .demo-frame .review-tab {
+    grid-column: span 2;
+    min-width: 0;
+    padding: 9px 6px;
+    white-space: normal;
+  }
+  .demo-frame .review-tab:nth-child(n + 4) { grid-column: span 3; }
   .guide-principles, .focus-list li { grid-template-columns: 1fr; }
 }
