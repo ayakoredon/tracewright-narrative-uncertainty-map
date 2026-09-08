@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tracewright | New review</title>
+  <link rel="stylesheet" href="workbench/wwwroot/app.css?v=20260908-en-1">
+  <link rel="stylesheet" href="intake.css?v=20260908-en-1">
+</head>
+<body class="intake-page">
+  <div class="intake-shell">
+    <aside class="intake-sidebar">
+      <a class="intake-brand" href="index.html"><span class="brand-mark" aria-hidden="true">T</span><span><strong>Tracewright</strong><small>Review intake</small></span></a>
+      <a class="back-link" href="index.html">Back to review</a>
+      <nav id="intake-nav" aria-label="Intake steps"></nav>
+      <div class="draft-library">
+        <label for="saved-drafts">Drafts in this browser</label>
+        <select id="saved-drafts"><option value="">Select saved draft</option></select>
+        <div class="library-actions"><button type="button" class="secondary" id="load-draft">Open</button><button type="button" class="secondary" id="new-draft">New</button></div>
+        <button type="button" class="text-command" id="delete-draft">Delete selected saved draft</button>
+      </div>
+      <p class="sidebar-note">Input stays on this page until you save. Source files are not read or sent to AI. Browser storage is not encrypted; do not save confidential information on a shared device.</p>
+    </aside>
+    <main>
+      <header class="intake-topbar"><div><span class="eyebrow">REVIEW INTAKE</span><h1>New review</h1></div><div class="save-actions"><span id="save-state">Unsaved / not analysed</span><button type="button" class="secondary" id="save-draft">Save draft</button></div></header>
+      <div class="intake-utility"><label for="sample-case">Synthetic example</label><select id="sample-case"></select><button type="button" class="text-command" id="load-sample">Load example</button><a id="sample-review" href="index.html" target="_blank" rel="noopener" title="Open the selected example review in another tab">View example review</a><label class="text-command file-command">Import intake JSON<input id="import-draft" type="file" accept=".json,application/json"></label><button type="button" class="text-command" id="export-draft">Export intake JSON</button></div>
+      <p class="intake-status" id="intake-status" role="status" aria-live="polite"></p>
+      <div class="intake-content"><p id="input-origin" class="origin-note" hidden></p><form id="intake-form" autocomplete="off" novalidate><div id="intake-section"></div><footer class="intake-footer"><button type="button" class="secondary" id="previous-step">Back</button><span id="step-label"></span><button type="button" class="primary" id="next-step">Next</button></footer></form></div>
+      <noscript>JavaScript is required for this form. Nothing is sent to AI.</noscript>
+    </main>
+  </div>
+  <dialog id="confirm-dialog" aria-labelledby="confirm-heading"><div class="dialog-heading"><h2 id="confirm-heading">Confirm draft change</h2></div><p id="confirm-message"></p><div class="dialog-actions"><button type="button" class="secondary" id="confirm-cancel">Back</button><button type="button" class="primary" id="confirm-accept">Continue</button></div></dialog>
+  <dialog id="export-dialog" aria-labelledby="export-heading"><div class="dialog-heading"><h2 id="export-heading">Export intake JSON</h2></div><div class="export-body"><p>This draft includes fields in hidden modes and impact areas, but no source-file contents. Review what is included and where it will be saved.</p><label for="export-text">Intake JSON</label><textarea id="export-text" class="packet-preview" readonly></textarea><p id="export-status" role="status" aria-live="polite"></p></div><div class="dialog-actions"><button type="button" class="secondary" id="export-close">Close</button><button type="button" class="secondary" id="export-download">Download JSON</button><button type="button" class="primary" id="export-copy">Copy JSON</button></div></dialog>
+  <script src="demo/cases.js?v=20260908-en-1"></script>
+  <script src="demo/workflow-case.js?v=20260908-en-1"></script>
+  <script src="demo/access-materials.js?v=20260908-en-1"></script>
+  <script src="demo/access-case.js?v=20260908-en-1"></script>
+  <script src="demo/intake-model.js?v=20260908-en-1"></script>
+  <script src="intake.js?v=20260908-en-1"></script>
+</body>
+</html>

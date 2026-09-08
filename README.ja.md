@@ -12,6 +12,23 @@ Tracewright Narrative Uncertainty Map は、文章や資料を「AIか人間か�
 - 文章が編集、翻訳、AI補助、共同執筆などでどう変形している可能性があるか
 - 次に何を確認、修正、質問、保留すべきか
 
+## 新しい入口: 業務フローもレビューするReview Lab
+
+2026年9月8日の英語版Review Labでは、文書の中身に加えて、AIや自動処理を組み込んだ業務全体を見直せます。「人間に渡した」という記録だけでなく、誰が受け取り、原資料を確認でき、訂正や停止が後続処理に届いているかを、資料・イベント記録・観察カードから追うための例です。
+
+- [英語デモを開く](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)
+- [ローカル用Review Lab ZIPをダウンロード](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-review-lab-2026-09-08-en.zip)
+- [新しい業務レビューの情報登録フォーム](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/intake.html?kind=workflow)
+- [同梱内容・制限・起動方法（英語）](docs/review-lab-download.md)
+
+ZIPを展開して `index.html` を開くと、架空の文書レビュー7件と業務レビュー2件を閲覧できます。業務例は、多言語のお客様窓口と、本番環境への一時アクセス権申請です。すべて架空の設定であり、実際の組織や事故、AIの性能測定結果ではありません。
+
+フォームは情報整理、下書きの保存・JSON入出力、自分のAIに渡す依頼文の準備に使えます。ファイル本文の読み込み、AIへの送信、自動分析、分析結果のダッシュボードへの取り込みは行いません。AIへ何を渡すかは、内容と送信先の条件を確認して別途判断してください。
+
+Review Labは監査や検証の準備を支援するもので、監査完了・法令適合・安全性を保証しません。未確認は問題の存在を意味せず、提案した対応と実施・検証済みの対応は区別します。重要な判断には適切な専門性と責任を持つ人のレビューが必要です。
+
+**今回の画面・フォーム・解説は英語版です。この日本語ガイドがあることは、アプリ全体が日本語対応済みという意味ではありません。既存Windows版の更新でもありません。** Windows版とStarter Kitは以下の別の配布物です。ライセンスと商用利用条件は変更していません。
+
 ## 推奨: Windows Workbenchを使う
 
 Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。これが、現在のTracewrightを一連の流れで使うための主な入口です。
