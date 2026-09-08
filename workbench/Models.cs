@@ -15,9 +15,17 @@ public sealed class ReviewProject
     public string ReviewerIntuition { get; set; } = "";
     public List<string> MustNotConclude { get; set; } = new();
     public List<string> HighImpactContexts { get; set; } = new();
+    public bool SensitiveReviewMode { get; set; }
+    public List<string> SensitivityTriggers { get; set; } = new();
+    public List<string> TransformationStages { get; set; } = new();
+    public string DecisionUse { get; set; } = "";
+    public bool SensitiveUseConfirmed { get; set; }
     public bool PrivacyConfirmed { get; set; }
     public string PreferredConnector { get; set; } = "manual";
     public List<ReviewMaterial> Materials { get; set; } = new();
+    public JsonObject? WorkflowIntake { get; set; }
+    [System.Text.Json.Serialization.JsonExtensionData]
+    public Dictionary<string, System.Text.Json.JsonElement>? Extra { get; set; }
 }
 
 public sealed class ReviewMaterial
@@ -31,6 +39,8 @@ public sealed class ReviewMaterial
     public string AuthorRole { get; set; } = "Unknown / mixed";
     public string SourceDate { get; set; } = "";
     public string ContextStatus { get; set; } = "Analysis target";
+    public string ReviewText { get; set; } = "";
+    public string TextStatus { get; set; } = "not_prepared";
 }
 
 public sealed record CreateProjectRequest(string? Title);
@@ -45,6 +55,11 @@ public sealed class UpdateIntakeRequest
     public string ReviewerIntuition { get; set; } = "";
     public List<string> MustNotConclude { get; set; } = new();
     public List<string> HighImpactContexts { get; set; } = new();
+    public bool SensitiveReviewMode { get; set; }
+    public List<string> SensitivityTriggers { get; set; } = new();
+    public List<string> TransformationStages { get; set; } = new();
+    public string DecisionUse { get; set; } = "";
+    public bool SensitiveUseConfirmed { get; set; }
     public bool PrivacyConfirmed { get; set; }
     public string PreferredConnector { get; set; } = "manual";
 }
@@ -64,5 +79,9 @@ public sealed class RunStatus
 }
 
 public sealed record ConnectorAvailability(bool Available, string Message, string? Version = null);
+
+public sealed record PrepareRequest(string[] SourceIds);
+public sealed record SendApproval(string PlanId, string Fingerprint, bool DataTermsChecked, bool AuthorityConfirmed, bool ContentConfirmed, string EnvironmentLabel);
+public sealed record TextRequest(string Text);
 
 public sealed record ReviewBundle(byte[] Content, string FileName, string SuggestedResultFileName);

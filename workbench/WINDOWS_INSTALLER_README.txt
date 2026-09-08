@@ -1,10 +1,12 @@
-TRACEWRIGHT WORKBENCH FOR WINDOWS v0.3.0-beta
+TRACEWRIGHT WORKBENCH FOR WINDOWS v0.5.0-beta
 =============================================
 
 START
 -----
 Open Tracewright Workbench from the desktop shortcut or Windows Start menu.
-Your default browser opens the local workbench at http://127.0.0.1:8791/.
+Your default browser opens the local workbench on IPv4 loopback. An occupied
+default port is replaced with an available port. Read README_FIRST.txt in the
+installed folder for the workflow, format limits and Codex data-boundary checks.
 
 STOP
 ----
@@ -17,15 +19,18 @@ DOCUMENT STORAGE AND AI BOUNDARY
   %LOCALAPPDATA%\Tracewright\Workbench
 - Uninstalling the app does not automatically delete review data.
 - Tracewright does not upload documents to an Ayako or Tracewright server.
-- Files leave your computer only when you choose an AI route.
-- Check the privacy and data-use terms of your chosen AI before uploading files.
+- Originals stay local. Only selected, confirmed review text and the brief are
+  eligible for transfer after an exact payload preview and explicit approval.
+- In your own Codex or chosen AI, check the account/workspace, retention, training
+  use, organisation policy and authority to share before each transfer.
+- Back up the data directory before upgrading. Removal is not secure deletion.
 
 AI CONNECTIONS
 --------------
-- Manual AI Bridge works with file-capable AI assistants. Download the review
-  bundle, give it to an AI environment you trust, and import the returned JSON.
-- Codex CLI automation is shown only when a compatible signed-in CLI can be
-  started from this app. It may be unavailable with some Codex installations.
+- Manual AI Bridge downloads an approved-text bundle, not original files.
+  Review your destination before uploading; import the schema-conformant JSON.
+- Codex automation needs a compatible executable signed in with ChatGPT. It uses
+  your Codex allowance, not an API-key fallback, in an isolated fresh review.
 
 Analysis depth and accuracy can vary with the AI product, model/version, custom
 instructions, prior chat context, context limits, and attached-file support.

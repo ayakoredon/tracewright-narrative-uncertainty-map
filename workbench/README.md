@@ -1,65 +1,15 @@
-# Tracewright Workbench v0.3.0-beta
+# Tracewright Workbench 0.5.0 Beta
 
-Tracewright Workbench is a local-first interface for connecting:
+Local narrative and automation-workflow review. See the [repository introduction](../README.md), [data boundary](../docs/codex-connection.md), and [release notes](../docs/workbench-0.5-release.md).
 
-1. a bounded review question,
-2. a classified set of narrative materials,
-3. an AI environment controlled by the user, and
-4. an inspectable review map for human judgment.
+For source builds, run `node scripts/sync-workbench-assets.cjs` from the repository root, then `dotnet run --project workbench/Tracewright.Workbench.csproj`. Requires Node 22+ and .NET 10 SDK. The Windows release does not require either runtime to be installed separately.
 
-It is not an AI detector and does not provide an authorship verdict.
+Build a portable package with `pwsh scripts/build-workbench.ps1`; add `-Installer` with Inno Setup 6 available. The package builder uses a clean output directory and public-asset allowlist. It does not include projects, raw materials, run records, credentials or developer caches.
 
-## Run locally
+The local server listens on loopback, normally port 8791, with a fallback when occupied. APIs require the local session token and matching origin/host. This is not authentication against malicious software running as the same Windows user. Do not expose the listener to a network or shared machine.
 
-With the .NET 10 SDK installed, double-click `run-workbench.cmd`, or run:
+Existing data remains under `%LOCALAPPDATA%\Tracewright\Workbench`; a separate directory can be selected with `--data-dir`. Back up this folder before upgrades. Original files and older review JSONs are retained. The new result contract adds workflow observations while retaining sensitive-review information. Older saved maps remain readable; fresh result imports must follow the current approved bundle and contract.
 
-```powershell
-dotnet run --project Tracewright.Workbench.csproj
-```
+Codex analysis uses a bounded, user-confirmed text payload and ChatGPT sign-in. No API-key fallback. User data terms and authority must be checked in the user's own AI environment before dispatch. The app cannot verify retention, training use or organisation policy. Non-text originals need verified text preparation before they can participate in this route.
 
-The workbench opens at `http://127.0.0.1:8791`.
-
-## Build the double-click Windows package
-
-Run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\package-windows.ps1
-```
-
-The script creates a self-contained Windows x64 folder and ZIP under `release/`. The recipient does not need Node.js or a separate .NET installation. After extracting the ZIP, double-click `Tracewright Workbench.exe`.
-
-## Build the Windows installer
-
-Install Inno Setup 6, then run:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\package-windows-installer.ps1
-```
-
-The script first builds the portable package, then creates a per-user installer under `release/`. The installer adds Start Menu and optional desktop shortcuts without requiring administrator privileges. Review data remains under `%LOCALAPPDATA%\Tracewright\Workbench` and is not removed automatically during uninstall.
-
-## Storage boundary
-
-- Review files are stored under `%LOCALAPPDATA%\Tracewright\Workbench` by default.
-- Set `TRACEWRIGHT_DATA_DIR` to use another local data directory.
-- The app listens only on `127.0.0.1`.
-- Tracewright has no hosted document server and receives no documents or telemetry.
-- Documents leave the computer only through a connection chosen by the user.
-
-## AI connections in v0.1
-
-### Manual AI Bridge
-
-This route works with file-capable AI assistants. The workbench creates a ZIP containing the selected materials, a bounded review request, a source manifest, and a JSON output schema. The user uploads that bundle to an AI environment they trust and imports the returned JSON result.
-
-### Codex CLI
-
-If the Codex CLI is installed and signed in, the workbench can run a non-interactive, read-only, ephemeral review from the local project directory. It uses a JSON output schema and returns the result directly to the dashboard.
-
-## Current limits
-
-- Office, OpenDocument, PDF, and RTF files are preserved as originals; readability depends on the connected AI and tools available in that environment.
-- There is no direct provider API-key connector yet.
-- There is no account system, remote collaboration, hosted storage, or cloud sync.
-- A qualified human reviewer remains responsible for academic, legal, employment, financial, publication, provenance, ownership, and reputational decisions.
+All findings are review aids, not verdicts or audit certification. Qualified humans remain responsible for high-impact use.

@@ -30,7 +30,7 @@ The form does not read file contents, fetch URLs, call an AI or transmit data. F
 
 To use your AI, inspect the request preview and the destination's data-handling terms, confirm what may be shared, then decide separately whether to paste it. Provide permitted and suitably redacted source text separately. Require a structure check before analysis and exact source references, alternatives and next checks afterward.
 
-The installed Windows Workbench and the Starter Kit remain separate downloads. Do not copy this kit into their installation folders or assume compatible import formats.
+The Windows Workbench 0.5 installer and portable ZIP include this lab alongside the live review workspace. In the installed app, Workflow intake can create a local review; it still does not upload registered files or start AI analysis. Confirm source text and the data boundary separately in the Workbench. The static kit and Starter Kit remain separate downloads. Do not copy this kit into an installation folder or assume compatible result formats. See [Codex connection and data boundaries](codex-connection.md).
 
 ## Privacy And Review Limits
 

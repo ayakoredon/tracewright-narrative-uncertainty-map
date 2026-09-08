@@ -1,297 +1,93 @@
-﻿# Tracewright Narrative Uncertainty Map
+# Tracewright
 
-## Browser Review Lab: Narrative And Workflow Review
+## Narrative And Automation-Workflow Review
 
-Tracewright helps people inspect evidence and decide what to check next. It is not an AI detector, a safety certificate or an automated decision authority. A flag means inspect carefully, not that someone did something wrong.
+Tracewright helps people inspect evidence, preserve uncertainty and decide what to check next. It is not designed to expose people. It is designed to slow down premature judgment.
 
-The English browser demo now includes seven narrative cases and two **entirely fictional workflow cases**: multilingual customer support and temporary production access. These are hand-authored methodological examples, not real organisations or measured model outputs. Original-language excerpts remain intact.
+**A flag means inspect carefully, not that someone did something wrong.**
 
-- [Open the synthetic review demo](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/).
-- [Download the local Review Lab ZIP, English preview 2026-09-08](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-review-lab-2026-09-08-en.zip) ([SHA-256](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-review-lab-2026-09-08-en.zip.sha256.txt)). This is the browser demo and intake, not the Windows installer. See [what the kit includes](docs/review-lab-download.md).
-- [Start a workflow intake](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/intake.html?kind=workflow) or [a document intake](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/intake.html?kind=narrative).
-- Compare [the production-access intake](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/intake.html?sample=privileged-access) with [its prepared review](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/#case=privileged-access&view=summary).
-- Read the [workflow method](docs/workflow-review-design.md), [intake boundaries](docs/review-intake.md) and [sample notes](docs/workflow-sample.md).
+- [Try the English synthetic demo](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)
+- [Install Workbench 0.5.0 beta for Windows](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/Tracewright-Workbench-Setup-v0.5.0-beta.exe)
+- [Download the portable Windows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/tracewright-workbench-windows-v0.5.0-beta.zip)
+- [Release notes and SHA-256 checksums](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.0-beta)
+- [Japanese introduction](README.ja.md)
 
-The intended use is: describe the question and context, organise source roles and process steps with your own AI, confirm that structure, provide permitted source text, inspect source-linked observations and alternatives, then let an accountable qualified person decide on action. Later implementation and verification must be recorded separately.
+The Windows package is self-contained: Windows 10/11 x64, no separate .NET or Node installation required. It is an unsigned beta. Verify the release source and checksum before running it. The interface is English; Japanese installer text is not a Japanese app translation.
 
-### Review The Workflow, Not Just The Output
+## Choose Your Starting Point
 
-For AI-assisted and automated workflows, Tracewright helps reviewers ask whether described safeguards connect to actual operation:
+| Route | What it does | What it does not do |
+| --- | --- | --- |
+| Public browser demo | Nine entirely fictional examples, source-linked observations, workflow traces and intake | No live AI, private uploads or connection to your local Codex |
+| Windows Workbench | Local materials, workflow intake, approved text transfer, Codex or manual analysis, validated result import | No Tracewright cloud, automatic decision or guaranteed analysis |
+| [Browser-only ZIP](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-review-lab-2026-09-08-en.zip) | Static examples and intake; open `index.html` without a server | No automatic analysis or result import; use Workbench for those |
+| [Starter Kit](starter-kit/) | Earlier model-agnostic method and prompt materials | Not the Workbench 0.5 result contract |
 
-- Where do inputs change meaning, lose context or enter an exceptional route?
-- Does a handoff reach a named, capable reviewer with access to the original evidence and authority to act?
-- Do corrections, holds and stop decisions reach downstream queues, permissions and notifications?
-- Do workload, training and incentives support reasoned intervention rather than a nominal approval?
-- What evidence supports data handling, evaluation, monitoring, remedy and recovery, and what remains unknown?
+## From Question To Human Review
 
-The workflow view links process steps and event traces to observations, supporting materials, alternatives and proposed next checks. It can help prepare a review or audit; it does not perform a certified audit, establish compliance, estimate risk probabilities or operate the reviewed system. A described control, a test result and verified operation are different forms of evidence.
+1. **Frame the review.** State the question, affected people, intended decision and what must not be concluded. For workflows, use the four-stage intake; unknown and withheld information stay visible.
+2. **Classify materials.** Preserve author/source roles, dates, versions, targets and context. A file name in an intake is not evidence that its contents were uploaded or read.
+3. **Confirm readable text.** Add permitted originals locally. Inspect prepared text or paste a verified excerpt, especially where formatting, transcription or extraction may omit material.
+4. **Check your data boundary.** In your own Codex or AI environment, check the account/workspace, retention, training use, organisation policy and authority to share. Tracewright cannot verify these terms on your behalf.
+5. **Approve an exact payload.** Select sources, inspect the complete text and brief, and confirm the destination. Originals and unrelated local cases are not included in the automatic text payload.
+6. **Receive a review map.** Use compatible ChatGPT-signed-in Codex, or download an approved text bundle for your chosen AI and import its JSON. Results are checked against the contract, source roles and exact excerpts before replacing the map.
+7. **Inspect and decide.** Review Summary, Flow & Controls, Claims, Evidence, Sources and Follow-up. Compare observations with originals, alternatives and missing information. Record subsequent investigation and decisions separately.
 
-**What works here:** a four-stage intake, optional step/branch registration, material metadata, unanswered-information states, conditional questions, explicit browser draft storage, JSON round trips and a previewable AI request you can copy or export. The read-only examples show Summary, Claims, Evidence, Review Materials and Next Checks; workflow cases also show Flow & Cases and Controls & Access.
+## Review The Workflow, Not Just The Output
 
-**What does not happen here:** selecting a file does not read or upload it; a URL is not fetched; no API key, AI call or external transmission is performed. Registering a case does not generate an assessment. The browser does not automatically import a later AI review into this dashboard. Browser draft storage is not encrypted. Check sensitive data and destination terms before sharing with your own AI.
+An AI-assisted workflow can produce polished output while its human checks fail to operate. Tracewright helps examine:
 
-This is a browser-demo/intake update, **not an upgrade to the installed Windows Workbench, its import schema or Starter Kit v0.6**. Those routes remain documented below. All existing licence and commercial-use restrictions remain unchanged.
+- Where inputs change meaning, lose context or enter an exceptional route.
+- Whether a handoff reaches a named, capable reviewer with access and authority.
+- Whether corrections, holds and stops reach downstream queues, decisions and notifications.
+- Whether training, workload and incentives support challenge rather than nominal approval.
+- What evidence exists for evaluation, data handling, suppliers, remedy, pause and recovery.
 
-## Narrative Review
+The demo includes multilingual customer support and temporary production access. Both are hand-authored fictional scenarios, not real organisations, incidents or measured AI performance. Working interventions appear alongside problem paths. A policy, owner account, controlled test and operational event are not interchangeable evidence.
 
-Tracewright is a review method and dashboard for examining written materials.
+For narrative materials, keep **claim reliability**, **authorship/mediation cues** and **disclosure/provenance** separate. Source-grounded texture and mediation-polish cues are not human or machine scores. Use the method with papers, correspondence, public statements, provenance records and mixed document sets without turning it into a verdict on a person.
 
-Use it with papers, academic writings, drafts, correspondence, public statements, provenance records, newsletters, creative work, and mixed document sets.
+## Codex Connection And Data Boundaries
 
-The goal is not to decide **"AI or human?"** The goal is to make the **logic, claims, gaps, contradictions, evidence, source roles, and next review actions** visible.
+Workbench detects a compatible local Codex executable and checks for ChatGPT sign-in. Installation alone does not establish account access, allowance, identity or appropriate data terms. An API-key-only sign-in does not enable this connector; there is no silent API billing fallback.
 
-It can also be used to improve human-written work: clarifying arguments, extracting key issues, finding weak links, and identifying what should be revised before publication, submission, citation, or escalation.
+The automatic route starts a new, ephemeral, read-only Codex run with a bounded text payload, structured output contract and tool/custom-configuration restrictions. It does not attach itself to your existing conversation. This isolation may produce different results from your usual assistant. Codex still calls its provider; this is **not offline inference** and does not make transmitted content local-only.
 
-## Get Tracewright
+The first release uses the existing CLI route, not an experimental browser-to-app-server connection. It has no hosted account system and no API-key storage. The manual route is available when local Codex cannot be used. Read [the detailed boundary and error guide](docs/codex-connection.md) and [official Codex authentication guidance](https://developers.openai.com/codex/auth).
 
-### Browser Review Lab: No Installation
+## What Is Preserved
 
-The [local Review Lab ZIP](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-review-lab-2026-09-08-en.zip) runs in a modern browser on Windows, macOS or Linux. Extract the ZIP and open `index.html`; no Node.js, account or AI API key is required for the static demo and intake. Browser restrictions on local-file storage may vary, so export a draft JSON when you need a durable copy. An optional loopback server and tests require Node.js.
+- Originals and earlier review results remain local; 0.3/0.4 records remain readable.
+- Editing the brief or approved text invalidates a pending transmission preview.
+- A result arriving after input changes is retained as a candidate, not applied over the current map.
+- Invalid JSON, missing source IDs, changed context roles and fabricated exact excerpts are rejected.
+- Cancellation, timeout, restart uncertainty and failed analysis do not trigger an automatic retry.
 
-Use this kit to inspect the two workflow examples, work through an intake and prepare a request for your own AI. It does **not** run analysis or import an AI's completed workflow review into the dashboard. For the existing narrative-review bundle and result-import workflow, use the separately released Windows Workbench below. The two tools have different draft and result formats.
+Local storage is `%LOCALAPPDATA%\Tracewright\Workbench`. It includes originals, approved text, payloads and run records and is not encrypted by TW. Protect it and back it up before upgrading. Removing a material from a review excludes it from later requests but retains the original for history; this is not secure deletion. Never publish this folder, its backups or logs.
 
-### 1. Install the Windows Workbench (recommended)
+## File And Analysis Limits
 
-**[Download Tracewright Workbench v0.3.0-beta for Windows](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
+Text, Markdown, CSV, JSON, HTML/XML and DOCX/ODT body paragraphs can be prepared locally. DOCX/ODT extraction is not a full rendering of notes, images or layout. PDF, legacy Office, RTF and other originals may be stored, but their text must be pasted and verified in this release. Nothing silently substitutes an empty or truncated source for a successful read.
 
-This is the main way to use Tracewright. The local-first Workbench guides the full review flow without requiring you to build a dashboard:
+The automatic payload is limited to 180,000 characters, including the brief. Larger projects need explicit selection or bounded excerpts. Results vary with the model, version and source preparation. Software/contract tests are not measured analytical accuracy. Source-ID and quotation validation does not establish that the reasoning is correct.
 
-- define the review question and mode before analysis
-- add and classify materials while keeping review targets separate from context
-- create a bounded review bundle for an AI environment you choose
-- import the AI's structured JSON result
-- inspect Summary, Claims, Evidence, Sources, and Follow-up views, including the reasoning and alternatives behind each observation
+High-impact academic, employment, legal, safety, clinical, reputational, provenance, publication or financial use requires qualified human review. This tool does not certify an audit, establish compliance, estimate wrongdoing or risk probabilities, or operate the system under review.
 
-The installer adds a Start Menu shortcut and can add a desktop shortcut. The browser-based interface and review files stay on your computer; Tracewright does not operate a hosted document server and does not receive your materials.
+## Develop And Build
 
-**Requirements:** Windows 10/11 x64. This is an unsigned beta, so Windows SmartScreen may show an unrecognized-app warning. Download it only from this repository. Checksums, release notes, and integrity guidance are available on the [Workbench release page](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.3.0-beta).
+The repository contains only public code, methodological guidance and fictional examples. The same allowlisted demo/intake assets are packaged with Workbench.
 
-### 2. See the dashboard before installing
+```powershell
+node scripts/sync-workbench-assets.cjs
+dotnet run --project workbench/Tracewright.Workbench.csproj
+dotnet run --project workbench/tests/Tests.csproj -- workbench "$env:TEMP/tw-contract-tests"
+pwsh scripts/build-workbench.ps1 -Installer
+```
 
-**[Open the public dashboard demo](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)**
+Source builds require Node.js 22+, .NET 10 SDK and, for the optional installer, Inno Setup 6. Use a fresh output directory for release builds. The release workflow builds artifacts from the GitHub checkout, not a developer's local data folder. See [release verification](docs/workbench-0.5-release.md).
 
-The demo shows the review map across synthetic correspondence, academic, public-narrative, and provenance cases. It contains no private correspondence, collector file, manuscript, or real unpublished source material.
+## Licence And Responsible Use
 
-### Other ways to use Tracewright
+The [Source-Available Non-Commercial License](LICENSE) and [commercial-use terms](COMMERCIAL_USE.md) remain unchanged. Public source availability is not an unrestricted open-source or commercial licence.
 
-- **No installation, Mac, or chat-only workflow:** use the [Starter Kit](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip) with ChatGPT, Claude, Gemini, or another file-capable AI assistant. It returns a Markdown review map instead of the interactive Workbench.
-- **See the lightweight workflow first:** open the [Simple AI Review example](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/simple-ai-example.html).
-- **Prefer Japanese?** Open the [Japanese guide](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/blob/main/README.ja.md).
-
-**License / commercial use:** free for personal, educational, research, and other non-commercial use. Commercial use, resale, hosted commercial services, or product integration require prior written permission. See `LICENSE` and `COMMERCIAL_USE.md`. Public visibility does not grant commercial-use rights.
-
-## Use It When You Want To Ask
-
-- Does this argument hold together?
-- Which claims need evidence?
-- Where are the contradictions, missing context, or weak links?
-- What changed over time?
-- What should be checked, revised, or escalated next?
-
-Tracewright helps reviewers inspect narrative materials, including AI-mediated or potentially AI-mediated text, without reducing the question to a detector verdict. It organizes evidence, uncertainty, alternatives, provenance disclosures, and follow-up questions so that a human reviewer can reason more carefully.
-
-Another way to describe the project is **uncertainty literacy**: learning how to read without rushing, especially when documents may have been drafted, edited, translated, polished, summarized, or mediated by AI.
-
-## Design Principle
-
-Tracewright is not designed to expose people. It is designed to slow down premature judgment.
-
-## Why This Exists
-
-Tracewright began as a way to read narrative materials more responsibly in an AI-mediated world. The original question was not simply "was this written by a human?" The more useful question was: when a reviewer faces documents, statements, drafts, correspondence, public narratives, academic material, or mixed-source dossiers, what can be trusted, what needs checking, what has changed over time, and what should be done next?
-
-The tool is designed to support careful review rather than exposure. It can help make visible:
-
-- shifts in the public or private narrative around a particular person, organization, or project
-- small contradictions, missing context, or changes in stated position across a timeline
-- whether academic or technical prose still preserves the author's intention after editing, translation, or AI-assisted polishing
-- where machine-generated or heavily mediated text leaves weak reasoning, unsupported claims, missing evidence, or unclear responsibility
-- how materials written by different authors, in different roles, and in different contexts relate to each other
-
-In that sense, Tracewright is a tool for improvement and verification. It helps a reviewer decide whether to ask a follow-up question, check a source, add evidence, revise a draft, separate source roles, or escalate to a qualified human reviewer. It is not built to judge people.
-
-## Intended Workflow
-
-Tracewright is designed for a human-in-the-loop review flow:
-
-1. A reviewer gathers one document or a sequence of related narrative materials.
-2. The reviewer provides the materials to an AI assistant or analysis pipeline.
-3. The AI segments the materials, extracts claims, identifies evidence, records uncertainty, and proposes alternative explanations.
-4. The structured result is loaded into a dashboard like this one.
-5. A human reviewer inspects the Summary, Claims, Evidence, Sources, and Follow-up views before deciding what to verify, ask, ignore, or escalate.
-
-The intended output is not a verdict. It is a review map.
-
-## What This Is
-
-- A browser-based demo for reviewing narrative materials.
-- A downloadable local-first Windows Workbench for preparing review bundles and inspecting structured results.
-- A method for mapping uncertainty around authorship, mediation, disclosure, and claim reliability.
-- A reviewer-support tool for provenance-aware reading.
-- A way to review mixed narrative sets: correspondence, public statements, articles, academic drafts, institutional pages, transcripts, art-provenance files, historical records, and other source materials.
-- A synthetic public demo; no private correspondence is included.
-
-## What This Is Not
-
-- It is not an AI detector.
-- It does not identify whether a person used AI.
-- It does not produce authenticity scores.
-- It does not replace consent, context, or human judgment.
-- It is not a hosted analysis platform.
-- It does not provide hosted storage, a Tracewright cloud, or free AI computing resources.
-- The Windows Workbench includes local material intake and structured-result import, but no direct provider API connection yet.
-- It is not a grant of permission to commercially exploit the Tracewright concept, name, methodology, starter kit, dashboard, prompts, templates, or distinctive review structure.
-
-## License And Commercial Use
-
-Tracewright Narrative Uncertainty Map is free to study, test, adapt, and use for personal, educational, research, and other non-commercial purposes.
-
-Commercial use is not granted by the public license. This includes selling Tracewright-based tools, dashboards, prompts, workflows, or services; building a hosted commercial platform from this repository; packaging the Starter Kit into a paid product; or using the Tracewright name or distinctive method as part of a commercial product without permission.
-
-For commercial collaboration, licensing, institutional use, or product integration, please contact Ayako Redon first.
-
-See `LICENSE` and `COMMERCIAL_USE.md`.
-
-## Safety Docs
-
-- `FAQ.md`: common questions and boundaries.
-- `docs/misuse-examples.md`: unsafe uses and safer reframings.
-- `docs/safe-use-cases.md`: practical review scenarios.
-- `docs/schema.md`: data structure notes for builders.
-- `SECURITY.md`: do not post private review materials in public issues.
-- `CONTRIBUTING.md`: contribution principles.
-
-## Public Dashboard Demo
-
-Open the live dashboard demo here:
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/
-
-You can also open `index.html` locally in a browser. The same demo is available at `demo/index.html`.
-
-The demo uses synthetic review materials only and presents them as a read-only Workbench review map. The cases are designed to show how source-grounded texture cues, cross-language influence, editorial polish, source grounding, and claim reliability can be separated during review. Summary includes the Interpretation Guide; Sources preserves chronology and source-role boundaries; Evidence leaves the excerpt, reasoning chain, alternatives, and next human action inspectable.
-
-The demo includes several document genres: personal correspondence, mixed AI/editorial writing, institutional newsletter-style prose, academic paper review, public narrative dossiers, and art-provenance review. These genres should not be reviewed with identical prompts or assumptions. Workflow cases inspect transformations, receipt, authority, incentives, corrections and downstream effects instead of applying writing-texture cues to processes.
-
-For the non-dashboard workflow, see `simple-ai-example.html`. It shows a reconstructed academic review map generated through the simple "use this with your AI" path.
-
-## No-Install Starter Kit
-
-The Starter Kit is the secondary route for Mac users, people who do not want to install an application, or anyone who prefers to work directly in a familiar AI chat:
-
-https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/downloads/tracewright-narrative-starter-kit-v0.6.zip
-
-The starter kit includes two entry paths:
-
-- **Simple AI Review**: for users who only want to attach one instruction file to ChatGPT, Claude, Gemini, or another AI assistant and receive a Markdown review map.
-- **Dashboard Builder**: for Codex users, local HTML/JSON users, or reviewers who want to adapt the dashboard itself.
-
-After downloading and unzipping the starter kit, open `START_HERE.md` first. Non-technical users can attach `USE_THIS_WITH_YOUR_AI.md` to their AI assistant and paste one short message. The AI should then check file safety, ask what kind of review is needed, and guide the next step.
-
-If you feel lost, start with only one file: `USE_THIS_WITH_YOUR_AI.md`. Attach it to your AI assistant and ask it to guide you before uploading any review materials.
-
-The Starter Kit is not a free analysis service operated by Ayako Redon. It is a set of files you can use with your own AI environment, subject to that environment's privacy, security, and capability limits.
-
-## Demo Cases
-
-- **Multilingual Customer Support** follows eight constructed messages through translation, triage, shared queues, safety cover, privacy settings and unresolved-case reporting. See [sample notes](docs/workflow-sample.md).
-- **Temporary Production Access** follows six fictional access requests and a paired test through extraction, human approval, corrections, activation and verified removal. See [sample notes](docs/privileged-access-sample.md).
-
-- **Case A: Self-Written Baseline** shows what a stable, lightly mediated personal-writing baseline can look like without treating it as a universal standard.
-- **Case B: Cross-Language Influence** shows how translation, non-native phrasing, and source-language thinking can be reviewed without treating them as deception.
-- **Case C: Mixed Authorship / AI-Polish** shows why one document or exchange may need segment-level review rather than one label for the whole person or text.
-- **Case D: Institutional Newsletter-Style Prose** shows how source-backed details, editorial polish, translation workflow, and public-facing institutional claims can be separated.
-- **Case E: Academic Paper Review** shows how the framework can support academic quality review by surfacing weak claims, method gaps, citation uncertainty, and overgeneralization, not just possible AI mediation.
-- **Case F: Public AI Leadership Narrative Dossier** shows how public statements, company positions, reporting, and adversarial sources can be mapped to test narrative consistency without turning the review into a reputational verdict.
-- **Case G: Eighteenth-Century Painting Provenance Dossier** shows how art and collection provenance files can be reviewed across diaries, auction records, researcher notes, material analysis, wartime gaps, and archival silence.
-
-Separate from the dashboard cases, the **Simple AI Review Example** shows what a Markdown academic review map can look like when the Starter Kit is used with a general-purpose AI assistant.
-
-## Reproducing the Method Locally
-
-This repository is intentionally a static public demo, not a free hosted service. A Codex or LLM-assisted user can still reproduce the workflow locally by:
-
-1. Keeping private source documents outside the public repository.
-2. Asking an AI assistant to analyze those documents using the methodology in `docs/methodology.md`.
-3. Converting the analysis into structured case data: materials, claims, evidence cards, review lanes, and summary posture.
-4. Validating and adapting the synthetic fixtures in `demo/cases.js`, `demo/workflow-case.js` or the access-case files. See `docs/public-demo-maintenance.md`; the browser fixture shape is not the Workbench import schema.
-5. Reviewing and correcting the AI output manually before taking any action.
-
-This keeps the method reproducible without requiring the project owner to host private documents or provide free analysis infrastructure.
-
-## AI Configuration Matters
-
-Analysis quality depends heavily on the AI assistant, model, prompt, source extraction quality, and reviewer instructions. A reviewer should explicitly tell the AI what kind of material is being reviewed and what level of scrutiny is needed.
-
-For example:
-
-- correspondence review may emphasize continuity, response alignment, personal claims, style drift, and disclosure
-- newsletter or article review may emphasize editorial polish, source-backed details, translation workflow, institutional claims, and public-facing accuracy
-- academic paper review may emphasize research claims, methodology, sample description, evidence strength, citation use, limitations, and overgeneralization
-- art-provenance review may emphasize source-role boundaries, attribution versus ownership history, material-analysis limits, catalogue or diary mismatches, wartime gaps, and archival silence
-
-The starter kit includes a review-intake worksheet for choosing a primary review mode before analysis. Users should tell their AI whether they want claim/fact consistency review, academic review, correspondence continuity review, authorship/mediation workflow review, provenance/source-role review, or another mode. If the goal is unclear, the AI should ask clarifying questions before producing a map.
-
-The dashboard is only as useful as the structured analysis that feeds it. AI output should be treated as a draft review map, not as ground truth.
-
-If a review may affect employment, legal, academic, reputational, provenance, publication, or financial decisions, Tracewright output should be treated only as preparation for qualified human review.
-
-## Current Workbench And Future Product Shape
-
-The Windows Workbench now provides local material intake, review setup, bounded bundle generation, structured JSON import, and an inspectable review dashboard. It keeps files under the user's local application-data folder and uses the user's chosen AI environment.
-
-A future hosted or multi-user product would still need:
-
-- broader document text extraction
-- optional encrypted collaboration and retention controls
-- an API-backed analysis layer
-- reviewer editing and audit logs
-- provider-specific key storage, consent, and cost controls
-
-The current repository does not provide that hosted backend.
-
-## AI Analysis Instructions
-
-See `docs/ai-analysis-instructions.md` for prompt guidance when asking a local AI assistant to prepare correspondence, newsletter/article, or academic paper material for the dashboard.
-
-## OECD.AI Catalogue Submission Draft
-
-See `docs/oecd-ai-catalogue-submission-draft.md` for a draft submission text and categorization notes for the OECD.AI Catalogue of Tools & Metrics for Trustworthy AI.
-
-## Core Review Lanes
-
-- **Authorship / Mediation**: wording, style, AI/editorial polish, continuity, and final-surface mediation.
-- **Disclosure / Provenance**: explicit or known information about AI use, translation, editing, fiction, or workflow.
-- **Claim Reliability**: factual claims, identity or timeline statements, contradictions, and verification needs.
-
-The tool is built around review posture, not verdicts. Labels such as "segment-level review recommended" are meant to guide attention, not to classify people or texts.
-
-Evidence Cards are observation cards, not suspicion cards. They should never be used as a list of "people to suspect" or as a ranking of authenticity.
-
-## Repository Contents
-
-- `workbench/`: source and Windows packaging scripts for the local-first Tracewright Workbench.
-- `index.html`: public synthetic demo for GitHub Pages.
-- `intake.html`: browser-only narrative/workflow intake and manual AI-request preparation.
-- `demo/index.html`: compatibility redirect preserving the query and case link.
-- `demo/cases.js`: seven structured synthetic narrative cases.
-- `demo/workflow-case.js`: multilingual support scenario.
-- `demo/access-materials.js`, `demo/access-case.js`: production-access scenario and source-linked review.
-- `docs/review-intake.md`, `docs/workflow-review-design.md`: browser intake, workflow method and current limits.
-- `CHANGELOG.md`: public version notes.
-- `docs/methodology.md`: method and review model.
-- `docs/ai-analysis-instructions.md`: prompt guidance for local AI-assisted analysis.
-- `docs/ethics.md`: privacy, consent, and misuse boundaries.
-- `docs/misuse-examples.md`: misuse examples and safer reframings.
-- `docs/safe-use-cases.md`: safe practical use cases.
-- `docs/schema.md`: data structure notes.
-- `FAQ.md`: common questions.
-- `CONTRIBUTING.md`: contribution principles.
-- `SECURITY.md`: private-material warning for public GitHub participation.
-- `LICENSE`: source-available non-commercial license.
-- `COMMERCIAL_USE.md`: plain-language commercial-use summary.
-
-
-
-
-
+Read [ethics](docs/ethics.md), [safe uses](docs/safe-use-cases.md), [misuse examples](docs/misuse-examples.md), [security guidance](SECURITY.md) and [contribution guidance](CONTRIBUTING.md). Do not submit private materials, account details or unredacted logs in issues or pull requests.

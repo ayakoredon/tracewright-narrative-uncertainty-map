@@ -227,6 +227,22 @@
     get('previous-step').addEventListener('click',()=>navigate(page-1));
     get('next-step').addEventListener('click',()=>navigate(page+1));
     get('save-draft').addEventListener('click',save);
+    if(new URLSearchParams(window.location.search).get('workbench')==='1' && window.location.hostname==='127.0.0.1') {
+      document.querySelector('.back-link').href='/';
+      document.querySelector('.intake-brand').href='/';
+      const send=document.createElement('button'); send.type='button'; send.className='primary'; send.textContent='Create local Workbench review';
+      get('save-draft').parentElement.append(send);
+      send.addEventListener('click',async()=>{
+        send.disabled=true;
+        try {
+          M.parse(JSON.stringify(d));
+          const health=await window.fetch('/api/health').then(r=>r.json());
+          const result=await window.fetch('/api/intake',{method:'POST',headers:{'Content-Type':'application/json','X-Tracewright-Session':health.sessionToken},body:JSON.stringify(d)});
+          const value=await result.json();if(!result.ok)throw new Error(value.error || 'Local registration failed.');
+          dirty=false;window.location.href='/#project='+encodeURIComponent(value.id);
+        } catch(error) {message(error.message+' Nothing was sent to AI.',true);send.disabled=false;}
+      });
+    }
     get('export-draft').addEventListener('click',exportDraft);
     get('export-close').addEventListener('click',()=>get('export-dialog').close());
     get('export-copy').addEventListener('click',async()=>{

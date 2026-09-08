@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light">
   <title>Tracewright Workbench</title>
-  <link rel="stylesheet" href="app.css?v=0.3.0-beta">
+  <link rel="stylesheet" href="app.css?v=0.5.0-beta">
+  <link rel="stylesheet" href="connection.css?v=0.5.0-beta">
 </head>
 <body>
   <div class="app-shell">
@@ -14,11 +15,13 @@
         <span class="brand-mark" aria-hidden="true">T</span>
         <div>
           <strong>Tracewright</strong>
-          <span>Local Workbench <small id="app-version">v0.3.0-beta</small></span>
+          <span>Local Workbench <small id="app-version">v0.5.0-beta</small></span>
         </div>
       </div>
 
       <button class="primary wide" id="new-review-button" type="button">New review</button>
+      <a class="button secondary wide" href="lab/intake.html?kind=workflow&amp;workbench=1">Workflow intake</a>
+      <a class="button secondary wide" href="lab/index.html">Explore fictional examples</a>
 
       <div class="side-heading">
         <span>Review files</span>
@@ -53,7 +56,7 @@
         <div class="empty-copy">
           <span class="section-label">START A REVIEW</span>
           <h2>Connect your documents, your review question, and an AI you control.</h2>
-          <p>Tracewright prepares an inspectable review map. It does not decide whether a person or an AI wrote something, and it does not send documents to Ayako or a Tracewright cloud.</p>
+          <p>Tracewright supports narrative and automation-workflow review. A flag means inspect carefully, not that someone did something wrong. Your selected AI provider receives only the content you approve; there is no Tracewright cloud.</p>
           <button class="primary" id="empty-new-review-button" type="button">Create review file</button>
         </div>
         <div class="process-map" aria-label="Tracewright review flow">
@@ -92,11 +95,13 @@
                 <div class="field">
                   <label for="primary-mode">Primary review mode</label>
                   <select id="primary-mode" name="primaryMode">
+                    <option>Workflow / Automation Review</option>
                     <option>Claim and Fact Consistency</option>
                     <option>Academic Review</option>
                     <option>Correspondence / Personal Narrative Continuity</option>
                     <option>Authorship / Mediation Workflow</option>
                     <option>Provenance / Source-Role Review</option>
+                    <option>Sensitive / High-impact Narrative Review</option>
                     <option>Mixed Narrative Review</option>
                   </select>
                 </div>
@@ -109,6 +114,7 @@
                     <option>Correspondence / Personal Narrative Continuity</option>
                     <option>Authorship / Mediation Workflow</option>
                     <option>Provenance / Source-Role Review</option>
+                    <option>Sensitive / High-impact Narrative Review</option>
                   </select>
                 </div>
               </div>
@@ -141,15 +147,64 @@
               <fieldset class="field full">
                 <legend>Could this review affect a high-impact decision?</legend>
                 <div class="check-grid" id="high-impact-contexts">
+                  <label><input type="checkbox" value="Safety"> Safety</label>
+                  <label><input type="checkbox" value="Data protection"> Data protection</label>
+                  <label><input type="checkbox" value="Remedy / rights"> Remedy / rights</label>
+                  <label><input type="checkbox" value="Clinical use"> Clinical use</label>
+                  <label><input type="checkbox" value="People / environment"> People / environment</label>
                   <label><input type="checkbox" value="Academic assessment"> Academic assessment</label>
                   <label><input type="checkbox" value="Employment"> Employment</label>
                   <label><input type="checkbox" value="Legal"> Legal</label>
                   <label><input type="checkbox" value="Reputation"> Reputation</label>
                   <label><input type="checkbox" value="Financial"> Financial</label>
+                  <label><input type="checkbox" value="Insurance / benefits"> Insurance / benefits</label>
                   <label><input type="checkbox" value="Ownership / provenance"> Ownership / provenance</label>
                   <label><input type="checkbox" value="Publication"> Publication</label>
                 </div>
               </fieldset>
+              <section class="sensitive-intake field full" id="sensitive-intake">
+                <div class="sensitive-intake-heading">
+                  <label class="sensitive-mode-toggle" for="sensitive-review-mode">
+                    <input type="checkbox" id="sensitive-review-mode">
+                    <span><strong>Use Sensitive Review Mode</strong><small>For transformed testimony, confidential narratives, or material that could influence how a person is treated.</small></span>
+                  </label>
+                  <span class="badge later" id="sensitive-mode-state">Standard review</span>
+                </div>
+                <p class="sensitive-intake-note">Selecting a high-impact context, sensitivity trigger, or transformation stage activates this mode automatically. The AI must also reassess the boundary after reading the materials.</p>
+                <div class="sensitive-mode-details" id="sensitive-mode-details" hidden>
+                  <fieldset class="field full">
+                    <legend>Why does this review need additional care?</legend>
+                    <div class="check-grid" id="sensitivity-triggers">
+                      <label><input type="checkbox" value="Personal or confidential information"> Personal or confidential information</label>
+                      <label><input type="checkbox" value="Anonymous, vulnerable, or identifiable source"> Anonymous, vulnerable, or identifiable source</label>
+                      <label><input type="checkbox" value="Individual profiling or background comparison"> Individual profiling or background comparison</label>
+                      <label><input type="checkbox" value="Potential adverse decision"> Potential adverse decision</label>
+                      <label><input type="checkbox" value="Disputed testimony or credibility"> Disputed testimony or credibility</label>
+                      <label><input type="checkbox" value="Health, insurance, or benefits information"> Health, insurance, or benefits information</label>
+                    </div>
+                  </fieldset>
+                  <fieldset class="field full">
+                    <legend>Which transformations may have changed the narrative?</legend>
+                    <div class="check-grid" id="transformation-stages">
+                      <label><input type="checkbox" value="Audio or image transcription"> Audio or image transcription</label>
+                      <label><input type="checkbox" value="Translation"> Translation</label>
+                      <label><input type="checkbox" value="Summarization or rewriting"> Summarization or rewriting</label>
+                      <label><input type="checkbox" value="Classification or routing"> Classification or routing</label>
+                      <label><input type="checkbox" value="Anonymization or redaction"> Anonymization or redaction</label>
+                      <label><input type="checkbox" value="Human editorial intervention"> Human editorial intervention</label>
+                    </div>
+                  </fieldset>
+                  <div class="field full">
+                    <label for="decision-use">How might this review map be used?</label>
+                    <textarea id="decision-use" rows="3" placeholder="Example: audit whether transcription, translation, classification, and anonymization changed a report before a qualified reviewer decides the next procedural step."></textarea>
+                    <small>Describe the process or decision. Do not ask Tracewright to rank a person's credibility, character, eligibility, or risk.</small>
+                  </div>
+                  <label class="safety-confirmation sensitive-confirmation">
+                    <input type="checkbox" id="sensitive-use-confirmed">
+                    <span><strong>I will not use this map as the sole basis for an adverse decision.</strong> I will minimize the material shared, preserve uncertainty through each transformation stage, and require an accountable human review.</span>
+                  </label>
+                </div>
+              </section>
               <label class="safety-confirmation">
                 <input type="checkbox" id="privacy-confirmed">
                 <span><strong>I checked the document boundary.</strong> I understand that files stay on this computer until I choose an AI connection, and that my chosen AI provider may receive them.</span>
@@ -171,6 +226,12 @@
             </div>
             <p>Every file receives a stable source ID. Context-only material stays visually and analytically separate.</p>
           </div>
+
+          <aside class="sensitive-materials-notice" id="sensitive-materials-notice" hidden>
+            <span class="section-label">SENSITIVE REVIEW MODE</span>
+            <strong>Add the smallest necessary source set.</strong>
+            <p>Redact unnecessary identifiers before upload. Preserve source roles and sequence, but do not retain raw voice, background detail, or personal data merely because it could be useful later.</p>
+          </aside>
 
           <div class="materials-layout">
             <form id="upload-form" class="upload-panel">
@@ -236,10 +297,11 @@
           <div class="transmission-boundary" id="transmission-boundary">
             <div class="boundary-title"><span class="status-dot local"></span><strong>Before anything leaves this computer</strong></div>
             <div class="boundary-grid">
-              <div><span>Selected materials</span><strong id="boundary-file-count">0 files</strong></div>
+              <div><span>Local inventory</span><strong id="boundary-file-count">0 files</strong></div>
               <div><span>Tracewright server</span><strong>None</strong></div>
-              <div><span>Current route</span><strong id="boundary-route">Manual AI Bridge</strong></div>
-              <div><span>Provider receives files</span><strong id="boundary-provider">Only after you upload them</strong></div>
+              <div><span>AI routes</span><strong id="boundary-route">Choose below</strong></div>
+              <div><span>Eligible for sharing</span><strong id="boundary-provider">Approved text + brief only</strong></div>
+              <div><span>Review protocol</span><strong id="boundary-review-protocol">Standard</strong></div>
             </div>
           </div>
 
@@ -263,13 +325,13 @@
               <h3>Manual AI Bridge</h3>
               <p>Download one bounded bundle, give it to your usual AI, then import the structured JSON result. No API key is stored here.</p>
               <ol>
-                <li>Download the selected materials and review request.</li>
-                <li>Upload them to an AI environment you trust.</li>
+                <li>Inspect and download selected review text with the request.</li>
+                <li>Check your AI data terms, then upload the approved bundle.</li>
                 <li>Import the returned JSON review map.</li>
               </ol>
               <div class="connector-actions">
                 <a class="button primary" id="download-bundle" href="#">Download review bundle</a>
-                <button class="secondary" id="preview-request" type="button">Preview request</button>
+                <button class="secondary" id="preview-request" type="button">Review protocol</button>
               </div>
               <div class="import-row">
                 <input id="review-result-file" type="file" accept=".json,application/json">
@@ -292,14 +354,6 @@
               <div class="run-status" id="run-status">No run started.</div>
             </article>
 
-            <article class="connector-card disabled" aria-disabled="true">
-              <div class="connector-topline">
-                <span class="connector-type">FUTURE CONNECTOR</span>
-                <span class="badge later">Later</span>
-              </div>
-              <h3>Direct provider API</h3>
-              <p>Bring-your-own-key connections can be added after local secret storage, provider-specific consent, and cost controls are designed carefully.</p>
-            </article>
           </div>
 
           <div class="connection-footer">
@@ -325,12 +379,14 @@
           <div id="review-content" hidden>
             <nav class="review-tabs" aria-label="Review map sections">
               <button class="review-tab active" type="button" data-review-view="summary">Summary</button>
+              <button class="review-tab" type="button" data-review-view="workflow">Flow &amp; Controls</button>
               <button class="review-tab" type="button" data-review-view="claims">Claims <span id="claim-count"></span></button>
               <button class="review-tab" type="button" data-review-view="evidence">Evidence <span id="evidence-count"></span></button>
               <button class="review-tab" type="button" data-review-view="sources">Sources <span id="source-count"></span></button>
               <button class="review-tab" type="button" data-review-view="follow-up">Follow-up <span id="follow-up-count"></span></button>
             </nav>
             <section class="review-section active" data-review-panel="summary" id="summary-panel"></section>
+            <section class="review-section" data-review-panel="workflow" id="workflow-panel"></section>
             <section class="review-section" data-review-panel="claims" id="claims-panel"></section>
             <section class="review-section" data-review-panel="evidence" id="evidence-panel"></section>
             <section class="review-section" data-review-panel="sources" id="sources-panel"></section>
@@ -356,6 +412,7 @@
     </div>
   </dialog>
 
-  <script src="app.js?v=0.3.0-beta"></script>
+  <script src="app.js?v=0.5.0-beta"></script>
+  <script src="connection.js?v=0.5.0-beta"></script>
 </body>
 </html>

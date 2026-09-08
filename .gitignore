@@ -5,3 +5,11 @@ workbench/bin/
 workbench/obj/
 workbench/release/
 workbench/.dotnet10/
+workbench/tests/bin/
+workbench/tests/obj/
+workbench/wwwroot/lab/
+**/projects/
+**/runs/
+outputs/
+auth.json
+*.pdb

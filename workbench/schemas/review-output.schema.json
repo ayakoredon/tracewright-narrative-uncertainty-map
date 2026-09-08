@@ -5,11 +5,13 @@
   "required": [
     "review_setup",
     "orientation",
+    "sensitive_review",
     "sources",
     "claims",
     "evidence",
     "follow_up",
-    "limitations"
+    "limitations",
+    "workflow_review"
   ],
   "properties": {
     "review_setup": {
@@ -23,7 +25,11 @@
         "known_context",
         "must_not_conclude",
         "high_impact_context",
-        "qualified_human_review_required"
+        "qualified_human_review_required",
+        "sensitive_review_mode_requested",
+        "sensitivity_triggers",
+        "transformation_stages",
+        "intended_decision_use"
       ],
       "properties": {
         "title": { "type": "string" },
@@ -33,7 +39,11 @@
         "known_context": { "type": "string" },
         "must_not_conclude": { "type": "array", "items": { "type": "string" } },
         "high_impact_context": { "type": "array", "items": { "type": "string" } },
-        "qualified_human_review_required": { "type": "boolean" }
+        "qualified_human_review_required": { "type": "boolean" },
+        "sensitive_review_mode_requested": { "type": "boolean" },
+        "sensitivity_triggers": { "type": "array", "items": { "type": "string" } },
+        "transformation_stages": { "type": "array", "items": { "type": "string" } },
+        "intended_decision_use": { "type": "string" }
       }
     },
     "orientation": {
@@ -45,6 +55,67 @@
         "overview": { "type": "string" },
         "evidence_completeness": { "type": "string" },
         "overclaim_risk": { "type": "string" }
+      }
+    },
+    "sensitive_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activated",
+        "activation_reasons",
+        "review_subject",
+        "decision_boundary",
+        "transformation_chain",
+        "data_minimization_notes",
+        "prohibited_uses",
+        "permitted_next_actions",
+        "human_review_requirement"
+      ],
+      "properties": {
+        "activated": { "type": "boolean" },
+        "activation_reasons": { "type": "array", "items": { "type": "string" } },
+        "review_subject": { "type": "string" },
+        "decision_boundary": { "type": "string" },
+        "transformation_chain": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "stage_id",
+              "sequence",
+              "operation",
+              "input_source_ids",
+              "output_source_ids",
+              "actor_role",
+              "status",
+              "known_change",
+              "uncertainty_introduced",
+              "information_removed",
+              "verification_need"
+            ],
+            "properties": {
+              "stage_id": { "type": "string" },
+              "sequence": { "type": "integer", "minimum": 1 },
+              "operation": { "type": "string" },
+              "input_source_ids": { "type": "array", "items": { "type": "string" } },
+              "output_source_ids": { "type": "array", "items": { "type": "string" } },
+              "actor_role": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["Disclosed", "Observed", "Inferred", "Unknown"]
+              },
+              "known_change": { "type": "string" },
+              "uncertainty_introduced": { "type": "string" },
+              "information_removed": { "type": "string" },
+              "verification_need": { "type": "string" }
+            }
+          }
+        },
+        "data_minimization_notes": { "type": "array", "items": { "type": "string" } },
+        "prohibited_uses": { "type": "array", "items": { "type": "string" } },
+        "permitted_next_actions": { "type": "array", "items": { "type": "string" } },
+        "human_review_requirement": { "type": "string" }
       }
     },
     "sources": {
@@ -151,6 +222,27 @@
           "source_ids": { "type": "array", "items": { "type": "string" } },
           "priority": { "type": "string", "enum": ["Low", "Medium", "High"] }
         }
+      }
+    },
+    "workflow_review": {
+      "type": "object", "additionalProperties": false,
+      "required": ["overview", "steps", "transitions", "controls", "unknowns"],
+      "properties": {
+        "overview": {"type": "string"},
+        "steps": {"type": "array", "items": {
+          "type": "object", "additionalProperties": false,
+          "required": ["id", "title", "actor", "owner", "description", "source_ids"],
+          "properties": {"id": {"type":"string"}, "title":{"type":"string"}, "actor":{"type":"string"}, "owner":{"type":"string"}, "description":{"type":"string"}, "source_ids":{"type":"array","items":{"type":"string"}}}
+        }},
+        "transitions": {"type":"array", "items": {
+          "type":"object", "additionalProperties":false, "required":["from","to","condition","basis","source_ids"],
+          "properties":{"from":{"type":"string"},"to":{"type":"string"},"condition":{"type":"string"},"basis":{"type":"string"},"source_ids":{"type":"array","items":{"type":"string"}}}
+        }},
+        "controls": {"type":"array", "items": {
+          "type":"object", "additionalProperties":false, "required":["title","state","observation","alternatives","next_check","source_ids"],
+          "properties":{"title":{"type":"string"},"state":{"type":"string","enum":["documented_mismatch","concern","not_established","observed_control"]},"observation":{"type":"string"},"alternatives":{"type":"array","items":{"type":"string"}},"next_check":{"type":"string"},"source_ids":{"type":"array","items":{"type":"string"}}}
+        }},
+        "unknowns":{"type":"array","items":{"type":"string"}}
       }
     },
     "limitations": {

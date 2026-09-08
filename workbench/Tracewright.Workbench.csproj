@@ -7,11 +7,18 @@
     <RootNamespace>Tracewright.Workbench</RootNamespace>
     <Product>Tracewright Workbench</Product>
     <Description>Local-first narrative review workspace</Description>
-    <Version>0.3.0-beta</Version>
+    <Version>0.5.0-beta</Version>
     <ApplicationIcon>assets\tracewright-workbench.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DefaultItemExcludes>$(DefaultItemExcludes);release\**;.dotnet10\**</DefaultItemExcludes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Update="schemas\**" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Compile Remove="tests\**" />
+    <Content Remove="tests\**" />
+    <None Remove="tests\**" />
+  </ItemGroup>
 
 </Project>

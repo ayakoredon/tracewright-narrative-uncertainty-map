@@ -27,25 +27,33 @@ ZIPを展開して `index.html` を開くと、架空の文書レビュー7件�
 
 Review Labは監査や検証の準備を支援するもので、監査完了・法令適合・安全性を保証しません。未確認は問題の存在を意味せず、提案した対応と実施・検証済みの対応は区別します。重要な判断には適切な専門性と責任を持つ人のレビューが必要です。
 
-**今回の画面・フォーム・解説は英語版です。この日本語ガイドがあることは、アプリ全体が日本語対応済みという意味ではありません。既存Windows版の更新でもありません。** Windows版とStarter Kitは以下の別の配布物です。ライセンスと商用利用条件は変更していません。
+**画面・フォームは英語版です。この日本語ガイドがあることは、アプリ全体が日本語対応済みという意味ではありません。** 静的Review Lab ZIPだけではWindowsアプリは更新されません。下記のWorkbench 0.5では、このデモとフォームをWindows版へ統合しています。ライセンスと商用利用条件は変更していません。
 
 ## 推奨: Windows Workbenchを使う
 
 Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。これが、現在のTracewrightを一連の流れで使うための主な入口です。
 
-**[Tracewright Workbench v0.3.0-betaをダウンロード](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.3.0-beta/Tracewright-Workbench-Setup-v0.3.0-beta.exe)**
+**[Tracewright Workbench v0.5.0-betaをダウンロード](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/Tracewright-Workbench-Setup-v0.5.0-beta.exe)**
+
+[インストール不要のWindows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/tracewright-workbench-windows-v0.5.0-beta.zip)もあります。フォルダー全体を展開してください。
 
 Workbenchでは、次の作業をひとつの画面から進められます。
 
 - レビューの目的とモードを最初に決める
 - 分析対象と周辺コンテクストを分けて資料を登録する
-- 自分で選んだAIへ渡す、範囲を限定したレビュー用ファイルを作る
-- AIが返したJSONを読み込む
-- Summary、Claims、Evidence、Sources、Follow-upから、観察の根拠や代替説明を確認する
+- 業務フローのヒアリングフォームからローカル案件を作成する
+- 原本に照らして分析用テキストを確認し、送信する範囲を選ぶ
+- 自分のCodexへ確認済みテキストを送るか、手動転送用ZIPを作る
+- AIが返したJSONの形式・資料ID・引用の一致を検査して取り込む
+- Summary、Claims、Evidence、Sources、Follow-up、Flow & Controlsから根拠や代替説明を確認する
 
-インストールすると、スタートメニューと、希望する場合はデスクトップにショートカットが作られます。資料とレビュー結果は自分のPC内に保存され、TracewrightやAyakoのサーバーへ自動送信されることはありません。AIへ渡す場合だけ、自分で選んだAI環境へレビュー用ファイルをアップロードします。
+インストールすると、スタートメニューと、希望する場合はデスクトップにショートカットが作られます。資料と結果は自分のPC内に保存されます。原本ファイルが自動的にAIへ送信されることはありません。選択した分析用テキストとレビュー依頼は、送信を承認した場合にCodex経由でプロバイダーへ渡ります。
 
-現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。必ず、この公式GitHubリポジトリから取得したものだけを実行してください。チェックサムや更新内容は[リリースページ](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.3.0-beta)で確認できます。
+**送信前に、自分のCodexまたは利用するAIで、アカウント・ワークスペース、保存期間、学習への利用、所属組織の規則、資料を共有する権限を確認してください。TWはそれらを自動確認できません。** 自動接続はChatGPTでログインした対応版Codexを使い、APIキーへの切り替えはしません。Codexの利用枠を消費します。既存のチャット・メモリーを引き継がない独立した分析です。
+
+PDFや古いOffice形式などは、原本に照らした抜粋・書き起こしの入力が必要です。DOCX/ODTも本文抽出のため、脚注・図表などの欠落を確認してください。結果の検査は構造と参照の検査であり、分析の正しさを保証するものではありません。更新前には `%LOCALAPPDATA%\Tracewright\Workbench` をバックアップしてください。
+
+現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。公式GitHubリポジトリの配布物を確認してください。チェックサムや更新内容は[リリースページ](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.0-beta)で確認できます。
 
 ## インストール前にデモを見る
 

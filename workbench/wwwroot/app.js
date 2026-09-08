@@ -47,6 +47,7 @@ async function initialize() {
         state.health = { codex: { available: false, message: error.message } };
         renderConnectorAvailability();
       });
+    await healthRequest;
     const projects = await api("/api/projects");
     state.projects = projects;
     renderProjectList();
@@ -73,6 +74,10 @@ function bindEvents() {
   });
   elements.uploadForm.addEventListener("submit", uploadMaterials);
   elements.fileInput.addEventListener("change", updateSelectedFiles);
+  document.querySelector("#sensitive-review-mode").addEventListener("change", syncSensitiveMode);
+  document.querySelectorAll("#high-impact-contexts input, #sensitivity-triggers input, #transformation-stages input").forEach(input => {
+    input.addEventListener("change", syncSensitiveMode);
+  });
 
   const dropZone = document.querySelector("#drop-zone");
   ["dragenter", "dragover"].forEach(name => dropZone.addEventListener(name, event => {
@@ -98,6 +103,10 @@ function bindEvents() {
       if (state.currentView === "brief") {
         const saved = await saveBrief(true);
         if (!saved) return;
+        if (state.envelope.project.sensitiveReviewMode && !state.envelope.project.sensitiveUseConfirmed) {
+          showToast("Confirm the Sensitive Review Mode boundary before adding materials.", true);
+          return;
+        }
       }
       switchView(button.dataset.next);
     });
@@ -117,6 +126,7 @@ function bindEvents() {
 }
 
 async function api(url, options = {}) {
+  options.headers = { ...options.headers, ...(state.health?.sessionToken ? {"X-Tracewright-Session":state.health.sessionToken} : {}) };
   const response = await fetch(url, options);
   const contentType = response.headers.get("content-type") || "";
   const payload = contentType.includes("application/json") ? await response.json() : await response.text();
@@ -150,10 +160,13 @@ async function selectProject(id) {
   clearInterval(state.statusPoll);
   state.statusPoll = null;
   state.activeProjectId = id;
+  state.envelope = null;
   localStorage.setItem("tracewright.activeProject", id);
   setSaveStatus("Loading...");
   try {
-    state.envelope = await api(`/api/projects/${encodeURIComponent(id)}`);
+    const envelope = await api(`/api/projects/${encodeURIComponent(id)}`);
+    if (state.activeProjectId !== id) return;
+    state.envelope = envelope;
     showWorkspace();
     populateBrief();
     renderMaterials();
@@ -213,9 +226,26 @@ function populateBrief() {
   document.querySelectorAll("#high-impact-contexts input").forEach(input => {
     input.checked = (project.highImpactContexts || []).includes(input.value);
   });
+  document.querySelector("#sensitive-review-mode").checked = Boolean(project.sensitiveReviewMode);
+  document.querySelectorAll("#sensitivity-triggers input").forEach(input => {
+    input.checked = (project.sensitivityTriggers || []).includes(input.value);
+  });
+  document.querySelectorAll("#transformation-stages input").forEach(input => {
+    input.checked = (project.transformationStages || []).includes(input.value);
+  });
+  document.querySelector("#decision-use").value = project.decisionUse || "";
+  document.querySelector("#sensitive-use-confirmed").checked = Boolean(project.sensitiveUseConfirmed);
+  syncSensitiveMode();
 }
 
 function collectBrief() {
+  const sensitivityTriggers = [...document.querySelectorAll("#sensitivity-triggers input:checked")].map(input => input.value);
+  const transformationStages = [...document.querySelectorAll("#transformation-stages input:checked")].map(input => input.value);
+  const highImpactContexts = [...document.querySelectorAll("#high-impact-contexts input:checked")].map(input => input.value);
+  const sensitiveReviewMode = document.querySelector("#sensitive-review-mode").checked
+    || sensitivityTriggers.length > 0
+    || transformationStages.length > 0
+    || highImpactContexts.length > 0;
   return {
     title: document.querySelector("#project-title").value,
     primaryMode: document.querySelector("#primary-mode").value,
@@ -224,14 +254,40 @@ function collectBrief() {
     knownProvenance: document.querySelector("#known-provenance").value,
     reviewerIntuition: document.querySelector("#reviewer-intuition").value,
     mustNotConclude: document.querySelector("#must-not-conclude").value.split(/\r?\n/).map(value => value.trim()).filter(Boolean),
-    highImpactContexts: [...document.querySelectorAll("#high-impact-contexts input:checked")].map(input => input.value),
+    highImpactContexts,
+    sensitiveReviewMode,
+    sensitivityTriggers,
+    transformationStages,
+    decisionUse: document.querySelector("#decision-use").value,
+    sensitiveUseConfirmed: sensitiveReviewMode && document.querySelector("#sensitive-use-confirmed").checked,
     privacyConfirmed: document.querySelector("#privacy-confirmed").checked,
     preferredConnector: state.envelope.project.preferredConnector || "manual"
   };
 }
 
+function syncSensitiveMode() {
+  const highImpactSelected = document.querySelectorAll("#high-impact-contexts input:checked").length > 0;
+  const triggerSelected = document.querySelectorAll("#sensitivity-triggers input:checked").length > 0;
+  const transformationSelected = document.querySelectorAll("#transformation-stages input:checked").length > 0;
+  const modeInput = document.querySelector("#sensitive-review-mode");
+  if (highImpactSelected || triggerSelected || transformationSelected) modeInput.checked = true;
+
+  const active = modeInput.checked;
+  const container = document.querySelector("#sensitive-intake");
+  const details = document.querySelector("#sensitive-mode-details");
+  const status = document.querySelector("#sensitive-mode-state");
+  const confirmation = document.querySelector("#sensitive-use-confirmed");
+  container.classList.toggle("active", active);
+  details.hidden = !active;
+  status.textContent = active ? "Sensitive mode active" : "Standard review";
+  status.className = `badge ${active ? "sensitive" : "later"}`;
+  confirmation.required = active;
+  if (!active) confirmation.checked = false;
+}
+
 async function saveBrief(silent = false) {
   if (!state.envelope) return false;
+  const projectId = state.activeProjectId;
   const payload = collectBrief();
   if (!payload.title.trim() || !payload.reviewQuestion.trim()) {
     showToast("Add a review title and review question before continuing.", true);
@@ -241,11 +297,12 @@ async function saveBrief(silent = false) {
 
   try {
     setSaveStatus("Saving locally...");
-    const project = await api(`/api/projects/${encodeURIComponent(state.activeProjectId)}/intake`, {
+    const project = await api(`/api/projects/${encodeURIComponent(projectId)}/intake`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     });
+    if (state.activeProjectId !== projectId || !state.envelope) return false;
     state.envelope.project = project;
     updateProjectCache(project);
     showWorkspace();
@@ -309,6 +366,7 @@ async function uploadMaterials(event) {
 function renderMaterials() {
   if (!state.envelope) return;
   const materials = state.envelope.project.materials || [];
+  document.querySelector("#sensitive-materials-notice").hidden = !state.envelope.project.sensitiveReviewMode;
   elements.materialCount.textContent = `${materials.length} ${materials.length === 1 ? "file" : "files"}`;
   if (!materials.length) {
     elements.materialList.innerHTML = '<div class="material-empty"><strong>No materials yet.</strong><br>Add the smallest useful set first.</div>';
@@ -355,10 +413,11 @@ function renderBoundary() {
   const project = state.envelope.project;
   const count = project.materials?.length || 0;
   document.querySelector("#boundary-file-count").textContent = `${count} ${count === 1 ? "file" : "files"}`;
-  document.querySelector("#boundary-route").textContent = project.preferredConnector === "codex" ? "Codex CLI" : "Manual AI Bridge";
-  document.querySelector("#boundary-provider").textContent = project.preferredConnector === "codex"
-    ? "Your signed-in Codex service"
-    : "Only after you upload them";
+  document.querySelector("#boundary-route").textContent = "Codex or manual transfer";
+  document.querySelector("#boundary-provider").textContent = "Approved text + brief only";
+  document.querySelector("#boundary-review-protocol").textContent = project.sensitiveReviewMode
+    ? "Sensitive / high-impact"
+    : "Standard";
 }
 
 function renderConnectorAvailability() {
@@ -371,7 +430,7 @@ function renderConnectorAvailability() {
   badge.className = `badge ${availability.available ? "ready" : "unavailable"}`;
   detail.textContent = availability.available
     ? (availability.version ? `${availability.message} ${availability.version}` : availability.message)
-    : "Codex could not be started from this local process. Use Manual AI Bridge, or install/sign in to Codex before retrying.";
+    : availability.message;
   button.disabled = !availability.available;
 }
 
@@ -382,6 +441,11 @@ async function prepareManualBundle(event) {
   const saved = await saveBrief(true);
   if (!saved || !state.envelope.project.privacyConfirmed) {
     showToast("Confirm the document boundary in Review Brief before preparing an AI bundle.", true);
+    switchView("brief");
+    return;
+  }
+  if (state.envelope.project.sensitiveReviewMode && !state.envelope.project.sensitiveUseConfirmed) {
+    showToast("Confirm the Sensitive Review Mode boundary before preparing an AI bundle.", true);
     switchView("brief");
     return;
   }
@@ -498,8 +562,11 @@ async function quitWorkbench() {
 
 async function refreshRunStatus(startPolling) {
   if (!state.activeProjectId) return;
+  const projectId = state.activeProjectId;
+  const wasPolling = Boolean(state.statusPoll) || startPolling;
   try {
-    const status = await api(`/api/projects/${encodeURIComponent(state.activeProjectId)}/run-status`);
+    const status = await api(`/api/projects/${encodeURIComponent(projectId)}/run-status`);
+    if (state.activeProjectId !== projectId) return;
     const runStatus = document.querySelector("#run-status");
     runStatus.textContent = status.message;
     runStatus.dataset.state = status.state;
@@ -508,6 +575,7 @@ async function refreshRunStatus(startPolling) {
       badge.textContent = "Running";
       badge.className = "badge running";
       document.querySelector("#run-codex").disabled = true;
+      if (!state.statusPoll) state.statusPoll = setInterval(() => refreshRunStatus(false), 2200);
     } else {
       renderConnectorAvailability();
     }
@@ -515,15 +583,19 @@ async function refreshRunStatus(startPolling) {
     if (status.state === "completed") {
       clearInterval(state.statusPoll);
       state.statusPoll = null;
-      state.envelope = await api(`/api/projects/${encodeURIComponent(state.activeProjectId)}`);
-      renderReview();
-      renderProjectList();
-      switchView("review");
-      showToast("Codex review map is ready.");
-    } else if (status.state === "failed") {
+      if (wasPolling) {
+        const envelope = await api(`/api/projects/${encodeURIComponent(projectId)}`);
+        if (state.activeProjectId !== projectId) return;
+        state.envelope = envelope;
+        renderReview();
+        renderProjectList();
+        switchView("review");
+        showToast("Codex review map is ready.");
+      }
+    } else if (["failed", "cancelled"].includes(status.state)) {
       clearInterval(state.statusPoll);
       state.statusPoll = null;
-      showToast(status.message, true);
+      if (wasPolling) showToast(status.message, true);
     } else if (startPolling && !state.statusPoll) {
       state.statusPoll = setInterval(() => refreshRunStatus(false), 2200);
     }
@@ -553,7 +625,7 @@ function renderReview() {
   renderSummary(review);
   renderClaims(claims);
   renderEvidence(evidence);
-  renderSources(sources);
+  renderSources(sources, review.sensitive_review || {});
   renderFollowUp(followUp);
 }
 
@@ -565,9 +637,31 @@ function renderSummary(review) {
   const laneCounts = countBy(evidence, item => item.lane || "Unclassified");
   const textureCounts = countBy(evidence, item => item.texture_axis || "not_applicable");
   const projectIntuition = state.envelope.project.reviewerIntuition;
-  const highImpact = Boolean(setup.qualified_human_review_required);
+  const sensitive = review.sensitive_review || {};
+  const sensitiveActive = Boolean(sensitive.activated || state.envelope.project.sensitiveReviewMode);
+  const highImpact = Boolean(setup.qualified_human_review_required || sensitiveActive);
+  const transformationCount = arrayOf(sensitive.transformation_chain).length;
 
   document.querySelector("#summary-panel").innerHTML = `
+    ${sensitiveActive ? `
+      <section class="sensitive-review-band">
+        <div class="sensitive-review-heading">
+          <div><span class="section-label">SENSITIVE REVIEW PROTOCOL</span><h3>Review the process, not the person.</h3></div>
+          <span class="badge sensitive">Active</span>
+        </div>
+        <p class="decision-boundary">${escapeHtml(sensitive.decision_boundary || state.envelope.project.decisionUse || "This map may inform verification, but it must not make or automate a consequential decision about a person.")}</p>
+        <div class="sensitive-review-facts">
+          <div><span>Review subject</span><strong>${escapeHtml(sensitive.review_subject || "Documents, source relationships, and transformation history")}</strong></div>
+          <div><span>Transformation stages</span><strong>${transformationCount || state.envelope.project.transformationStages?.length || 0}</strong></div>
+          <div><span>Human review</span><strong>${escapeHtml(sensitive.human_review_requirement || "Qualified, accountable human review required")}</strong></div>
+        </div>
+        <div class="sensitive-review-columns">
+          <div><h4>Why this mode is active</h4>${renderList(arrayOf(sensitive.activation_reasons), "Activated from the review intake boundary.")}</div>
+          <div><h4>Prohibited uses</h4>${renderList(arrayOf(sensitive.prohibited_uses), "Do not use this map as the sole basis for an adverse decision.")}</div>
+          <div><h4>Permitted next actions</h4>${renderList(arrayOf(sensitive.permitted_next_actions), "Verify the original sources and transformation process.")}</div>
+          <div><h4>Data minimization</h4>${renderList(arrayOf(sensitive.data_minimization_notes), "Retain and disclose only what the bounded review requires.")}</div>
+        </div>
+      </section>` : ""}
     <div class="summary-band">
       <div class="summary-main">
         <span class="section-label">INTERPRETATION GUIDE</span>
@@ -581,7 +675,7 @@ function renderSummary(review) {
       </aside>
     </div>
     <div class="review-grid">
-      ${highImpact ? `<article class="review-card high-impact"><h3>High-impact boundary</h3><p>This map may inform a consequential decision, but it must not make that decision. A qualified human reviewer must verify the sources, methods, and relevant domain rules.</p></article>` : ""}
+      ${highImpact && !sensitiveActive ? `<article class="review-card high-impact"><h3>High-impact boundary</h3><p>This map may inform a consequential decision, but it must not make that decision. A qualified human reviewer must verify the sources, methods, and relevant domain rules.</p></article>` : ""}
       <article class="review-card">
         <h3>Reader intuition</h3>
         <p>${escapeHtml(projectIntuition || "No reader intuition was supplied. The map starts from the bounded review question instead.")}</p>
@@ -677,14 +771,40 @@ function renderEvidenceCard(item) {
     </details>`;
 }
 
-function renderSources(sources) {
+function renderSources(sources, sensitiveReview = {}) {
   const panel = document.querySelector("#sources-panel");
-  if (!sources.length) {
+  const transformationChain = arrayOf(sensitiveReview.transformation_chain)
+    .sort((a, b) => (Number(a.sequence) || 0) - (Number(b.sequence) || 0));
+  if (!sources.length && !transformationChain.length) {
     panel.innerHTML = '<div class="review-empty"><h3>No source inventory returned.</h3></div>';
     return;
   }
   panel.innerHTML = `
-    <div class="table-wrap"><table>
+    ${transformationChain.length ? `
+      <section class="transformation-section">
+        <div class="transformation-heading">
+          <div><span class="section-label">TRANSFORMATION CHAIN</span><h3>What changed, in what order?</h3></div>
+          <p>These stages map narrative handling. They do not establish whether the originating account is true.</p>
+        </div>
+        <ol class="transformation-chain">
+          ${transformationChain.map(stage => `
+            <li class="transformation-stage">
+              <div class="stage-sequence">${escapeHtml(stage.sequence || "")}</div>
+              <div class="stage-main">
+                <div class="stage-topline"><strong>${escapeHtml(stage.operation || "Unknown transformation")}</strong><span class="posture ${slug(stage.status)}">${escapeHtml(stage.status || "Unknown")}</span></div>
+                <p>${escapeHtml(stage.known_change || "No confirmed change described.")}</p>
+                <div class="stage-sources">${escapeHtml(arrayOf(stage.input_source_ids).join(", ") || "Unknown input")} &rarr; ${escapeHtml(arrayOf(stage.output_source_ids).join(", ") || "Unknown output")} · ${escapeHtml(stage.actor_role || "Actor unknown")}</div>
+              </div>
+              <dl class="stage-effects">
+                <div><dt>Uncertainty introduced</dt><dd>${escapeHtml(stage.uncertainty_introduced || "Not assessed")}</dd></div>
+                <div><dt>Information removed</dt><dd>${escapeHtml(stage.information_removed || "Not assessed")}</dd></div>
+                <div><dt>Verification need</dt><dd>${escapeHtml(stage.verification_need || "Not supplied")}</dd></div>
+              </dl>
+            </li>
+          `).join("")}
+        </ol>
+      </section>` : ""}
+    ${sources.length ? `<div class="table-wrap"><table>
       <thead><tr><th>ID</th><th>Role</th><th>Date</th><th>Author / source role</th><th>Status</th><th>Summary</th><th>Limitations</th></tr></thead>
       <tbody>${sources.map(source => `
         <tr class="${source.target_status === "Context only" ? "context-row" : ""}">
@@ -697,7 +817,7 @@ function renderSources(sources) {
           <td>${escapeHtml(source.limitations || "")}</td>
         </tr>
       `).join("")}</tbody>
-    </table></div>`;
+    </table></div>` : ""}`;
 }
 
 function renderFollowUp(items) {

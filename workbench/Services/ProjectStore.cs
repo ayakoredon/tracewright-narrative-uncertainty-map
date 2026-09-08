@@ -39,8 +39,9 @@ public sealed class ProjectStore
     public async Task<List<ReviewProject>> ListAsync()
     {
         var projects = new List<ReviewProject>();
-        foreach (var file in Directory.EnumerateFiles(ProjectsDirectory, "project.json", SearchOption.AllDirectories))
+        foreach (var directory in Directory.EnumerateDirectories(ProjectsDirectory).Where(d => (File.GetAttributes(d) & FileAttributes.ReparsePoint) == 0))
         {
+            var file = Path.Combine(directory, "project.json");
             try
             {
                 var project = await ReadJsonAsync<ReviewProject>(file);
@@ -103,6 +104,9 @@ public sealed class ProjectStore
 
     public async Task<ReviewProject?> UpdateIntakeAsync(string id, UpdateIntakeRequest request)
     {
+        await _writeLock.WaitAsync();
+        try
+        {
         var project = await GetAsync(id);
         if (project is null)
         {
@@ -117,12 +121,22 @@ public sealed class ProjectStore
         project.ReviewerIntuition = CleanText(request.ReviewerIntuition, 5000) ?? "";
         project.MustNotConclude = CleanList(request.MustNotConclude, 20, 500);
         project.HighImpactContexts = CleanList(request.HighImpactContexts, 20, 100);
+        project.SensitivityTriggers = CleanList(request.SensitivityTriggers, 20, 160);
+        project.TransformationStages = CleanList(request.TransformationStages, 20, 160);
+        project.DecisionUse = CleanText(request.DecisionUse, 3000) ?? "";
+        project.SensitiveReviewMode = request.SensitiveReviewMode
+            || project.HighImpactContexts.Count > 0
+            || project.SensitivityTriggers.Count > 0
+            || project.TransformationStages.Count > 0;
+        project.SensitiveUseConfirmed = project.SensitiveReviewMode && request.SensitiveUseConfirmed;
         project.PrivacyConfirmed = request.PrivacyConfirmed;
         project.PreferredConnector = request.PreferredConnector is "codex" ? "codex" : "manual";
         project.UpdatedAt = DateTimeOffset.UtcNow;
-        await SaveProjectAsync(project);
-        await AppendAuditAsync(id, "intake_updated", "local", project.Materials.Select(item => item.SourceId));
+        await SaveProjectUnlockedAsync(project);
+        await AppendAuditUnlockedAsync(id, "intake_updated", "local", project.Materials.Select(item => item.SourceId));
         return project;
+        }
+        finally { _writeLock.Release(); }
     }
 
     public async Task<(ReviewProject? Project, string? Error)> AddMaterialsAsync(
@@ -142,6 +156,11 @@ public sealed class ProjectStore
         if (files.Count == 0)
         {
             return (null, "Choose at least one file.");
+        }
+
+        if (project.SensitiveReviewMode && !project.SensitiveUseConfirmed)
+        {
+            return (null, "Confirm the Sensitive Review Mode boundary before adding materials.");
         }
 
         if (project.Materials.Count + files.Count > 30)
@@ -171,13 +190,15 @@ public sealed class ProjectStore
             {
                 return (null, "Review not found.");
             }
+            if (project.Materials.Count + files.Count > 30 || (project.SensitiveReviewMode && !project.SensitiveUseConfirmed))
+                return (null, "The review changed while uploading. Check the file limit and sensitive-use confirmation.");
 
             var materialDirectory = Path.Combine(GetProjectDirectory(id), "materials");
             Directory.CreateDirectory(materialDirectory);
             var addedIds = new List<string>();
             foreach (var file in files)
             {
-                var sourceId = NextSourceId(project.Materials);
+                var sourceId = NextSourceId(project.Materials.Concat(Directory.EnumerateFiles(materialDirectory).Select(p => new ReviewMaterial { SourceId = Path.GetFileNameWithoutExtension(p) })));
                 var extension = Path.GetExtension(file.FileName).ToLowerInvariant();
                 var storedName = sourceId + extension;
                 var destination = Path.Combine(materialDirectory, storedName);
@@ -222,12 +243,7 @@ public sealed class ProjectStore
                 return null;
             }
 
-            var path = Path.Combine(GetProjectDirectory(id), "materials", material.StoredName);
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
+            // Removing an inventory item retains the original for historical review results.
             project.Materials.Remove(material);
             project.UpdatedAt = DateTimeOffset.UtcNow;
             await SaveProjectUnlockedAsync(project);
@@ -256,6 +272,12 @@ public sealed class ProjectStore
         var highImpact = project.HighImpactContexts.Count == 0
             ? "none disclosed"
             : string.Join(", ", project.HighImpactContexts);
+        var sensitivityTriggers = project.SensitivityTriggers.Count == 0
+            ? "none disclosed"
+            : string.Join(", ", project.SensitivityTriggers);
+        var transformationStages = project.TransformationStages.Count == 0
+            ? "none disclosed"
+            : string.Join(" -> ", project.TransformationStages);
         var mustNotConclude = project.MustNotConclude.Count == 0
             ? "- Do not reduce this review to an AI-versus-human verdict."
             : string.Join(Environment.NewLine, project.MustNotConclude.Select(item => "- " + item));
@@ -276,6 +298,10 @@ public sealed class ProjectStore
         - Known provenance or workflow: {{ValueOrUnknown(project.KnownProvenance)}}
         - Reviewer intuition: {{ValueOrNone(project.ReviewerIntuition)}}
         - High-impact context: {{highImpact}}
+        - Sensitive Review Mode requested: {{(project.SensitiveReviewMode ? "yes" : "no")}}
+        - Sensitivity triggers disclosed by reviewer: {{sensitivityTriggers}}
+        - Known transformation stages: {{transformationStages}}
+        - Intended use of the map: {{ValueOrUnknown(project.DecisionUse)}}
 
         ## Must not conclude
 
@@ -303,9 +329,38 @@ public sealed class ProjectStore
         9. Do not manufacture certainty. The selected model, model version, system or custom instructions, file-parsing ability, context window, and prior chat context may affect this analysis. Do not describe the result as model-independent or fully reproducible.
         10. Do not use web browsing or external sources unless the review question or known context explicitly authorizes an external verification pass. If external sources are used, add each one to the source inventory with a distinct source ID and enough citation or URL detail to identify it. Never describe a claim as externally verified while omitting the external evidence from the inventory.
 
+        ## Sensitive / high-impact preflight
+
+        Always assess whether Sensitive Review Mode is required, even when the reviewer did not select it. Activate it when the materials or intended use could affect an identifiable person's employment, insurance or benefits, education, legal position, finances, access to services, safety, reputation, authorship allegation, or other consequential treatment; when confidential, vulnerable, or anonymous sources are involved; or when transcription, translation, summarization, classification, anonymization, or human editing may have materially transformed a narrative.
+
+        When Sensitive Review Mode is active:
+
+        1. Analyze the documents and transformation process, not the person's character, credibility, employability, insurability, guilt, fitness, or overall risk.
+        2. Separate record integrity, transformation fidelity, claim reliability, and decision authority. Provenance does not establish truth, and a visible inconsistency does not authorize an adverse decision.
+        3. Build a chronological transformation chain when multiple stages are present. Distinguish disclosed or observed stages from inference; identify uncertainty introduced, information removed, and the verification still needed at each stage.
+        4. Do not reproduce unnecessary identifiers, intimate details, raw audio traits, or sensitive passages. Use source IDs and the shortest excerpt needed to make the reasoning inspectable.
+        5. State prohibited uses, permitted next actions, data-minimization needs, and the qualified human review requirement. The map must not be the sole basis for rejecting, ranking, accusing, penalizing, denying coverage or access, or otherwise disadvantaging a person.
+        6. If the review request itself seeks an impermissible person-level judgment, do not perform that judgment. Reframe the output around source consistency, transformation history, evidentiary gaps, and responsible verification.
+
+        Always return the `sensitive_review` section in the output. Set `activated` to false only when neither the intake nor the materials indicate a sensitive or consequential use, and explain that assessment briefly in `activation_reasons`.
+
         ## Output
 
         Return JSON only, conforming exactly to the supplied review-output.schema.json. Do not wrap the JSON in Markdown fences.
+
+        ## Workflow review (when supplied)
+
+        {{project.WorkflowIntake?.ToJsonString() ?? "No structured workflow intake supplied."}}
+
+        The intake is an unverified owner account, not independent evidence. Keep policy, configured
+        routing, actual events, missing records and reviewer inference separate. Inspect translation
+        or meaning loss, training and evaluation coverage, data protection, role access, capacity,
+        incentives to avoid pausing, correction propagation, assigned receipt, actual intervention,
+        stop/recovery and remedy. A human's presence is not proof of effective review.
+        Return workflow_review with steps, conditional transitions, control observations and unknowns.
+        Give every control a state, alternatives, source_ids and a next_check. Use not_established
+        for missing evidence, not a fabricated deficiency. For narrative-only cases use empty arrays.
+        Do not claim audit certification, misconduct, compliance, risk probability or insurability.
         """;
     }
 
@@ -401,14 +456,11 @@ public sealed class ProjectStore
 
     public async Task SaveReviewAsync(string id, JsonNode review)
     {
-        var project = await GetAsync(id) ?? throw new InvalidOperationException("Review not found.");
-        var path = Path.Combine(GetProjectDirectory(id), "review.json");
         await _writeLock.WaitAsync();
         try
         {
-            await File.WriteAllTextAsync(path, review.ToJsonString(_jsonOptions), Encoding.UTF8);
-            project.UpdatedAt = DateTimeOffset.UtcNow;
-            await SaveProjectUnlockedAsync(project);
+            var project = await GetAsync(id) ?? throw new InvalidDataException("Review not found.");
+            await SaveReviewUnlockedAsync(project, review);
         }
         finally
         {
@@ -416,8 +468,93 @@ public sealed class ProjectStore
         }
     }
 
+    public async Task ApplyReviewAsync(ReviewPlan plan, JsonNode review, ReviewTransfer transfer, CancellationToken token = default, bool manual = false)
+    {
+        await _writeLock.WaitAsync(token);
+        try
+        {
+            var current = await GetAsync(plan.ProjectId) ?? throw new InvalidDataException("Review no longer exists.");
+            if (await transfer.Fingerprint(current) != plan.Fingerprint)
+                throw new InvalidDataException("Materials or brief changed. Result not applied; prepare a new review of the current input.");
+            var binding = Path.Combine(GetProjectDirectory(plan.ProjectId), "manual-binding.json");
+            if (manual && (!File.Exists(binding) || JsonSerializer.Deserialize<ReviewPlan>(await File.ReadAllTextAsync(binding))?.Id != plan.Id))
+                throw new InvalidDataException("Manual transfer binding changed or was already used.");
+            token.ThrowIfCancellationRequested();
+            await SaveReviewUnlockedAsync(current, review);
+            if (manual) File.Move(binding, Path.Combine(GetProjectDirectory(plan.ProjectId), "manual-binding-" + plan.Id + ".json"));
+        }
+        finally { _writeLock.Release(); }
+    }
+
+    private async Task SaveReviewUnlockedAsync(ReviewProject project, JsonNode review)
+    {
+        var directory = GetProjectDirectory(project.Id);
+        var path = Path.Combine(directory, "review.json");
+        if (File.Exists(path)) File.Copy(path, Path.Combine(directory, "review-" + Guid.NewGuid().ToString("N") + ".json"));
+        var temporary = path + ".tmp";
+        await File.WriteAllTextAsync(temporary, review.ToJsonString(_jsonOptions), Encoding.UTF8);
+        File.Move(temporary, path, true);
+        project.UpdatedAt = DateTimeOffset.UtcNow;
+        await SaveProjectUnlockedAsync(project);
+    }
+
     public async Task RecordRunAsync(string id, string eventName, string connector, IEnumerable<string> sourceIds)
         => await AppendAuditAsync(id, eventName, connector, sourceIds);
+
+    public async Task<ReviewProject> SaveTextAsync(string id, string sourceId, string text)
+    {
+        if (string.IsNullOrWhiteSpace(text) || text.Length > 180000) throw new InvalidDataException("Review text must contain 1 to 180000 characters.");
+        await _writeLock.WaitAsync();
+        try
+        {
+            var p = await GetAsync(id) ?? throw new InvalidDataException("Review not found.");
+            var m = p.Materials.SingleOrDefault(m => m.SourceId == sourceId) ?? throw new InvalidDataException("Source not found.");
+            m.ReviewText = text;
+            m.TextStatus = "reviewed";
+            p.PrivacyConfirmed = false;
+            p.UpdatedAt = DateTimeOffset.UtcNow;
+            await SaveProjectUnlockedAsync(p);
+            return p;
+        }
+        finally { _writeLock.Release(); }
+    }
+
+    public async Task<ReviewProject> CreateFromIntakeAsync(JsonObject intake)
+    {
+        if (intake.ToJsonString().Length > 1500000 || intake["scope"] is not JsonObject scope || intake["kind"]?.GetValue<string>() is not ("workflow" or "narrative"))
+            throw new InvalidDataException("Invalid intake. Use the current Tracewright intake form.");
+        var project = await CreateAsync(scope["title"]?.GetValue<string>());
+        project.ReviewQuestion = CleanText(scope["question"]?.GetValue<string>(), 5000) ?? "";
+        project.PrimaryMode = intake["kind"]!.GetValue<string>() == "workflow" ? "Workflow / Automation Review" : "Mixed Narrative Review";
+        project.WorkflowIntake = (JsonObject)intake.DeepClone();
+        project.HighImpactContexts = scope["impacts"] is JsonArray impacts ? impacts.Select(i => i!.GetValue<string>() switch { "safety" => "Safety", "privacy" => "Data protection", "remedy" => "Remedy / rights", "academic" => "Academic assessment", "employment" => "Employment", "legal" => "Legal", "financial" => "Financial", "reputation" => "Reputation", "medical" => "Clinical use", "esg" => "People / environment", var v => v }).ToList() : new();
+        project.SensitiveReviewMode = project.HighImpactContexts.Count > 0;
+        project.KnownProvenance = "Intake account supplied by user, unverified. Registered file names are not uploaded materials.";
+        await SaveProjectAsync(project);
+        return project;
+    }
+
+    public static string? ValidateAiConnection(ReviewProject project)
+    {
+        if (!project.PrivacyConfirmed)
+        {
+            return "Confirm document safety in Review Brief before connecting an AI.";
+        }
+
+        if (project.SensitiveReviewMode && !project.SensitiveUseConfirmed)
+        {
+            return "Confirm the Sensitive Review Mode boundary before connecting an AI.";
+        }
+
+        if (project.Materials.Count == 0)
+        {
+            return "Add at least one review material first.";
+        }
+
+        return string.IsNullOrWhiteSpace(project.ReviewQuestion)
+            ? "Describe the review question before running the analysis."
+            : null;
+    }
 
     private async Task SaveProjectAsync(ReviewProject project)
     {

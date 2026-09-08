@@ -1,0 +1,54 @@
+name: Build and release Workbench
+on:
+  push:
+    branches: [main]
+    paths: ['workbench/**', 'scripts/build-workbench.ps1', 'scripts/sync-workbench-assets.cjs', '.github/workflows/workbench-release.yml']
+permissions:
+  contents: write
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Validate application and public fixtures
+        shell: pwsh
+        run: |
+          node scripts/sync-workbench-assets.cjs
+          dotnet run --project workbench/tests/Tests.csproj -- workbench "$env:RUNNER_TEMP/tw-tests"
+          if ($LASTEXITCODE -ne 0) { throw 'Contract tests failed' }
+          foreach ($test in @('test-public-demo.js','test-workflow.js','test-access.js','test-intake.js','test-english-release.js')) {
+            node "scripts/$test"
+            if ($LASTEXITCODE -ne 0) { throw "Failed: $test" }
+          }
+      - name: Package the clean checkout
+        shell: pwsh
+        run: ./scripts/build-workbench.ps1 -Installer
+      - name: Exercise the packaged local API with fictional data
+        shell: pwsh
+        run: |
+          $dir = (Resolve-Path 'workbench/release/Tracewright-Workbench-Windows-v0.5.0-beta').Path
+          $data = Join-Path $env:RUNNER_TEMP 'tw-http-qa'
+          $p = Start-Process -FilePath "$dir/Tracewright Workbench.exe" -WorkingDirectory $dir -ArgumentList @('--no-browser','--port','18941','--data-dir',('"'+$data+'"')) -WindowStyle Hidden -PassThru
+          try {
+            for ($i=0; $i -lt 40 -and !(Test-Path "$data/local-port.txt"); $i++) { Start-Sleep -Milliseconds 500 }
+            $port = Get-Content "$data/local-port.txt"
+            node scripts/test-workbench-http.cjs "http://127.0.0.1:$port"
+            if ($LASTEXITCODE -ne 0) { throw 'Packaged API tests failed' }
+          } finally { if (!$p.HasExited) { Stop-Process -Id $p.Id -Force } }
+      - name: Publish versioned artifacts
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view workbench-v0.5.0-beta 2>$null
+          if ($LASTEXITCODE -eq 0) { throw 'Release already exists; do not overwrite a published version.' }
+          $assets = @(Get-ChildItem -LiteralPath workbench/release -File | Where-Object { $_.Name -match '^(tracewright-workbench-windows-v0\.5\.0-beta\.zip|Tracewright-Workbench-Setup-v0\.5\.0-beta\.exe)(\.sha256\.txt)?$' } | ForEach-Object FullName)
+          if ($assets.Count -ne 4) { throw 'Expected exactly four release assets' }
+          gh release create workbench-v0.5.0-beta --target $env:GITHUB_SHA --prerelease --title "Tracewright Workbench 0.5.0 beta" --notes-file docs/workbench-0.5-release.md @assets
+          if ($LASTEXITCODE -ne 0) { throw 'Release upload failed' }

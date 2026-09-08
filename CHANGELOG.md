@@ -1,5 +1,13 @@
 # Changelog
 
+## Workbench 0.5.0 Beta: 2026-09-08
+
+- Integrate the English Review Lab and workflow intake with the Windows Workbench.
+- Add confirmed text selection, exact-payload previews and per-dispatch data-boundary confirmation.
+- Connect compatible ChatGPT-signed-in Codex with no API-key fallback, automatic result validation and run history.
+- Add workflow controls, stale-input checks, cancellation, origin/session protection and source-role/excerpt checks.
+- Preserve original materials, old review maps and sensitive-review fields. Build public artifacts from a clean GitHub checkout.
+
 ## Review Lab English Preview: 2026-09-08
 
 - Published the browser Review Lab and a separate local ZIP, with download instructions and SHA-256 integrity information. The Windows Workbench and Starter Kit remain separate releases.
