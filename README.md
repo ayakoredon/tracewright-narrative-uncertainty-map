@@ -6,10 +6,12 @@ Tracewright helps people inspect evidence, preserve uncertainty and decide what 
 
 **A flag means inspect carefully, not that someone did something wrong.**
 
+**Windows security update:** Existing Workbench users should close older copies and upgrade to 0.5.1 beta. The old Windows downloads have been withdrawn; installed copies are not automatically repaired. Back up your data first. [Upgrade instructions and scope](docs/workbench-0.5.1-release.md).
+
 - [Try the English synthetic demo](https://ayakoredon.github.io/tracewright-narrative-uncertainty-map/)
-- [Install Workbench 0.5.0 beta for Windows](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/Tracewright-Workbench-Setup-v0.5.0-beta.exe)
-- [Download the portable Windows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/tracewright-workbench-windows-v0.5.0-beta.zip)
-- [Release notes and SHA-256 checksums](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.0-beta)
+- [Install Workbench 0.5.1 beta for Windows](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.1-beta/Tracewright-Workbench-Setup-v0.5.1-beta.exe)
+- [Download the portable Windows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.1-beta/tracewright-workbench-windows-v0.5.1-beta.zip)
+- [Release notes and SHA-256 checksums](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.1-beta)
 - [Japanese introduction](README.ja.md)
 
 The Windows package is self-contained: Windows 10/11 x64, no separate .NET or Node installation required. It is an unsigned beta. Verify the release source and checksum before running it. The interface is English; Japanese installer text is not a Japanese app translation.

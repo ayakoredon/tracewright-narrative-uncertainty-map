@@ -3,7 +3,7 @@ $ErrorActionPreference = 'Stop'
 $root = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..'))
 $project = Join-Path $root 'workbench'
 $version = ([xml](Get-Content -LiteralPath (Join-Path $project 'Tracewright.Workbench.csproj') -Raw)).Project.PropertyGroup.Version
-if ($version -ne '0.5.0-beta') { throw 'Review this release script before changing the release version.' }
+if ($version -ne '0.5.1-beta') { throw 'Review this release script before changing the release version.' }
 node (Join-Path $PSScriptRoot 'sync-workbench-assets.cjs')
 if ($LASTEXITCODE -ne 0) { throw 'Asset synchronization failed.' }
 $out = Join-Path $project "release/Tracewright-Workbench-Windows-v$version"

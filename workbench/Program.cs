@@ -110,7 +110,7 @@ app.MapGet("/api/health", async (ProjectStore store, CodexRunner codex) =>
     return Results.Ok(new
     {
         application = "Tracewright Workbench",
-        version = "0.5.0-beta",
+        version = "0.5.1-beta",
         storage = "local",
         dataDirectory = store.DataDirectory,
         sessionToken,

@@ -2,12 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <!-- Self-contained downloads must embed the serviced runtime. Review this
+         version when preparing each release; installed runtimes do not patch it. -->
+    <RuntimeFrameworkVersion>10.0.13</RuntimeFrameworkVersion>
     <OutputType>WinExe</OutputType>
     <AssemblyName>Tracewright Workbench</AssemblyName>
     <RootNamespace>Tracewright.Workbench</RootNamespace>
     <Product>Tracewright Workbench</Product>
     <Description>Local-first narrative review workspace</Description>
-    <Version>0.5.0-beta</Version>
+    <Version>0.5.1-beta</Version>
     <ApplicationIcon>assets\tracewright-workbench.ico</ApplicationIcon>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>

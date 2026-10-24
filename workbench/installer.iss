@@ -1,9 +1,9 @@
 #define MyAppName "Tracewright Workbench"
-#define MyAppVersion "0.5.0-beta"
+#define MyAppVersion "0.5.1-beta"
 #define MyAppPublisher "Ayako Redon"
 #define MyAppURL "https://github.com/ayakoredon/tracewright-narrative-uncertainty-map"
 #define MyAppExeName "Tracewright Workbench.exe"
-#define MyReleaseFolder "Tracewright-Workbench-Windows-v0.5.0-beta"
+#define MyReleaseFolder "Tracewright-Workbench-Windows-v0.5.1-beta"
 
 [Setup]
 AppId={{7523A571-7D2C-4339-9B1A-B00FC08A90E2}
@@ -19,7 +19,7 @@ DefaultGroupName=Tracewright Workbench
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 OutputDir=release
-OutputBaseFilename=Tracewright-Workbench-Setup-v0.5.0-beta
+OutputBaseFilename=Tracewright-Workbench-Setup-v0.5.1-beta
 SetupIconFile=assets\tracewright-workbench.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 LicenseFile=release\{#MyReleaseFolder}\LICENSE.txt

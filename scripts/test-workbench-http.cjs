@@ -13,7 +13,14 @@ function blank(s) { if(s.type==='object')return Object.fromEntries(Object.entrie
 (async()=>{
   check((await req('/api/projects')).status===401,'Session token required');
   check((await req('/api/health','GET',null,{Origin:'https://untrusted.example'})).status===403,'Cross-origin health blocked');
-  const health=await req('/api/health');check(health.value.version==='0.5.0-beta','Correct release version');token=health.value.sessionToken;
+  check((await req('/api/health','GET',null,{'Sec-Fetch-Site':'cross-site'})).status===403,'Cross-site token bootstrap blocked');
+  // Use node:http so Host is transmitted exactly, independently of fetch normalization.
+  const foreignHostStatus=await new Promise((resolve,reject)=>{
+    require('node:http').get(base+'/api/health',{headers:{Host:'untrusted.example'}},r=>{r.resume();resolve(r.statusCode);}).on('error',reject);
+  });
+  check(foreignHostStatus===403,'Foreign Host blocked before token bootstrap');
+  check((await req('/api/projects','GET',null,{'X-Tracewright-Session':'incorrect'})).status===401,'Incorrect session token blocked');
+  const health=await req('/api/health');check(health.value.version==='0.5.1-beta','Correct release version');token=health.value.sessionToken;
   const p=(await req('/api/projects','POST',{title:'FICTIONAL QA / support automation'})).value;
   const url='/api/projects/'+p.id;
   check((await req(url+'/intake','PUT',{title:p.title,reviewQuestion:'Check whether the exception is actually reviewed before closure.',privacyConfirmed:true})).status===200,'Brief saved');

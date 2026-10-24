@@ -1,6 +1,6 @@
-# Tracewright Workbench 0.5.0 Beta
+# Tracewright Workbench 0.5.1 Beta
 
-Local narrative and automation-workflow review. See the [repository introduction](../README.md), [data boundary](../docs/codex-connection.md), and [release notes](../docs/workbench-0.5-release.md).
+Local narrative and automation-workflow review. See the [repository introduction](../README.md), [data boundary](../docs/codex-connection.md), and [release notes](../docs/workbench-0.5.1-release.md).
 
 For source builds, run `node scripts/sync-workbench-assets.cjs` from the repository root, then `dotnet run --project workbench/Tracewright.Workbench.csproj`. Requires Node 22+ and .NET 10 SDK. The Windows release does not require either runtime to be installed separately.
 

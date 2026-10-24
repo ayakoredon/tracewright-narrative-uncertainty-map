@@ -1,4 +1,4 @@
-TRACEWRIGHT WORKBENCH FOR WINDOWS v0.5.0-beta
+TRACEWRIGHT WORKBENCH FOR WINDOWS v0.5.1-beta
 =============================================
 
 START
