@@ -9,13 +9,15 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          node-version: '22'
-      - uses: actions/setup-dotnet@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          dotnet-version: '10.0.x'
+          node-version: '22.23.4'
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '10.0.402'
       - name: Validate application and public fixtures
         shell: pwsh
         run: |
@@ -32,7 +34,7 @@ jobs:
       - name: Exercise the packaged local API with fictional data
         shell: pwsh
         run: |
-          $dir = (Resolve-Path 'workbench/release/Tracewright-Workbench-Windows-v0.5.0-beta').Path
+          $dir = (Resolve-Path 'workbench/release/Tracewright-Workbench-Windows-v0.5.1-beta').Path
           $data = Join-Path $env:RUNNER_TEMP 'tw-http-qa'
           $p = Start-Process -FilePath "$dir/Tracewright Workbench.exe" -WorkingDirectory $dir -ArgumentList @('--no-browser','--port','18941','--data-dir',('"'+$data+'"')) -WindowStyle Hidden -PassThru
           try {
@@ -41,14 +43,14 @@ jobs:
             node scripts/test-workbench-http.cjs "http://127.0.0.1:$port"
             if ($LASTEXITCODE -ne 0) { throw 'Packaged API tests failed' }
           } finally { if (!$p.HasExited) { Stop-Process -Id $p.Id -Force } }
-      - name: Publish versioned artifacts
+      - name: Stage versioned artifacts for review
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release view workbench-v0.5.0-beta 2>$null
+          gh release view workbench-v0.5.1-beta 2>$null
           if ($LASTEXITCODE -eq 0) { throw 'Release already exists; do not overwrite a published version.' }
-          $assets = @(Get-ChildItem -LiteralPath workbench/release -File | Where-Object { $_.Name -match '^(tracewright-workbench-windows-v0\.5\.0-beta\.zip|Tracewright-Workbench-Setup-v0\.5\.0-beta\.exe)(\.sha256\.txt)?$' } | ForEach-Object FullName)
+          $assets = @(Get-ChildItem -LiteralPath workbench/release -File | Where-Object { $_.Name -match '^(tracewright-workbench-windows-v0\.5\.1-beta\.zip|Tracewright-Workbench-Setup-v0\.5\.1-beta\.exe)(\.sha256\.txt)?$' } | ForEach-Object FullName)
           if ($assets.Count -ne 4) { throw 'Expected exactly four release assets' }
-          gh release create workbench-v0.5.0-beta --target $env:GITHUB_SHA --prerelease --title "Tracewright Workbench 0.5.0 beta" --notes-file docs/workbench-0.5-release.md @assets
+          gh release create workbench-v0.5.1-beta --target $env:GITHUB_SHA --draft --prerelease --title "Tracewright Workbench 0.5.1 beta" --notes-file docs/workbench-0.5.1-release.md @assets
           if ($LASTEXITCODE -ne 0) { throw 'Release upload failed' }

@@ -1,5 +1,7 @@
 ﻿# Tracewright Narrative Uncertainty Map 日本語ガイド
 
+**Windows版のセキュリティ更新:** 旧版のWorkbenchを終了し、データをバックアップしてから0.5.1 betaへ更新してください。旧版のダウンロード公開は停止しましたが、既にインストールされたコピーは自動では修正されません。システムの.NET更新だけでも修正されません。[更新手順と確認範囲（英語）](docs/workbench-0.5.1-release.md)をご確認ください。
+
 Tracewright Narrative Uncertainty Map は、文章や資料を「AIか人間か」で判定するための道具ではありません。
 
 論文、草稿、創作、メール、公開発言、ニュースレター、来歴資料、複数資料のセットなどを、自分のAIと一緒に読み直すためのレビュー補助ツールです。
@@ -33,9 +35,9 @@ Review Labは監査や検証の準備を支援するもので、監査完了・�
 
 Windows 10/11の64ビットPCでは、ローカル版のTracewright Workbenchをインストールできます。これが、現在のTracewrightを一連の流れで使うための主な入口です。
 
-**[Tracewright Workbench v0.5.0-betaをダウンロード](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/Tracewright-Workbench-Setup-v0.5.0-beta.exe)**
+**[Tracewright Workbench v0.5.1-betaをダウンロード](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.1-beta/Tracewright-Workbench-Setup-v0.5.1-beta.exe)**
 
-[インストール不要のWindows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.0-beta/tracewright-workbench-windows-v0.5.0-beta.zip)もあります。フォルダー全体を展開してください。
+[インストール不要のWindows ZIP](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/download/workbench-v0.5.1-beta/tracewright-workbench-windows-v0.5.1-beta.zip)もあります。フォルダー全体を展開してください。
 
 Workbenchでは、次の作業をひとつの画面から進められます。
 
@@ -53,7 +55,7 @@ Workbenchでは、次の作業をひとつの画面から進められます。
 
 PDFや古いOffice形式などは、原本に照らした抜粋・書き起こしの入力が必要です。DOCX/ODTも本文抽出のため、脚注・図表などの欠落を確認してください。結果の検査は構造と参照の検査であり、分析の正しさを保証するものではありません。更新前には `%LOCALAPPDATA%\Tracewright\Workbench` をバックアップしてください。
 
-現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。公式GitHubリポジトリの配布物を確認してください。チェックサムや更新内容は[リリースページ](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.0-beta)で確認できます。
+現在は未署名のWindows x64向けβ版です。Windows SmartScreenの警告が出る場合があります。公式GitHubリポジトリの配布物を確認してください。チェックサムや更新内容は[リリースページ](https://github.com/ayakoredon/tracewright-narrative-uncertainty-map/releases/tag/workbench-v0.5.1-beta)で確認できます。
 
 ## インストール前にデモを見る
 

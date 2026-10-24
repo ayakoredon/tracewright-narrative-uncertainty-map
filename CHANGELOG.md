@@ -1,5 +1,12 @@
 # Changelog
 
+## Workbench 0.5.1 Beta: 2026-10-24
+
+- Rebuild self-contained Windows packages with .NET / ASP.NET Core 10.0.13 for CVE-2026-88092.
+- Add packaged regression checks for foreign Host, cross-site token bootstrap and incorrect API tokens.
+- Stage future release artifacts as drafts for verification before publication.
+- [Upgrade instructions](docs/workbench-0.5.1-release.md); existing installations need replacement.
+
 ## Workbench 0.5.0 Beta: 2026-09-08
 
 - Integrate the English Review Lab and workflow intake with the Windows Workbench.

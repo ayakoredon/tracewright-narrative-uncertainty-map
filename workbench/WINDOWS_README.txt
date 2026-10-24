@@ -1,5 +1,13 @@
-TRACEWRIGHT WORKBENCH 0.5.0 BETA
+TRACEWRIGHT WORKBENCH 0.5.1 BETA
 Narrative and automation-workflow review
+
+SECURITY UPDATE
+Version 0.5.1 embeds the serviced .NET / ASP.NET Core 10.0.13 runtime.
+Close older Workbench copies and back up your data before upgrading.
+Use Quit Workbench; closing only the browser tab leaves the service running.
+Extract this release into a new empty folder. Keep your project data and backup.
+Old downloads have been withdrawn, but installed copies are not automatically
+repaired. Updating the system .NET installation does not update their runtime.
 
 START
 Extract the complete ZIP. Open Tracewright Workbench.exe; keep wwwroot and schemas
